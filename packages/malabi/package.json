@@ -1,6 +1,6 @@
 {
   "name": "malabi",
-  "version": "0.0.1-alpha.0",
+  "version": "0.0.1-alpha.1",
   "author": "Amir Blum <amir@aspecto.io>",
   "homepage": "https://github.com/aspecto-io/malabi#readme",
   "license": "Apache-2.0",
@@ -16,11 +16,11 @@
     "url": "https://github.com/aspecto-io/malabi/issues"
   },
   "dependencies": {
-    "malabi-instrumentation-node": "^0.0.1-alpha.0",
     "@opentelemetry/api": "^0.18.0",
     "@opentelemetry/instrumentation": "^0.18.2",
     "@opentelemetry/node": "^0.18.2",
-    "@opentelemetry/tracing": "^0.18.2"
+    "@opentelemetry/tracing": "^0.18.2",
+    "malabi-instrumentation-node": "^0.0.1-alpha.1"
   },
   "devDependencies": {
     "typescript": "^4.2.4"
