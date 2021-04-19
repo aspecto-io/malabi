@@ -1,0 +1,22 @@
+{
+  "name": "malabi",
+  "version": "0.0.1",
+  "description": "opentelemetry <-> testing integration for nodejs",
+  "repository": "git@github.com:aspecto-io/malabi.git",
+  "author": {
+    "name": "Aspecto",
+    "email": "support@aspecto.io",
+    "url": "https://aspecto.io"
+  },
+  "license": "Apache-2.0",
+  "private": true,
+  "scripts": {
+    "build": "lerna run build"
+  },
+  "devDependencies": {
+    "lerna": "^3.22.1"
+  },
+  "workspaces": [
+    "packages/*"
+  ]  
+}

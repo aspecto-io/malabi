@@ -1,5 +1,5 @@
 {
-    "name": "@malabi/instrumentation-node",
+    "name": "malabi-instrumentation-node",
     "version": "0.0.1-alpha.0",
     "description": "open telemetry auto instrumentation for the nodejs",
     "keywords": [
@@ -70,5 +70,6 @@
         ],
         "spec": "test/**/*.spec.ts",
         "require": "ts-node/register"
-    }
+    },
+    "gitHead": "0ee1da82de292ead797f53c05591eaadfb9a7948"
 }

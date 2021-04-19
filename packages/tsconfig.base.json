@@ -1,0 +1,17 @@
+{
+    "compilerOptions": {
+        "target": "ES2017",
+        "lib": ["ES2019", "DOM"],
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "strict": false,
+        "declaration": true,
+        "declarationMap": true,
+        "sourceMap": true,
+        "composite": true,
+        "inlineSources": true,
+        "types": ["node"],
+        "allowSyntheticDefaultImports": true,
+        "esModuleInterop": true
+    }
+}
