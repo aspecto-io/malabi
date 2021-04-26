@@ -14,9 +14,10 @@
     "build": "lerna run build"
   },
   "devDependencies": {
+    "@types/node": "^14.14.41",
     "lerna": "^3.22.1"
   },
   "workspaces": [
     "packages/*"
-  ]  
+  ]
 }
