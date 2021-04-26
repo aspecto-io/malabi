@@ -11,11 +11,16 @@
   "license": "Apache-2.0",
   "private": true,
   "scripts": {
-    "build": "lerna run build"
+    "build": "lerna run build",
+    "prettier": "prettier --write --ignore-unknown \"**/*\"",
+    "prettier:check": "npx prettier --check --ignore-unknown \"**/*\""
   },
+  "prettier": "@aspecto/prettier-config",
   "devDependencies": {
+    "@aspecto/prettier-config": "^0.0.1",
     "@types/node": "^14.14.41",
-    "lerna": "^3.22.1"
+    "lerna": "^3.22.1",
+    "prettier": "^2.2.1"
   },
   "workspaces": [
     "packages/*"
