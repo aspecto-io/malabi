@@ -13,7 +13,8 @@
   "scripts": {
     "build": "lerna run build",
     "prettier": "prettier --write --ignore-unknown \"**/*\"",
-    "prettier:check": "npx prettier --check --ignore-unknown \"**/*\""
+    "prettier:check": "npx prettier --check --ignore-unknown \"**/*\"",
+    "watch": "lerna run --parallel watch"
   },
   "prettier": "@aspecto/prettier-config",
   "devDependencies": {
@@ -23,6 +24,7 @@
     "prettier": "^2.2.1"
   },
   "workspaces": [
-    "packages/*"
-  ]
+    "packages/*",
+    "examples/*"
+  ]  
 }
