@@ -11,12 +11,14 @@
   "license": "Apache-2.0",
   "private": true,
   "scripts": {
-    "build": "lerna run build"
+    "build": "lerna run build",
+    "watch": "lerna run --parallel watch"
   },
   "devDependencies": {
     "lerna": "^3.22.1"
   },
   "workspaces": [
-    "packages/*"
+    "packages/*",
+    "examples/*"
   ]  
 }
