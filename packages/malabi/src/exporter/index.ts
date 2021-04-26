@@ -1,4 +1,4 @@
-import { InMemorySpanExporter } from "@opentelemetry/tracing";
+import { InMemorySpanExporter } from '@opentelemetry/tracing';
 
 export const inMemoryExporter = new InMemorySpanExporter();
 

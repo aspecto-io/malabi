@@ -11,7 +11,7 @@ const app = express();
 app.get('/todo', async (req, res) => {
     const todoItem = await axios.get('https://jsonplaceholder.typicode.com/todos/1');
     res.json({
-        title: todoItem.data.title
+        title: todoItem.data.title,
     });
 });
 

@@ -89,5 +89,3 @@ export const httpInstrumentationConfig = (options: AutoInstrumentationOptions): 
     requestHook: options.collectPayloads && callHookOnlyOnRecordingSpan(httpCustomAttributesOnRequest),
     responseHook: options.collectPayloads && callHookOnlyOnRecordingSpan(httpCustomAttributesOnResponse),
 });
-
-

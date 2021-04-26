@@ -1,22 +1,22 @@
 {
-  "name": "service-under-test",
-  "version": "0.0.1-alpha.1",
-  "description": "example for service being tested with open telemetry instrumentation",
-  "repository": "https://github.com/aspecto-io/malabi",
-  "license": "Apache-2.0",
-  "private": true,
-  "dependencies": {
-    "axios": "^0.21.1",
-    "express": "^4.17.1",
-    "ts-node": "^9.1.1",
-    "typescript": "^4.2.4"
-  },
-  "scripts": {
-    "start": "ts-node src/index.ts -r malabi/instrument",
-    "start:dev": "ts-node-dev src/index.ts"
-  },
-  "devDependencies": {
-    "malabi": "0.0.1-alpha.1",
-    "ts-node-dev": "^1.1.6"
-  }
+    "name": "service-under-test",
+    "version": "0.0.1-alpha.1",
+    "description": "example for service being tested with open telemetry instrumentation",
+    "repository": "https://github.com/aspecto-io/malabi",
+    "license": "Apache-2.0",
+    "private": true,
+    "dependencies": {
+        "axios": "^0.21.1",
+        "express": "^4.17.1",
+        "ts-node": "^9.1.1",
+        "typescript": "^4.2.4"
+    },
+    "scripts": {
+        "start": "ts-node src/index.ts -r malabi/instrument",
+        "start:dev": "ts-node-dev src/index.ts"
+    },
+    "devDependencies": {
+        "malabi": "0.0.1-alpha.1",
+        "ts-node-dev": "^1.1.6"
+    }
 }
