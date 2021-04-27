@@ -11,6 +11,7 @@
   "license": "Apache-2.0",
   "private": true,
   "scripts": {
+    "postinstall": "lerna bootstrap",
     "build": "lerna run build",
     "prettier": "prettier --write --ignore-unknown \"**/*\"",
     "prettier:check": "npx prettier --check --ignore-unknown \"**/*\"",
