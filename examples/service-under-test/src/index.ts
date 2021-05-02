@@ -3,7 +3,7 @@ malabi.instrument();
 malabi.serveMalabiFromHttpApp(18393);
 
 import axios from 'axios';
-import * as express from 'express';
+import express from 'express';
 
 const PORT = process.env.PORT || 8080;
 

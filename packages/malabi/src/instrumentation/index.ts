@@ -6,7 +6,7 @@ import { ParentBasedSampler } from '@opentelemetry/core';
 import { registerInstrumentations } from '@opentelemetry/instrumentation';
 import { inMemoryExporter } from '../exporter';
 import { Context, Link, Sampler, SamplingDecision, SamplingResult, SpanAttributes, SpanKind } from '@opentelemetry/api';
-import { HttpAttribute } from '@opentelemetry/semantic-conventions';
+import { SemanticAttributes } from '@opentelemetry/semantic-conventions';
 
 // allow all but filter out malabi requests.
 class MalabiSampler implements Sampler {
@@ -18,7 +18,7 @@ class MalabiSampler implements Sampler {
         attributes: SpanAttributes,
         _links: Link[]
     ): SamplingResult {
-        const httpTarget = attributes[HttpAttribute.HTTP_TARGET] as string;
+        const httpTarget = attributes[SemanticAttributes.HTTP_TARGET] as string;
         return {
             decision: httpTarget?.startsWith('/malabi')
                 ? SamplingDecision.NOT_RECORD
