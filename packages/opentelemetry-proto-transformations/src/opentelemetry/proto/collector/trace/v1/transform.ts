@@ -1,7 +1,8 @@
-import { toProtoResourceSpansArray } from '../../../trace/v1/transform';
+import { fromProtoResourceSpansArray, toProtoResourceSpansArray } from '../../../trace/v1/transform';
 import * as tracing from '@opentelemetry/tracing';
 import * as resources from '@opentelemetry/resources';
 import * as proto from './trace_service';
+import { bytesArrayToHex, hexToBytesArray } from '../../../../../utils';
 
 export function toProtoExportTraceServiceRequest(
     sdkSpans: tracing.ReadableSpan[],
@@ -12,10 +13,8 @@ export function toProtoExportTraceServiceRequest(
     };
 }
 
-export function bytesArrayToHex(bytes: Uint8Array): string {
-    return Array.from(bytes, (byte) => {
-        return ('0' + (byte & 0xff).toString(16)).slice(-2);
-    }).join('');
+export function fromProtoExportTraceServiceRequest(protoExportTraceServiceRequest: proto.ExportTraceServiceRequest): tracing.ReadableSpan[] {
+    return fromProtoResourceSpansArray(protoExportTraceServiceRequest.resourceSpans);
 }
 
 /**
@@ -35,7 +34,7 @@ export function bytesArrayToHex(bytes: Uint8Array): string {
  * Spec for reference:
  * https://github.com/open-telemetry/opentelemetry-specification/blob/main/specification/protocol/otlp.md#otlphttp
  */
-export function toJsonEncodedProtobufFormat(exportTraceServiceRequest: proto.ExportTraceServiceRequest) {
+export function toJsonEncodedProtobufFormat(exportTraceServiceRequest: proto.ExportTraceServiceRequest): string {
     const withHexStringIds = {
         resourceSpans: exportTraceServiceRequest.resourceSpans.map((resourceSpan) => ({
             ...resourceSpan,
@@ -46,7 +45,7 @@ export function toJsonEncodedProtobufFormat(exportTraceServiceRequest: proto.Exp
                         ...span,
                         traceId: bytesArrayToHex(span.traceId),
                         spanId: bytesArrayToHex(span.spanId),
-                        parentSpanId: bytesArrayToHex(span.parentSpanId),
+                        parentSpanId: span.parentSpanId ? bytesArrayToHex(span.parentSpanId) : span.parentSpanId,
                         links: span.links.map((link) => ({
                             ...link,
                             traceId: bytesArrayToHex(link.traceId),
@@ -58,4 +57,29 @@ export function toJsonEncodedProtobufFormat(exportTraceServiceRequest: proto.Exp
         })),
     };
     return JSON.stringify(withHexStringIds);
+}
+
+export function fromJsonEncodedProtobufFormat(jsonStringifyPayload: string): proto.ExportTraceServiceRequest {
+    const jsonPayload = JSON.parse(jsonStringifyPayload);
+    return {
+        resourceSpans: jsonPayload.resourceSpans.map((resourceSpan) => ({
+            ...resourceSpan,
+            instrumentationLibrarySpans: resourceSpan.instrumentationLibrarySpans.map(
+                (instrumentationLibrarySpans) => ({
+                    ...instrumentationLibrarySpans,
+                    spans: instrumentationLibrarySpans.spans.map((span) => ({
+                        ...span,
+                        traceId: hexToBytesArray(span.traceId),
+                        spanId: hexToBytesArray(span.spanId),
+                        parentSpanId: span.parentSpanId ? hexToBytesArray(span.parentSpanId) : span.parentSpanId,
+                        links: span.links.map((link) => ({
+                            ...link,
+                            traceId: hexToBytesArray(link.traceId),
+                            spanId: hexToBytesArray(link.spanId),
+                        })),
+                    })),
+                })
+            ),
+        })),
+    };
 }

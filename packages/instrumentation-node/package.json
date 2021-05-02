@@ -29,7 +29,7 @@
         "url": "https://github.com/aspecto-io/opentelemetry-ext-js/issues"
     },
     "dependencies": {
-        "@aspecto/opentelemetry-instrumentation-express": "0.0.113",
+        "@aspecto/opentelemetry-instrumentation-express": "0.0.114",
         "@aspecto/plugin-mongodb": "0.0.113",
         "@opentelemetry/api": "^0.18.0",
         "@opentelemetry/instrumentation-http": "0.19.0",

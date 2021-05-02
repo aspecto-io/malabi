@@ -13,8 +13,6 @@ const getPackageName = () => {
     }
 };
 
-const serviceName = getPackageName();
-
 export const getMalabiExpressRouter = () => {
     const express = require('express');
     return express

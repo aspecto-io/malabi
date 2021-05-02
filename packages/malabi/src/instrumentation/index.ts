@@ -32,16 +32,17 @@ class MalabiSampler implements Sampler {
 }
 
 export const instrument = () => {
-    const provider = new NodeTracerProvider({
+    const tracerProvider = new NodeTracerProvider({
         sampler: new ParentBasedSampler({ root: new MalabiSampler() }),
     });
-    provider.addSpanProcessor(new SimpleSpanProcessor(inMemoryExporter));
-    provider.register();
+    tracerProvider.addSpanProcessor(new SimpleSpanProcessor(inMemoryExporter));
+    tracerProvider.register();
 
     registerInstrumentations({
         instrumentations: getNodeAutoInstrumentations({
             collectPayloads: true,
             suppressInternalInstrumentation: true,
         }),
+        tracerProvider
     });
 };

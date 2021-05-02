@@ -1,14 +1,27 @@
 import * as resources from '@opentelemetry/resources';
-import { toKeyValue } from '../../common/v1/transform';
+import { fromProtoKeyValue, toProtoKeyValue } from '../../common/v1/transform';
+import * as proto from './resource';
 
-import { Resource as ProtoResource } from './resource';
-
-export function toResource(sdkResource: resources.Resource, additionalAttributes: resources.ResourceAttributes = {}): ProtoResource {
+export function toProtoResource(
+    sdkResource: resources.Resource,
+    additionalAttributes: resources.ResourceAttributes = {}
+): proto.Resource {
     const attrs: resources.ResourceAttributes = Object.assign({}, sdkResource.attributes, additionalAttributes);
     return {
-        attributes: Object.entries(attrs).map( ([k, v]) => {
-            return toKeyValue(k, v);
+        attributes: Object.entries(attrs).map(([k, v]) => {
+            return toProtoKeyValue(k, v);
         }),
         droppedAttributesCount: 0,
     };
+}
+
+export function fromProtoResource(protoResource: proto.Resource): resources.Resource {
+    return new resources.Resource(
+        Object.fromEntries(
+            protoResource.attributes.map((kv) => {
+                const [resourceAttributeKey, resourceAttributeValue] = fromProtoKeyValue(kv);
+                return [resourceAttributeKey, resourceAttributeValue as number | string | boolean];
+            })
+        )
+    );
 }

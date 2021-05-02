@@ -4,8 +4,16 @@ import * as core from '@opentelemetry/core';
 import * as api from '@opentelemetry/api';
 
 import * as proto from './trace';
-import { toResource } from '../../resource/v1/transform';
-import { toInstrumentationLibrary, toKeyValue, toProtoSpanAttributes } from '../../common/v1/transform';
+import { fromProtoResource, toProtoResource } from '../../resource/v1/transform';
+import {
+    fromInstrumentationLibrary,
+    fromProtoSpanAttributes,
+    toInstrumentationLibrary,
+    toProtoKeyValue,
+    toProtoSpanAttributes,
+} from '../../common/v1/transform';
+import { bytesArrayToHex, hexToBytesArray, nanosecondsToHrTime } from '../../../../utils';
+import { hrTimeDuration } from '@opentelemetry/core';
 
 function groupSpansByResource(spans: tracing.ReadableSpan[]): Map<resources.Resource, tracing.ReadableSpan[]> {
     return spans.reduce((byResourceMap, sdkSpan) => {
@@ -29,17 +37,6 @@ function groupSpansByInstrumentationLibrary(
     }, new Map<core.InstrumentationLibrary, tracing.ReadableSpan[]>());
 }
 
-export function hexToBytesArray(hexStr: string): Uint8Array {
-    const hexStrLen = hexStr.length;
-    let bytesArray: number[] = [];
-    for (let i = 0; i < hexStrLen; i += 2) {
-        const hexPair = hexStr.substring(i, i + 2);
-        const hexVal = parseInt(hexPair, 16);
-        bytesArray.push(hexVal);
-    }
-    return Uint8Array.from(bytesArray);
-}
-
 export const spanKindToProtoMap = new Map<api.SpanKind, proto.Span_SpanKind>([
     [api.SpanKind.INTERNAL, proto.Span_SpanKind.SPAN_KIND_INTERNAL],
     [api.SpanKind.SERVER, proto.Span_SpanKind.SPAN_KIND_SERVER],
@@ -48,15 +45,34 @@ export const spanKindToProtoMap = new Map<api.SpanKind, proto.Span_SpanKind>([
     [api.SpanKind.CONSUMER, proto.Span_SpanKind.SPAN_KIND_CONSUMER],
 ]);
 
+export const spanKindFromProtoMap = new Map<proto.Span_SpanKind, api.SpanKind>([
+    [proto.Span_SpanKind.SPAN_KIND_INTERNAL, api.SpanKind.INTERNAL],
+    [proto.Span_SpanKind.SPAN_KIND_SERVER, api.SpanKind.SERVER],
+    [proto.Span_SpanKind.SPAN_KIND_CLIENT, api.SpanKind.CLIENT],
+    [proto.Span_SpanKind.SPAN_KIND_PRODUCER, api.SpanKind.PRODUCER],
+    [proto.Span_SpanKind.SPAN_KIND_CONSUMER, api.SpanKind.CONSUMER],
+]);
+
 export const spanStatusCodeToProtoMap = new Map<api.SpanStatusCode, proto.Status_StatusCode>([
     [api.SpanStatusCode.UNSET, proto.Status_StatusCode.STATUS_CODE_UNSET],
     [api.SpanStatusCode.OK, proto.Status_StatusCode.STATUS_CODE_OK],
     [api.SpanStatusCode.ERROR, proto.Status_StatusCode.STATUS_CODE_ERROR],
 ]);
 
+export const spanStatusCodeFromProtoMap = new Map<proto.Status_StatusCode, api.SpanStatusCode>([
+    [proto.Status_StatusCode.STATUS_CODE_UNSET, api.SpanStatusCode.UNSET],
+    [proto.Status_StatusCode.STATUS_CODE_OK, api.SpanStatusCode.OK],
+    [proto.Status_StatusCode.STATUS_CODE_ERROR, api.SpanStatusCode.ERROR],
+]);
+
 export function toProtoTraceState(sdkTraceState?: api.TraceState): string | undefined {
     if (!sdkTraceState) return undefined;
     return sdkTraceState.serialize();
+}
+
+export function fromProtoTraceState(protoTraceState: string): core.TraceState {
+    if(!protoTraceState) return undefined;
+    return new core.TraceState(protoTraceState);
 }
 
 export function toProtoSpanEvent(sdkSpanEvent: api.TimedEvent): proto.Span_Event {
@@ -66,6 +82,14 @@ export function toProtoSpanEvent(sdkSpanEvent: api.TimedEvent): proto.Span_Event
         attributes: toProtoSpanAttributes(sdkSpanEvent.attributes ?? {}),
         droppedAttributesCount: 0,
     };
+}
+
+export function fromProtoSpanEvent(protoSpanEvent: proto.Span_Event): api.TimedEvent {
+    return {
+        time: nanosecondsToHrTime(protoSpanEvent.timeUnixNano),
+        name: protoSpanEvent.name,
+        attributes: fromProtoSpanAttributes(protoSpanEvent.attributes)
+    }
 }
 
 export function toProtoSpanLink(sdkLink: api.Link): proto.Span_Link {
@@ -78,12 +102,29 @@ export function toProtoSpanLink(sdkLink: api.Link): proto.Span_Link {
     };
 }
 
+export function fromProtoSpanLink(protoSpanLink: proto.Span_Link): api.Link {
+    return {
+        context: {
+            traceId: bytesArrayToHex(protoSpanLink.traceId),
+            spanId: bytesArrayToHex(protoSpanLink.spanId),
+        },
+        attributes: fromProtoSpanAttributes(protoSpanLink.attributes),
+    }
+}
+
 export function toProtoStatus(sdkSpanStatus: api.SpanStatus): proto.Status {
     return {
         deprecatedCode: proto.Status_DeprecatedStatusCode.UNRECOGNIZED,
         message: sdkSpanStatus.message,
         code: spanStatusCodeToProtoMap.get(sdkSpanStatus.code),
     };
+}
+
+export function fromProtoStatus(protoStatus: proto.Status): api.SpanStatus {
+    return {
+        code: spanStatusCodeFromProtoMap.get(protoStatus.code),
+        message: protoStatus.message,
+    }
 }
 
 export function toProtoSpan(sdkSpan: tracing.ReadableSpan): proto.Span {
@@ -106,6 +147,36 @@ export function toProtoSpan(sdkSpan: tracing.ReadableSpan): proto.Span {
     };
 }
 
+export function fromProtoSpan(
+    protoSpan: proto.Span,
+    sdkResource: resources.Resource,
+    sdkInstrumentationLibrary: core.InstrumentationLibrary
+): tracing.ReadableSpan {
+    const startTime = nanosecondsToHrTime(protoSpan.startTimeUnixNano);
+    const endTime = nanosecondsToHrTime(protoSpan.endTimeUnixNano);
+    return {
+        name: protoSpan.name,
+        kind: spanKindFromProtoMap.get(protoSpan.kind),
+        spanContext: {
+            traceId: bytesArrayToHex(protoSpan.traceId),
+            spanId: bytesArrayToHex(protoSpan.spanId),
+            traceFlags: 0, // we can't actually tell if the trace was sampled since this data is not in the protobuf spec
+            traceState: fromProtoTraceState(protoSpan.traceState),
+        },
+        parentSpanId: protoSpan.parentSpanId ? bytesArrayToHex(protoSpan.parentSpanId) : undefined,
+        startTime,
+        endTime,
+        status: fromProtoStatus(protoSpan.status),
+        attributes: fromProtoSpanAttributes(protoSpan.attributes),
+        links: protoSpan.links.map(fromProtoSpanLink),
+        events: protoSpan.events.map(fromProtoSpanEvent),
+        duration: hrTimeDuration(startTime, endTime),
+        ended: true,
+        resource: sdkResource,
+        instrumentationLibrary: sdkInstrumentationLibrary,
+    }
+}
+
 export function toProtoInstrumentationLibrarySpans(
     sdkInstrumentationLibrary: core.InstrumentationLibrary,
     sdkSpans: tracing.ReadableSpan[]
@@ -116,14 +187,26 @@ export function toProtoInstrumentationLibrarySpans(
     };
 }
 
+export function fromProtoInstrumentationLibrarySpans(
+    protoInstrumentationLibrarySpans: proto.InstrumentationLibrarySpans,
+    sdkResource: resources.Resource
+): tracing.ReadableSpan[] {
+    const sdkInstrumentationLibrary = fromInstrumentationLibrary(
+        protoInstrumentationLibrarySpans.instrumentationLibrary
+    );
+    return protoInstrumentationLibrarySpans.spans.map((protoSpan) =>
+        fromProtoSpan(protoSpan, sdkResource, sdkInstrumentationLibrary)
+    );
+}
+
 export function toProtoResourceSpans(
     sdkResource: resources.Resource,
-    sdkResourceSpans: tracing.ReadableSpan[], 
+    sdkResourceSpans: tracing.ReadableSpan[],
     additionalAttributes: resources.ResourceAttributes = {}
 ): proto.ResourceSpans {
     const spansByInstrumentationLibrary = groupSpansByInstrumentationLibrary(sdkResourceSpans);
     return {
-        resource: toResource(sdkResource, additionalAttributes),
+        resource: toProtoResource(sdkResource, additionalAttributes),
         instrumentationLibrarySpans: Array.from(spansByInstrumentationLibrary).map(
             ([sdkInstrumentationLibrary, sdkInstrumentationLibrarySpans]) => {
                 return toProtoInstrumentationLibrarySpans(sdkInstrumentationLibrary, sdkInstrumentationLibrarySpans);
@@ -132,9 +215,23 @@ export function toProtoResourceSpans(
     };
 }
 
-export function toProtoResourceSpansArray(sdkSpans: tracing.ReadableSpan[], additionalAttributes: resources.ResourceAttributes = {}): proto.ResourceSpans[] {
+export function fromProtoResourceSpans(protoResourceSpans: proto.ResourceSpans): tracing.ReadableSpan[] {
+    const sdkResource = fromProtoResource(protoResourceSpans.resource);
+    return protoResourceSpans.instrumentationLibrarySpans.flatMap((instrumentationLibrarySpans) =>
+        fromProtoInstrumentationLibrarySpans(instrumentationLibrarySpans, sdkResource)
+    );
+}
+
+export function toProtoResourceSpansArray(
+    sdkSpans: tracing.ReadableSpan[],
+    additionalAttributes: resources.ResourceAttributes = {}
+): proto.ResourceSpans[] {
     const spansByResource = groupSpansByResource(sdkSpans);
     return Array.from(spansByResource).map(([sdkResource, sdkResourceSpans]) =>
         toProtoResourceSpans(sdkResource, sdkResourceSpans, additionalAttributes)
     );
+}
+
+export function fromProtoResourceSpansArray(protoResourceSpansArray: proto.ResourceSpans[]): tracing.ReadableSpan[] {
+    return protoResourceSpansArray.flatMap(fromProtoResourceSpans);
 }
