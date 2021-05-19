@@ -1,0 +1,9 @@
+{
+    "extends": "../tsconfig.base.json",
+    "compilerOptions": {
+        "rootDir": ".",
+        "outDir": "dist",
+        "allowJs": true
+    },
+    "include": ["src/**/*.ts", "test/**/*.ts", "src/otel-reporter.js"]
+}

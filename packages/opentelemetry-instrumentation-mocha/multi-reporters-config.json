@@ -1,0 +1,3 @@
+{
+    "reporterEnabled": "spec, ./dist/src/otel-reporter.js"
+}
