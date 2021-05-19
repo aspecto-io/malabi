@@ -1,5 +1,8 @@
 import { getSpans, resetSpans } from '../exporter';
-import { toCollectorExportTraceServiceRequest } from './transform';
+import {
+    toJsonEncodedProtobufFormat,
+    toProtoExportTraceServiceRequest,
+} from 'opentelemetry-proto-transformations/src/opentelemetry/proto/collector/trace/v1/transform';
 import * as fs from 'fs';
 
 const getPackageName = () => {
@@ -10,13 +13,14 @@ const getPackageName = () => {
     }
 };
 
-const serviceName = getPackageName();
-
 export const getMalabiExpressRouter = () => {
     const express = require('express');
     return express
         .Router()
-        .get('/spans', (req, res) => res.json(toCollectorExportTraceServiceRequest(getSpans(), serviceName, {}, true)))
+        .get('/spans', (req, res) => {
+            res.set('Content-Type', 'application/json');
+            res.send(toJsonEncodedProtobufFormat(toProtoExportTraceServiceRequest(getSpans())));
+        })
         .delete('/spans', (req, res) => res.json(resetSpans()));
 };
 
