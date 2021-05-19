@@ -13,7 +13,7 @@ import { amqplibInstrumentationConfig } from './amqplib';
 // Instrumentations
 import { HttpInstrumentation } from '@opentelemetry/instrumentation-http';
 import { IORedisInstrumentation } from '@opentelemetry/instrumentation-ioredis';
-import { ExpressInstrumentation } from '@aspecto/opentelemetry-instrumentation-express';
+import { ExpressInstrumentation } from 'opentelemetry-instrumentation-express';
 import { SequelizeInstrumentation } from 'opentelemetry-instrumentation-sequelize';
 import { AwsInstrumentation } from 'opentelemetry-instrumentation-aws-sdk';
 import { TypeormInstrumentation } from 'opentelemetry-instrumentation-typeorm';

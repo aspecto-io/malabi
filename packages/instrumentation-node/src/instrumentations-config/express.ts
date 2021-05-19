@@ -1,8 +1,8 @@
 import type { Request, Response } from 'express';
-import { ExpressInstrumentationConfig } from '@aspecto/opentelemetry-instrumentation-express';
+import { ExpressInstrumentationConfig } from 'opentelemetry-instrumentation-express';
 import { callHookOnlyOnRecordingSpan } from '../payload-collection/recording-span';
 import { Span } from '@opentelemetry/api';
-import { GeneralExtendedAttribute, HttpExtendedAttribute } from '../enums';
+import { HttpExtendedAttribute } from '../enums';
 import { shouldCaptureBodyByMimeType } from '../payload-collection/mime-type';
 import { StreamChunks } from '../payload-collection/stream-chunks';
 import { AutoInstrumentationOptions } from '../types';
@@ -58,6 +58,5 @@ export const requestHook = (options: AutoInstrumentationOptions) => (span: Span,
 };
 
 export const expressInstrumentationConfig = (options: AutoInstrumentationOptions): ExpressInstrumentationConfig => ({
-    moduleVersionAttributeName: GeneralExtendedAttribute.INSTRUMENTED_LIBRARY_VERSION,
     requestHook: callHookOnlyOnRecordingSpan(requestHook(options)),
 });
