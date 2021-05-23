@@ -1,4 +1,6 @@
+packages/aspecto-opentelemetry/aspecto-post-install-githash.json
 packages/*/dist/*
+blackbox/target-service/packages-dist/*
 node_modules
 *.md
 *.yml

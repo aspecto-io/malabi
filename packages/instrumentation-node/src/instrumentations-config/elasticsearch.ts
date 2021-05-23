@@ -8,7 +8,9 @@ const responseHook: ResponseHook = (span: Span, response: any) => {
     span.setAttribute(DbExtendedAttribute.DB_RESPONSE, JSON.stringify(response));
 };
 
-export const elasticsearchInstrumentationConfig = (options: AutoInstrumentationOptions): ElasticsearchInstrumentationConfig => ({
+export const elasticsearchInstrumentationConfig = (
+    options: AutoInstrumentationOptions
+): ElasticsearchInstrumentationConfig => ({
     moduleVersionAttributeName: GeneralExtendedAttribute.INSTRUMENTED_LIBRARY_VERSION,
     suppressInternalInstrumentation: options.suppressInternalInstrumentation,
     responseHook: options.collectPayloads && callHookOnlyOnRecordingSpan(responseHook),

@@ -73,7 +73,7 @@ const awsSdkRequestHook = (options: AutoInstrumentationOptions) => (span: Span, 
 
     switch (request.serviceName) {
         case 'sqs':
-            if(options.collectPayloads) {
+            if (options.collectPayloads) {
                 addSqsPayload(span, request);
             }
             break;

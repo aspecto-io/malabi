@@ -1,4 +1,3 @@
-
 export enum GeneralExtendedAttribute {
     INSTRUMENTED_LIBRARY_VERSION = 'instrumented_library.version',
 }

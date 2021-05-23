@@ -16,12 +16,14 @@ const addResponsePayload = (span: Span, response: any) => {
     span.setAttribute(DbExtendedAttribute.DB_RESPONSE, stringified);
 };
 
-export const typeormInstrumentationConfig= (options: AutoInstrumentationOptions): TypeormInstrumentationConfig => ({
+export const typeormInstrumentationConfig = (options: AutoInstrumentationOptions): TypeormInstrumentationConfig => ({
     responseHook: options.collectPayloads && callHookOnlyOnRecordingSpan(addResponsePayload),
     moduleVersionAttributeName: GeneralExtendedAttribute.INSTRUMENTED_LIBRARY_VERSION,
 });
 
-export const sequelizeInstrumentationConfig= (options: AutoInstrumentationOptions): SequelizeInstrumentationConfig => ({
+export const sequelizeInstrumentationConfig = (
+    options: AutoInstrumentationOptions
+): SequelizeInstrumentationConfig => ({
     responseHook: options.collectPayloads && callHookOnlyOnRecordingSpan(addResponsePayload),
     moduleVersionAttributeName: GeneralExtendedAttribute.INSTRUMENTED_LIBRARY_VERSION,
     ignoreOrphanedSpans: true,
