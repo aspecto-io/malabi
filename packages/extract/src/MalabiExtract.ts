@@ -40,7 +40,7 @@ class MalabiExtract {
     }
 
     http() {
-        return new MalabiExtract(this.spans.filter((span) => Boolean(span.attributes[SemanticAttributes.HTTP_METHOD])));
+        return this.filter((span) => Boolean(span.attributes[SemanticAttributes.HTTP_METHOD]));
     }
 
     httpMethod(method: string) {
@@ -57,11 +57,15 @@ class MalabiExtract {
     }
 
     httpPost() {
-        return this.filter((span) => (span.attributes[SemanticAttributes.HTTP_METHOD] as string)?.toLowerCase() === 'post');
+        return this.filter(
+            (span) => (span.attributes[SemanticAttributes.HTTP_METHOD] as string)?.toLowerCase() === 'post'
+        );
     }
 
     route(r: string) {
-        return this.filter((span) => (span.attributes[SemanticAttributes.HTTP_ROUTE] as string)?.toLowerCase() === r.toLowerCase());
+        return this.filter(
+            (span) => (span.attributes[SemanticAttributes.HTTP_ROUTE] as string)?.toLowerCase() === r.toLowerCase()
+        );
     }
 
     path(p: string) {
@@ -69,19 +73,23 @@ class MalabiExtract {
     }
 
     messagingSend() {
-        return this.filter(span => span.kind === SpanKind.PRODUCER);
+        return this.filter((span) => span.kind === SpanKind.PRODUCER);
     }
 
     messagingReceive() {
-        return this.filter(span => span.attributes[SemanticAttributes.MESSAGING_OPERATION] === MessagingOperationValues.RECEIVE)
+        return this.filter(
+            (span) => span.attributes[SemanticAttributes.MESSAGING_OPERATION] === MessagingOperationValues.RECEIVE
+        );
     }
 
     messagingProcess() {
-        return this.filter(span => span.attributes[SemanticAttributes.MESSAGING_OPERATION] === MessagingOperationValues.PROCESS)
+        return this.filter(
+            (span) => span.attributes[SemanticAttributes.MESSAGING_OPERATION] === MessagingOperationValues.PROCESS
+        );
     }
 
     sqs() {
-        return this.filter(span => span.attributes[SemanticAttributes.RPC_SERVICE] === 'sqs')
+        return this.filter((span) => span.attributes[SemanticAttributes.RPC_SERVICE] === 'sqs');
     }
 
     root() {
@@ -89,47 +97,47 @@ class MalabiExtract {
     }
 
     mongo() {
-        return this.filter(span => span.attributes[SemanticAttributes.DB_SYSTEM] === 'mongodb')
+        return this.filter((span) => span.attributes[SemanticAttributes.DB_SYSTEM] === 'mongodb');
     }
 
     incoming() {
-        return this.filter(span => span.kind === SpanKind.CLIENT);
+        return this.filter((span) => span.kind === SpanKind.CLIENT);
     }
 
     outgoing() {
-        return this.filter(span => span.kind === SpanKind.SERVER);
+        return this.filter((span) => span.kind === SpanKind.SERVER);
     }
 
     typeorm() {
-        return this.filter(span => span.instrumentationLibrary.name.includes('typeorm'));
+        return this.filter((span) => span.instrumentationLibrary.name.includes('typeorm'));
     }
 
     sequelize() {
-        return this.filter(span => span.instrumentationLibrary.name.includes('sequelize'));
+        return this.filter((span) => span.instrumentationLibrary.name.includes('sequelize'));
     }
 
     neo4j() {
-        return this.filter(span => span.instrumentationLibrary.name.includes('neo4j'));
+        return this.filter((span) => span.instrumentationLibrary.name.includes('neo4j'));
     }
 
     database() {
-        return this.filter(span => Boolean(span.attributes[SemanticAttributes.DB_SYSTEM]));
+        return this.filter((span) => Boolean(span.attributes[SemanticAttributes.DB_SYSTEM]));
     }
 
     dbOperation(op: string) {
-        return this.filter(span => span.attributes[SemanticAttributes.DB_OPERATION] === op)
+        return this.filter((span) => span.attributes[SemanticAttributes.DB_OPERATION] === op);
     }
 
     messaging() {
-        return this.filter(span => Boolean(span.attributes[SemanticAttributes.MESSAGING_SYSTEM]));
+        return this.filter((span) => Boolean(span.attributes[SemanticAttributes.MESSAGING_SYSTEM]));
     }
 
     rpc() {
-        return this.filter(span => Boolean(span.attributes[SemanticAttributes.RPC_SYSTEM]));
+        return this.filter((span) => Boolean(span.attributes[SemanticAttributes.RPC_SYSTEM]));
     }
 
     aws() {
-        return this.filter(span => span.attributes[SemanticAttributes.RPC_SYSTEM] === 'aws-api');
+        return this.filter((span) => span.attributes[SemanticAttributes.RPC_SYSTEM] === 'aws-api');
     }
 }
 
