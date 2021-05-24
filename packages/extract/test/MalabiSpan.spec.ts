@@ -1,7 +1,7 @@
 import 'mocha';
 import { MalabiSpan } from '../src/MalabiSpan';
 import { ReadableSpan } from '@opentelemetry/tracing';
-import { SpanKind } from '@opentelemetry/api';
+import { SpanKind, SpanStatusCode } from '@opentelemetry/api';
 import expect from 'expect';
 
 describe('MalabiSpan', () => {
@@ -49,7 +49,10 @@ describe('MalabiSpan', () => {
         name: 'name',
         resource: null,
         startTime: [123, 123],
-        status: 0 as any,
+        status: {
+            code: SpanStatusCode.ERROR,
+            message: 'Some Error Message!',
+        },
         spanContext: null,
     };
 
@@ -60,11 +63,11 @@ describe('MalabiSpan', () => {
     });
 
     it('hasError', () => {
-        expect(malabiSpan.hasError).toBe(false);
+        expect(malabiSpan.hasError).toBe(true);
     });
 
     it('errorMessage', () => {
-        expect(malabiSpan.errorMessage).toBe(undefined);
+        expect(malabiSpan.errorMessage).toBe('Some Error Message!');
     });
 
     it('httpMethod', () => {
