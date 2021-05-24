@@ -9,6 +9,10 @@ export class MalabiSpan {
         this.span = span;
     }
 
+    private strAttr(attr: string): string {
+        return this.span.attributes[attr] as string;
+    }
+
     // === Misc ===
 
     get raw() {
@@ -23,43 +27,51 @@ export class MalabiSpan {
         return this.span.status.message;
     }
 
+    attr(attr: string) {
+        return this.span.attributes[attr];
+    }
+
+    attribute(attr: string) {
+        return this.span.attributes[attr];
+    }
+
     // === HTTP ===
 
     get httpMethod() {
-        return this.span.attributes[SemanticAttributes.HTTP_METHOD];
+        return this.strAttr(SemanticAttributes.HTTP_METHOD);
     }
 
     get httpFullUrl() {
-        return this.span.attributes[SemanticAttributes.HTTP_URL];
+        return this.strAttr(SemanticAttributes.HTTP_URL);
     }
 
     get httpHost() {
-        return this.span.attributes[SemanticAttributes.HTTP_HOST];
+        return this.strAttr(SemanticAttributes.HTTP_HOST);
     }
 
     get httpRoute() {
-        return this.span.attributes[SemanticAttributes.HTTP_ROUTE];
+        return this.strAttr(SemanticAttributes.HTTP_ROUTE);
     }
 
     get httpUserAgent() {
-        return this.span.attributes[SemanticAttributes.HTTP_USER_AGENT];
+        return this.strAttr(SemanticAttributes.HTTP_USER_AGENT);
     }
 
     get statusCode() {
-        const strStatusCode = this.span.attributes[SemanticAttributes.HTTP_STATUS_CODE];
-        return strStatusCode ? parseInt(strStatusCode as string) : undefined;
+        const strStatusCode = this.strAttr(SemanticAttributes.HTTP_STATUS_CODE);
+        return strStatusCode ? parseInt(strStatusCode) : undefined;
     }
 
     get requestBody() {
-        return this.span.attributes['http.request.body'];
+        return this.strAttr('http.request.body');
     }
 
     get responseBody() {
-        return this.span.attributes['http.response.body'];
+        return this.strAttr('http.response.body');
     }
 
     private parseHeaders(attKey: string) {
-        const headers = this.span.attributes[attKey] as string;
+        const headers = this.strAttr(attKey);
         if (!headers) return null;
         try {
             const parsed = JSON.parse(headers);
@@ -97,80 +109,80 @@ export class MalabiSpan {
         return Object.fromEntries(new URL(url).searchParams as any);
     }
 
-    queryParam(param: string) {
+    queryParam(param: string): string {
         return this.queryParams[param];
     }
 
     // === DataBase ===
 
     get dbSystem() {
-        return this.span.attributes[SemanticAttributes.DB_SYSTEM];
+        return this.strAttr(SemanticAttributes.DB_SYSTEM);
     }
 
     get dbUser() {
-        return this.span.attributes[SemanticAttributes.DB_USER];
+        return this.strAttr(SemanticAttributes.DB_USER);
     }
 
     get dbName() {
-        return this.span.attributes[SemanticAttributes.DB_NAME];
+        return this.strAttr(SemanticAttributes.DB_NAME);
     }
 
     get dbOperation() {
-        return this.span.attributes[SemanticAttributes.DB_OPERATION];
+        return this.strAttr(SemanticAttributes.DB_OPERATION);
     }
 
     get dbStatement() {
-        return this.span.attributes[SemanticAttributes.DB_STATEMENT];
+        return this.strAttr(SemanticAttributes.DB_STATEMENT);
     }
 
     get mongoCollection() {
-        return this.span.attributes[SemanticAttributes.DB_MONGODB_COLLECTION];
+        return this.strAttr(SemanticAttributes.DB_MONGODB_COLLECTION);
     }
 
     get dbResponse() {
-        return this.span.attributes['db.response'];
+        return this.strAttr('db.response');
     }
     // === Messaging ===
 
     get messagingSystem() {
-        return this.span.attributes[SemanticAttributes.MESSAGING_SYSTEM];
+        return this.strAttr(SemanticAttributes.MESSAGING_SYSTEM);
     }
 
     get messagingDestinationKind() {
-        return this.span.attributes[SemanticAttributes.MESSAGING_DESTINATION_KIND];
+        return this.strAttr(SemanticAttributes.MESSAGING_DESTINATION_KIND);
     }
 
     get queueOrTopicName() {
-        return this.span.attributes[SemanticAttributes.MESSAGING_DESTINATION];
+        return this.strAttr(SemanticAttributes.MESSAGING_DESTINATION);
     }
 
     get queueOrTopicUrl() {
-        return this.span.attributes[SemanticAttributes.MESSAGING_URL];
+        return this.strAttr(SemanticAttributes.MESSAGING_URL);
     }
 
     get messagingOperation() {
-        return this.span.attributes[SemanticAttributes.MESSAGING_OPERATION];
+        return this.strAttr(SemanticAttributes.MESSAGING_OPERATION);
     }
 
     get messagingPayload() {
-        return this.span.attributes['messaging.payload'];
+        return this.strAttr('messaging.payload');
     }
 
     // === RPC ===
 
     get rpcSystem() {
-        return this.span.attributes[SemanticAttributes.RPC_SYSTEM];
+        return this.strAttr(SemanticAttributes.RPC_SYSTEM);
     }
 
     get rpcService() {
-        return this.span.attributes[SemanticAttributes.RPC_SERVICE];
+        return this.strAttr(SemanticAttributes.RPC_SERVICE);
     }
 
     get rpcMethod() {
-        return this.span.attributes[SemanticAttributes.RPC_METHOD];
+        return this.strAttr(SemanticAttributes.RPC_METHOD);
     }
 
     get awsRequestParams() {
-        return this.span.attributes['aws.request.params'];
+        return this.strAttr('aws.request.params');
     }
 }

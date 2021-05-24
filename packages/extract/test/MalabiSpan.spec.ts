@@ -36,6 +36,7 @@ describe('MalabiSpan', () => {
             'rpc.service': 's3',
             'rpc.method': 'putObject',
             'aws.request.params': 'some-aws-req-params',
+            'some-attr': 'david'
         },
         duration: [123, 123],
         endTime: [123, 123],
@@ -68,6 +69,14 @@ describe('MalabiSpan', () => {
 
     it('errorMessage', () => {
         expect(malabiSpan.errorMessage).toBe('Some Error Message!');
+    });
+
+    it('attr', () => {
+        expect(malabiSpan.attr('some-attr')).toBe('david');
+    });
+
+    it('attribute', () => {
+        expect(malabiSpan.attribute('some-attr')).toBe('david');
     });
 
     it('httpMethod', () => {
