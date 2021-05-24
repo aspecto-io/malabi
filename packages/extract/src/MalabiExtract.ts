@@ -62,14 +62,18 @@ class MalabiExtract {
         );
     }
 
-    route(r: string) {
-        return this.filter(
-            (span) => (span.attributes[SemanticAttributes.HTTP_ROUTE] as string)?.toLowerCase() === r.toLowerCase()
-        );
+    route(r: string | RegExp) {
+        return this.filter((span) => {
+            const route = span[SemanticAttributes.HTTP_ROUTE] as string;
+            return typeof r === 'string' ? route?.toLowerCase() === r.toLowerCase() : r.test(route);
+        });
     }
 
-    path(p: string) {
-        return this.filter((span) => (span.attributes['http.path'] as string)?.toLowerCase() === p.toLowerCase());
+    path(p: string | RegExp) {
+        return this.filter((span) => {
+            const path = span.attributes['http.path'] as string;
+            return typeof p === 'string' ? path?.toLowerCase() === p.toLowerCase() : p.test(path);
+        });
     }
 
     messagingSend() {
