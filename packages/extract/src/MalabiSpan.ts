@@ -27,12 +27,34 @@ export class MalabiSpan {
         return this.span.status.message;
     }
 
+    get name() {
+        return this.span.name;
+    }
+
+    get kind() {
+        return this.span.kind;
+    }
+
     attr(attr: string) {
         return this.span.attributes[attr];
     }
 
     attribute(attr: string) {
         return this.span.attributes[attr];
+    }
+
+    // === Network ===
+
+    get netPeerName() {
+        return this.strAttr(SemanticAttributes.NET_PEER_NAME);
+    }
+
+    get netTransport() {
+        return this.strAttr(SemanticAttributes.NET_TRANSPORT);
+    }
+
+    get netPeerPort() {
+        return this.attr(SemanticAttributes.NET_PEER_PORT) as number;
     }
 
     // === HTTP ===
