@@ -26,7 +26,18 @@ mocha --require ./node_modules/opentelemetry-instrumentation-mocha/dist/src/otel
 ### package.json
 ```json
   "mocha": {
-    "require": "./node_modules/opentelemetry-instrumentation-mocha/dist/src/otel-plugin.js",
+    "require": "opentelemetry-instrumentation-mocha",
     "reporter": "./node_modules/opentelemetry-instrumentation-mocha/dist/src/otel-reporter.js"
   }
 ```
+
+If you already `require`ing a plugin, you can use JSON array to use multi plugins:
+```json
+  "mocha": {
+    "require": ["some-other-plugin", "opentelemetry-instrumentation-mocha"],
+    "reporter": "./node_modules/opentelemetry-instrumentation-mocha/dist/src/otel-reporter.js"
+  }
+```
+
+For reporter, it is not possible to specify multiple values. Setting otel-reporter will override the default reporter which means you will not get test run reports to you console (or any other report you are using).
+You can use [mocha-multi-reporters](https://www.npmjs.com/package/mocha-multi-reporters) for that.
