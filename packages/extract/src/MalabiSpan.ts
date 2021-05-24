@@ -46,7 +46,8 @@ export class MalabiSpan {
     }
 
     get statusCode() {
-        return this.span.attributes[SemanticAttributes.HTTP_STATUS_CODE];
+        const strStatusCode = this.span.attributes[SemanticAttributes.HTTP_STATUS_CODE];
+        return strStatusCode ? parseInt(strStatusCode as string) : undefined;
     }
 
     get requestBody() {
@@ -54,7 +55,7 @@ export class MalabiSpan {
     }
 
     get responseBody() {
-        return this.span.attributes['http.request.body'];
+        return this.span.attributes['http.response.body'];
     }
 
     private parseHeaders(attKey: string) {
@@ -76,12 +77,12 @@ export class MalabiSpan {
 
     requestHeader(header: string) {
         const headers = this.requestHeaders;
-        return headers ? headers[header] : null;
+        return headers ? headers[header.toLowerCase()] : null;
     }
 
     responseHeader(header: string) {
         const headers = this.responseHeaders;
-        return headers ? headers[header] : null;
+        return headers ? headers[header.toLowerCase()] : null;
     }
 
     get queryParams() {
@@ -105,7 +106,7 @@ export class MalabiSpan {
     }
 
     get dbName() {
-        return this.span.attributes[SemanticAttributes.DB_MSSQL_INSTANCE_NAME];
+        return this.span.attributes[SemanticAttributes.DB_NAME];
     }
 
     get dbOperation() {
