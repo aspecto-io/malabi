@@ -61,17 +61,22 @@ export class MalabiSpan {
     private parseHeaders(attKey: string) {
         const headers = this.span.attributes[attKey] as string;
         if (!headers) return null;
-        const parsed = JSON.parse(headers);
-        const lowerCaseHeaders = Object.fromEntries(Object.entries(parsed).map(([k, v]) => [k.toLowerCase(), v]));
-
-        return lowerCaseHeaders;
+        try {
+            const parsed = JSON.parse(headers);
+            const lowerCaseHeaders = Object.fromEntries(
+                Object.entries(parsed).map(([k, v]) => [k.toLowerCase(), v as string])
+            );
+            return lowerCaseHeaders;
+        } catch (err) {
+            throw new Error('Headers structure is invalid.');
+        }
     }
 
-    get requestHeaders() {
+    get requestHeaders(): Record<string, string> {
         return this.parseHeaders('http.request.headers');
     }
 
-    get responseHeaders() {
+    get responseHeaders(): Record<string, string> {
         return this.parseHeaders('http.response.headers');
     }
 
@@ -86,9 +91,10 @@ export class MalabiSpan {
     }
 
     get queryParams() {
-        const qs = ((this.httpFullUrl as string) ?? '').split('?')[1];
-        if (typeof qs !== 'string') return {};
-        return Object.fromEntries(new URLSearchParams(qs) as any);
+        const url = this.httpFullUrl as string;
+        if (!url) return null;
+
+        return Object.fromEntries(new URL(url).searchParams as any);
     }
 
     queryParam(param: string) {
@@ -123,8 +129,7 @@ export class MalabiSpan {
 
     get dbResponse() {
         return this.span.attributes['db.response'];
-    }        
-
+    }
     // === Messaging ===
 
     get messagingSystem() {

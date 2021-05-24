@@ -92,11 +92,11 @@ class MalabiExtract {
         );
     }
 
-    sqs() {
+    awsSqs() {
         return this.filter((span) => span.attributes[SemanticAttributes.RPC_SERVICE] === 'sqs');
     }
 
-    root() {
+    entry() {
         return this.filter((span) => !span.parentSpanId);
     }
 
@@ -129,7 +129,9 @@ class MalabiExtract {
     }
 
     dbOperation(op: string) {
-        return this.filter((span) => span.attributes[SemanticAttributes.DB_OPERATION] === op);
+        return this.filter(
+            (span) => (span.attributes[SemanticAttributes.DB_OPERATION] as string)?.toLowerCase() === op.toLowerCase()
+        );
     }
 
     messaging() {
