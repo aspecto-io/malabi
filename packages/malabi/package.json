@@ -1,6 +1,6 @@
 {
     "name": "malabi",
-    "version": "0.0.1-alpha.1",
+    "version": "0.0.1-alpha.5",
     "homepage": "https://github.com/aspecto-io/malabi#readme",
     "license": "Apache-2.0",
     "main": "dist/src/index.js",
@@ -8,6 +8,12 @@
         "type": "git",
         "url": "git+https://github.com/aspecto-io/malabi.git"
     },
+    "files": [
+        "dist/src/**/*.js",
+        "dist/src/**/*.d.ts",
+        "LICENSE",
+        "README.md"
+    ],
     "scripts": {
         "build": "tsc",
         "watch": "tsc -w"
