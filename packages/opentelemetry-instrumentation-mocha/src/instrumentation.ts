@@ -1,5 +1,5 @@
 
-import { trace, context, setSpan, Span, SpanStatusCode, SpanKind, getSpan }  from '@opentelemetry/api';
+import { trace, Span, SpanStatusCode, SpanKind }  from '@opentelemetry/api';
 import type { Runnable, Suite } from 'mocha';
 import { TestAttributes } from './types';
 import { VERSION } from './version';

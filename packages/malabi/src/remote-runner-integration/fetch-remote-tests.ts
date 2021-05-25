@@ -1,8 +1,5 @@
 import { ReadableSpan } from "@opentelemetry/tracing";
-import {
-    fromProtoExportTraceServiceRequest,
-    fromJsonEncodedProtobufFormat,
-} from 'opentelemetry-proto-transformations/src/opentelemetry/proto/collector/trace/v1/transform';
+import { collectorTraceV1Transform } from 'opentelemetry-proto-transformations';
 import axios from 'axios';
 
 export const fetchRemoteTests = async (port?: number): Promise<ReadableSpan[]> => {
@@ -15,8 +12,8 @@ export const fetchRemoteTests = async (port?: number): Promise<ReadableSpan[]> =
                 return res;
             }
         });
-        const protoFormatted = fromJsonEncodedProtobufFormat(res.data);
-        const spans = fromProtoExportTraceServiceRequest(protoFormatted);
+        const protoFormatted = collectorTraceV1Transform.fromJsonEncodedProtobufFormat(res.data);
+        const spans = collectorTraceV1Transform.fromProtoExportTraceServiceRequest(protoFormatted);
         console.log(JSON.stringify(spans, null, 4));
         return [];
     } catch (err) {
