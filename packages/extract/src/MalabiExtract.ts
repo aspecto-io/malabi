@@ -33,6 +33,10 @@ class MalabiExtract {
         return new MalabiSpan(this.spans[1]);
     }
 
+    get all(): MalabiSpan[] {
+        return this.spans.map(s => new MalabiSpan(s));
+    }
+
     at(index: number) {
         if (this.spans.length < index + 1)
             throw new Error(`Tried to get the span in ${index} index, but there are only ${this.spans.length} spans.`);
