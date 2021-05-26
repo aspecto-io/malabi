@@ -1,6 +1,6 @@
 {
     "name": "malabi",
-    "version": "0.0.1-alpha.10",
+    "version": "0.0.1-alpha.11",
     "homepage": "https://github.com/aspecto-io/malabi#readme",
     "license": "Apache-2.0",
     "main": "dist/src/index.js",
@@ -29,7 +29,7 @@
         "@opentelemetry/semantic-conventions": "^0.19.0",
         "@opentelemetry/tracing": "^0.19.0",
         "axios": "^0.21.1",
-        "malabi-extract": "^0.0.1-alpha.5",
+        "malabi-extract": "^0.0.1-alpha.7",
         "malabi-instrumentation-node": "^0.0.1-alpha.1",
         "opentelemetry-proto-transformations": "^0.0.1-alpha.3"
     },

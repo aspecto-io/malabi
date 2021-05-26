@@ -1,8 +1,8 @@
-import { ReadableSpan } from "@opentelemetry/tracing";
 import { collectorTraceV1Transform } from 'opentelemetry-proto-transformations';
+import { extract, MalabiExtract } from 'malabi-extract';
 import axios from 'axios';
 
-export const fetchRemoteTests = async (portOrBaseUrl: string | number): Promise<ReadableSpan[]> => {
+export const fetchRemoteTests = async (portOrBaseUrl: string | number): Promise<MalabiExtract> => {
     try { 
         const baseUrl = typeof portOrBaseUrl === 'string' ? portOrBaseUrl : `http://localhost:${portOrBaseUrl}`
         const res = await axios.get(`${baseUrl}/malabi/spans`, {
@@ -12,11 +12,10 @@ export const fetchRemoteTests = async (portOrBaseUrl: string | number): Promise<
         });
         const protoFormatted = collectorTraceV1Transform.fromJsonEncodedProtobufFormat(res.data);
         const spans = collectorTraceV1Transform.fromProtoExportTraceServiceRequest(protoFormatted);
-        console.log(JSON.stringify(spans, null, 4));
-        return spans;
+        return extract(spans);
     } catch (err) {
         console.log('error while fetching remote spans', err);
     }
-    return [];
+    return extract([]);
 }
 
