@@ -5,7 +5,7 @@ import axios from 'axios';
 export const fetchRemoteTests = async (portOrBaseUrl: string | number): Promise<ReadableSpan[]> => {
     try { 
         const baseUrl = typeof portOrBaseUrl === 'string' ? portOrBaseUrl : `http://localhost:${portOrBaseUrl}`
-        const res = await axios.get(`http://localhost:${baseUrl}/malabi/spans`, {
+        const res = await axios.get(`${baseUrl}/malabi/spans`, {
             transformResponse: (res) => {
                 return res;
             }
