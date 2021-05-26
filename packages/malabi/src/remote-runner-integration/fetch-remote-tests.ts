@@ -2,12 +2,10 @@ import { ReadableSpan } from "@opentelemetry/tracing";
 import { collectorTraceV1Transform } from 'opentelemetry-proto-transformations';
 import axios from 'axios';
 
-export const fetchRemoteTests = async (port?: number): Promise<ReadableSpan[]> => {
+export const fetchRemoteTests = async (portOrBaseUrl: string | number): Promise<ReadableSpan[]> => {
     try { 
-        const _port = port ?? process.env.MALABI_PORT;
-        if (_port) throw new Error('Need to provide port');
-
-        const res = await axios.get(`http://localhost:${_port}/malabi/spans`, {
+        const baseUrl = typeof portOrBaseUrl === 'string' ? portOrBaseUrl : `http://localhost:${portOrBaseUrl}`
+        const res = await axios.get(`http://localhost:${baseUrl}/malabi/spans`, {
             transformResponse: (res) => {
                 return res;
             }

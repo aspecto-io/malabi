@@ -1,6 +1,6 @@
 {
     "name": "malabi",
-    "version": "0.0.1-alpha.7",
+    "version": "0.0.1-alpha.8",
     "homepage": "https://github.com/aspecto-io/malabi#readme",
     "license": "Apache-2.0",
     "main": "dist/src/index.js",
