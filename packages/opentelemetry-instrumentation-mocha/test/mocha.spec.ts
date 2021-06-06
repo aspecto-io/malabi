@@ -93,7 +93,7 @@ describe('mocha', () => {
             const [internalSpan, testSpan] = memoryExporter.getFinishedSpans();
 
             // make sure that internal span is the child of test span
-            expect(internalSpan.parentSpanId).toEqual(testSpan.spanContext.spanId);
+            expect(internalSpan.parentSpanId).toEqual(testSpan.spanContext().spanId);
         });
     });
 });

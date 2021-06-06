@@ -2,6 +2,9 @@ import { InstrumentationConfig } from '@opentelemetry/instrumentation';
 
 export enum TestAttributes {
 
+    /** Name of the testing framework executing the test */
+    TEST_FRAMEWORK = 'test.framework',
+
     /** Name of the test itself, without suites */
     TEST_NAME = 'test.name',
 
