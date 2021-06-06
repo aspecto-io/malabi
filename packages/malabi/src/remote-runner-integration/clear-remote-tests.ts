@@ -1,11 +1,9 @@
 import axios from 'axios';
 
-export const clearRemoteTests = async (port?: number): Promise<void> => {
+export const clearRemoteTests = async (portOrBaseUrl: string | number): Promise<void> => {
     try { 
-        const _port = port ?? process.env.MALABI_PORT;
-        if (_port) throw new Error('Need to provide port');
-
-        await axios.delete(`http://localhost:${_port}/malabi/spans`, {
+        const baseUrl = typeof portOrBaseUrl === 'string' ? portOrBaseUrl : `http://localhost:${portOrBaseUrl}`
+        await axios.delete(`${baseUrl}/malabi/spans`, {
             transformResponse: (res) => {
                 return res;
             }
