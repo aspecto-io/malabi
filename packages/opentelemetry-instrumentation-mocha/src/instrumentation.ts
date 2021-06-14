@@ -6,6 +6,8 @@ import { VERSION } from './version';
 
 export const TEST_SPAN_KEY = Symbol.for('opentelemetry.mocha.span_key');
 
+const instrumentationLibraryName = 'opentelemetry-instrumentation-mocha';
+
 type TestWithSpan = { 
     [TEST_SPAN_KEY]?: Span,
 } & Runnable;
@@ -19,6 +21,8 @@ const getSuitesRecursive = (suite: Suite): string[] => {
     return suite.title ? [...parentSuites, suite.title] : parentSuites;
 }
 
+const getFullName = (suites: string[], testName: string): string => `${[...suites, testName].join(' -> ')}`;
+
 export const startSpan = (test: TestWithSpan): Span => {
 
     const existingSpan = getTestSpan(test);
@@ -26,12 +30,17 @@ export const startSpan = (test: TestWithSpan): Span => {
         return existingSpan;
     }
 
-    const tracer = trace.getTracer('opentelemetry-instrumentation-mocha', VERSION);
+    const tracer = trace.getTracer(instrumentationLibraryName, VERSION);
+
+    const testName = test.title;
+    const suites = getSuitesRecursive(test.parent);
+    const fullName = getFullName(suites, testName);
 
     const attributes = {
-        [TestAttributes.TEST_NAME]: test.title,
-        [TestAttributes.TEST_FULL_NAME]: test.fullTitle(),
-        [TestAttributes.TEST_SUITES]: getSuitesRecursive(test.parent),
+        [TestAttributes.TEST_FRAMEWORK]: 'mocha',
+        [TestAttributes.TEST_NAME]: testName,
+        [TestAttributes.TEST_FULL_NAME]: fullName,
+        [TestAttributes.TEST_SUITES]: suites,
     };
 
     const retries = (test as any).retries();
@@ -70,6 +79,7 @@ export const endSpan = (test: TestWithSpan, err: any) => {
     }
 
     if(err) {
+        spanForTest.recordException(err);
         spanForTest.setStatus({
             code: SpanStatusCode.ERROR,
             message: err.message,

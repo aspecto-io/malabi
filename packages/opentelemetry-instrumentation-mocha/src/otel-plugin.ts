@@ -1,4 +1,4 @@
-import { context, setSpan }  from '@opentelemetry/api';
+import { context, trace }  from '@opentelemetry/api';
 import type { Runnable } from 'mocha';
 import { endSpan, startSpan } from './instrumentation';
 
@@ -7,7 +7,7 @@ export const mochaHooks = {
     beforeEach(done) {
         const test = this.currentTest as Runnable;
         const spanForTest = startSpan(test);
-        context.with(setSpan(context.active(), spanForTest), done);
+        context.with(trace.setSpan(context.active(), spanForTest), done);
     },
 
     afterEach(done) {
