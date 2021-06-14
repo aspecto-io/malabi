@@ -39,6 +39,7 @@
     "@opentelemetry/instrumentation": "^0.21.0"
   },
   "devDependencies": {
+    "@opentelemetry/api": "^0.21.0",
     "@opentelemetry/node": "^0.21.0",
     "@opentelemetry/tracing": "^0.21.0",
     "@types/mocha": "^8.2.2",
