@@ -1,6 +1,6 @@
 {
   "name": "opentelemetry-instrumentation-mocha",
-  "version": "0.0.1-rc.1",
+  "version": "0.0.1-rc.2",
   "description": "mocha root hook plugin for open- telemetry instrumentation",
   "keywords": [
     "mocha",
@@ -32,13 +32,16 @@
   "bugs": {
     "url": "https://github.com/aspecto-io/opentelemetry-ext-js/issues"
   },
+  "peerDependencies": {
+    "@opentelemetry/api": "^0.21.0"
+  },
   "dependencies": {
-    "@opentelemetry/api": "^0.20.0",
-    "@opentelemetry/instrumentation": "^0.20.0"
+    "@opentelemetry/instrumentation": "^0.21.0"
   },
   "devDependencies": {
-    "@opentelemetry/node": "^0.20.0",
-    "@opentelemetry/tracing": "^0.20.0",
+    "@opentelemetry/api": "^0.21.0",
+    "@opentelemetry/node": "^0.21.0",
+    "@opentelemetry/tracing": "^0.21.0",
     "@types/mocha": "^8.2.2",
     "expect": "^26.6.2",
     "mocha-multi-reporters": "^1.5.1",
