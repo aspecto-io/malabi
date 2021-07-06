@@ -107,7 +107,7 @@ export function fromProtoSpanLink(protoSpanLink: proto.Span_Link): api.Link {
         context: {
             traceId: bytesArrayToHex(protoSpanLink.traceId),
             spanId: bytesArrayToHex(protoSpanLink.spanId),
-            traceFlags: 1
+            traceFlags: 0
         },
         attributes: fromProtoSpanAttributes(protoSpanLink.attributes),
     }
