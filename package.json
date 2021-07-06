@@ -13,6 +13,7 @@
     "scripts": {
         "build": "lerna run build",
         "watch": "lerna run --parallel watch",
+        "test": "lerna run test",
         "prettier": "prettier --config .prettierrc.yml --write --ignore-unknown \"**/*\""
     },
     "devDependencies": {
