@@ -13,7 +13,9 @@ export function toProtoExportTraceServiceRequest(
     };
 }
 
-export function fromProtoExportTraceServiceRequest(protoExportTraceServiceRequest: proto.ExportTraceServiceRequest): tracing.ReadableSpan[] {
+export function fromProtoExportTraceServiceRequest(
+    protoExportTraceServiceRequest: proto.ExportTraceServiceRequest
+): tracing.ReadableSpan[] {
     return fromProtoResourceSpansArray(protoExportTraceServiceRequest.resourceSpans);
 }
 

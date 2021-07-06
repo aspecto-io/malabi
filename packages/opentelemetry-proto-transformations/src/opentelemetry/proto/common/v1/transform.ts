@@ -65,15 +65,15 @@ export function toProtoAnyValue(sdkValue: protoAnyValueType): proto.AnyValue {
 }
 
 export function fromProtoAnyValue(protoAnyValue: proto.AnyValue): protoAnyValueType {
-    if(protoAnyValue.stringValue) {
+    if (protoAnyValue.stringValue) {
         return protoAnyValue.stringValue;
-    } else if(protoAnyValue.boolValue) {
+    } else if (protoAnyValue.boolValue) {
         return protoAnyValue.boolValue;
-    } else if(protoAnyValue.intValue) {
+    } else if (protoAnyValue.intValue) {
         return protoAnyValue.intValue;
-    } else if(protoAnyValue.doubleValue) {
+    } else if (protoAnyValue.doubleValue) {
         return protoAnyValue.doubleValue;
-    } else if(protoAnyValue.arrayValue) {
+    } else if (protoAnyValue.arrayValue) {
         return fromProtoArrayValue(protoAnyValue.arrayValue);
     }
 }
@@ -110,10 +110,9 @@ export function fromProtoKeyValue(
 }
 
 export function toProtoSpanAttributes(sdkSpanAttributes: api.SpanAttributes): proto.KeyValue[] {
-    return Object.entries(
-        sdkSpanAttributes
-    ).map(([sdkAttributeKey, sdkAttributeValue]: [any, api.SpanAttributeValue]) =>
-        toProtoKeyValue(sdkAttributeKey, sdkAttributeValue)
+    return Object.entries(sdkSpanAttributes).map(
+        ([sdkAttributeKey, sdkAttributeValue]: [any, api.SpanAttributeValue]) =>
+            toProtoKeyValue(sdkAttributeKey, sdkAttributeValue)
     );
 }
 
@@ -136,5 +135,5 @@ export function fromInstrumentationLibrary(
     return {
         name: protoInstrumentationLibrary.name,
         version: protoInstrumentationLibrary.version,
-    }
+    };
 }

@@ -6,9 +6,7 @@ import { TestAttributes } from '../src/types';
 import { SpanKind, SpanStatusCode, trace } from '@opentelemetry/api';
 
 describe('mocha', () => {
-
     describe('empty test', () => {
-
         before(() => {
             memoryExporter.reset();
         });
@@ -40,8 +38,7 @@ describe('mocha', () => {
         });
     });
 
-    describe('retried test', function() {
-
+    describe('retried test', function () {
         this.retries(2);
         let retryCount = 0;
 
@@ -50,16 +47,15 @@ describe('mocha', () => {
         });
 
         it('retry test', () => {
-
             // fail just the first retry so it won't fail the entire run
-            if(retryCount === 0) {
+            if (retryCount === 0) {
                 retryCount++;
                 expect(true).toBeFalsy();
             }
         });
 
         it('validate retry test', () => {
-            if(retryCount !== 1) {
+            if (retryCount !== 1) {
                 return;
             }
             expect(memoryExporter.getFinishedSpans().length).toBe(2);
@@ -78,7 +74,6 @@ describe('mocha', () => {
     });
 
     describe('span created in test', () => {
-       
         before(() => {
             memoryExporter.reset();
         });

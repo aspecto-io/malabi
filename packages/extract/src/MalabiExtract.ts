@@ -34,7 +34,7 @@ export class MalabiExtract {
     }
 
     get all(): MalabiSpan[] {
-        return this.spans.map(s => new MalabiSpan(s));
+        return this.spans.map((s) => new MalabiSpan(s));
     }
 
     at(index: number) {

@@ -1,4 +1,3 @@
-
 const { SimpleSpanProcessor, InMemorySpanExporter } = require('@opentelemetry/tracing');
 const { NodeTracerProvider } = require('@opentelemetry/node');
 

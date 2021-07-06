@@ -71,7 +71,7 @@ export function toProtoTraceState(sdkTraceState?: api.TraceState): string | unde
 }
 
 export function fromProtoTraceState(protoTraceState: string): core.TraceState {
-    if(!protoTraceState) return undefined;
+    if (!protoTraceState) return undefined;
     return new core.TraceState(protoTraceState);
 }
 
@@ -88,8 +88,8 @@ export function fromProtoSpanEvent(protoSpanEvent: proto.Span_Event): tracing.Ti
     return {
         time: nanosecondsToHrTime(protoSpanEvent.timeUnixNano),
         name: protoSpanEvent.name,
-        attributes: fromProtoSpanAttributes(protoSpanEvent.attributes)
-    }
+        attributes: fromProtoSpanAttributes(protoSpanEvent.attributes),
+    };
 }
 
 export function toProtoSpanLink(sdkLink: api.Link): proto.Span_Link {
@@ -107,10 +107,10 @@ export function fromProtoSpanLink(protoSpanLink: proto.Span_Link): api.Link {
         context: {
             traceId: bytesArrayToHex(protoSpanLink.traceId),
             spanId: bytesArrayToHex(protoSpanLink.spanId),
-            traceFlags: 0
+            traceFlags: 0,
         },
         attributes: fromProtoSpanAttributes(protoSpanLink.attributes),
-    }
+    };
 }
 
 export function toProtoStatus(sdkSpanStatus: api.SpanStatus): proto.Status {
@@ -125,7 +125,7 @@ export function fromProtoStatus(protoStatus: proto.Status): api.SpanStatus {
     return {
         code: spanStatusCodeFromProtoMap.get(protoStatus.code),
         message: protoStatus.message,
-    }
+    };
 }
 
 export function toProtoSpan(sdkSpan: tracing.ReadableSpan): proto.Span {
@@ -175,7 +175,7 @@ export function fromProtoSpan(
         ended: true,
         resource: sdkResource,
         instrumentationLibrary: sdkInstrumentationLibrary,
-    }
+    };
 }
 
 export function toProtoInstrumentationLibrarySpans(

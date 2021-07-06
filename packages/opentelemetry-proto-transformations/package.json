@@ -1,23 +1,23 @@
 {
-  "name": "opentelemetry-proto-transformations",
-  "version": "0.0.1-alpha.4",
-  "main": "dist/src/index.js",
-  "license": "Apache-2.0",
-  "scripts": {
-    "build": "tsc",
-    "watch": "tsc -w"
-  },
-  "files": [
-    "dist/src/**/*.js",
-    "dist/src/**/*.d.ts",
-    "LICENSE",
-    "README.md"
-  ],
-  "dependencies": {
-    "@opentelemetry/api": "^1.0.1",
-    "@opentelemetry/core": "^0.23.0",
-    "@opentelemetry/resources": "^0.23.0",
-    "@opentelemetry/tracing": "^0.23.0",
-    "ts-proto": "^1.79.7"
-  }
+    "name": "opentelemetry-proto-transformations",
+    "version": "0.0.2-alpha.0",
+    "main": "dist/src/index.js",
+    "license": "Apache-2.0",
+    "scripts": {
+        "build": "tsc",
+        "watch": "tsc -w"
+    },
+    "files": [
+        "dist/src/**/*.js",
+        "dist/src/**/*.d.ts",
+        "LICENSE",
+        "README.md"
+    ],
+    "dependencies": {
+        "@opentelemetry/api": "^1.0.1",
+        "@opentelemetry/core": "^0.23.0",
+        "@opentelemetry/resources": "^0.23.0",
+        "@opentelemetry/tracing": "^0.23.0",
+        "ts-proto": "^1.79.7"
+    }
 }

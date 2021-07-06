@@ -36,7 +36,7 @@ describe('MalabiSpan', () => {
             'rpc.service': 's3',
             'rpc.method': 'putObject',
             'aws.request.params': 'some-aws-req-params',
-            'some-attr': 'david'
+            'some-attr': 'david',
         },
         duration: [123, 123],
         endTime: [123, 123],

@@ -1,62 +1,62 @@
 {
-  "name": "opentelemetry-instrumentation-mocha",
-  "version": "0.0.1-rc.2",
-  "description": "mocha root hook plugin for open- telemetry instrumentation",
-  "keywords": [
-    "mocha",
-    "opentelemetry"
-  ],
-  "homepage": "https://github.com/aspecto-io/malabi",
-  "license": "Apache-2.0",
-  "main": "dist/src/index.js",
-  "files": [
-    "dist/src/**/*.js",
-    "dist/src/**/*.d.ts",
-    "LICENSE",
-    "README.md"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/aspecto-io/malabi.git"
-  },
-  "scripts": {
-    "build": "tsc",
-    "prepare": "yarn run build",
-    "test": "mocha --reporter mocha-multi-reporters --reporter-options configFile=multi-reporters-config.json",
-    "watch": "tsc -w",
-    "version:update": "node ../../scripts/version-update.js",
-    "version": "yarn run version:update",
-    "test-all-versions": "tav",
-    "test:ci": "yarn test-all-versions"
-  },
-  "bugs": {
-    "url": "https://github.com/aspecto-io/opentelemetry-ext-js/issues"
-  },
-  "peerDependencies": {
-    "@opentelemetry/api": "^1.0.1"
-  },
-  "dependencies": {
-    "@opentelemetry/instrumentation": "^0.23.0"
-  },
-  "devDependencies": {
-    "@opentelemetry/api": "^1.0.1",
-    "@opentelemetry/node": "^0.23.0",
-    "@opentelemetry/tracing": "^0.23.0",
-    "@types/mocha": "^8.2.2",
-    "expect": "^26.6.2",
-    "mocha-multi-reporters": "^1.5.1",
-    "ts-mocha": "^8.0.0"
-  },
-  "mocha": {
-    "extension": [
-      "ts"
+    "name": "opentelemetry-instrumentation-mocha",
+    "version": "0.0.1-rc.4",
+    "description": "mocha root hook plugin for open-telemetry instrumentation",
+    "keywords": [
+        "mocha",
+        "opentelemetry"
     ],
-    "spec": "test/**/*.spec.ts",
-    "reporter": "mocha-multi-reporters",
-    "require": [
-      "./test/instrument.js",
-      "./dist/src/index.js",
-      "ts-node/register"
-    ]
-  }
+    "homepage": "https://github.com/aspecto-io/malabi",
+    "license": "Apache-2.0",
+    "main": "dist/src/index.js",
+    "files": [
+        "dist/src/**/*.js",
+        "dist/src/**/*.d.ts",
+        "LICENSE",
+        "README.md"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/aspecto-io/malabi.git"
+    },
+    "scripts": {
+        "build": "tsc",
+        "prepare": "yarn run build",
+        "test": "mocha --reporter mocha-multi-reporters --reporter-options configFile=multi-reporters-config.json",
+        "watch": "tsc -w",
+        "version:update": "node ../../scripts/version-update.js",
+        "version": "yarn run version:update",
+        "test-all-versions": "tav",
+        "test:ci": "yarn test-all-versions"
+    },
+    "bugs": {
+        "url": "https://github.com/aspecto-io/opentelemetry-ext-js/issues"
+    },
+    "peerDependencies": {
+        "@opentelemetry/api": "^1.0.1"
+    },
+    "dependencies": {
+        "@opentelemetry/instrumentation": "^0.23.0"
+    },
+    "devDependencies": {
+        "@opentelemetry/api": "^1.0.1",
+        "@opentelemetry/node": "^0.23.0",
+        "@opentelemetry/tracing": "^0.23.0",
+        "@types/mocha": "^8.2.2",
+        "expect": "^26.6.2",
+        "mocha-multi-reporters": "^1.5.1",
+        "ts-mocha": "^8.0.0"
+    },
+    "mocha": {
+        "extension": [
+            "ts"
+        ],
+        "spec": "test/**/*.spec.ts",
+        "reporter": "mocha-multi-reporters",
+        "require": [
+            "./test/instrument.js",
+            "./dist/src/index.js",
+            "ts-node/register"
+        ]
+    }
 }

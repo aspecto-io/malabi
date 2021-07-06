@@ -1,7 +1,6 @@
 import { InstrumentationConfig } from '@opentelemetry/instrumentation';
 
 export enum TestAttributes {
-
     /** Name of the testing framework executing the test */
     TEST_FRAMEWORK = 'test.framework',
 
@@ -24,6 +23,4 @@ export enum TestAttributes {
     TEST_CURRENT_RETRY = 'test.current_retry',
 }
 
-export interface MochaInstrumentationConfig extends InstrumentationConfig {
-
-}
+export interface MochaInstrumentationConfig extends InstrumentationConfig {}
