@@ -1,5 +1,4 @@
-
-import { trace, Span, SpanStatusCode, SpanKind }  from '@opentelemetry/api';
+import { trace, Span, SpanStatusCode, SpanKind } from '@opentelemetry/api';
 import type { Runnable, Suite } from 'mocha';
 import { TestAttributes } from './types';
 import { VERSION } from './version';
@@ -8,25 +7,24 @@ export const TEST_SPAN_KEY = Symbol.for('opentelemetry.mocha.span_key');
 
 const instrumentationLibraryName = 'opentelemetry-instrumentation-mocha';
 
-type TestWithSpan = { 
-    [TEST_SPAN_KEY]?: Span,
+type TestWithSpan = {
+    [TEST_SPAN_KEY]?: Span;
 } & Runnable;
 
 const getSuitesRecursive = (suite: Suite): string[] => {
-    if(!suite) {
+    if (!suite) {
         return [];
     }
 
     const parentSuites = getSuitesRecursive(suite.parent);
     return suite.title ? [...parentSuites, suite.title] : parentSuites;
-}
+};
 
 const getFullName = (suites: string[], testName: string): string => `${[...suites, testName].join(' -> ')}`;
 
 export const startSpan = (test: TestWithSpan): Span => {
-
     const existingSpan = getTestSpan(test);
-    if(existingSpan) {
+    if (existingSpan) {
         return existingSpan;
     }
 
@@ -44,11 +42,11 @@ export const startSpan = (test: TestWithSpan): Span => {
     };
 
     const retries = (test as any).retries();
-    if(retries >= 0) {
+    if (retries >= 0) {
         attributes[TestAttributes.TEST_RETRIES] = retries;
 
         const currentRetry = (test as any).currentRetry();
-        if(currentRetry != null) {
+        if (currentRetry != null) {
             attributes[TestAttributes.TEST_CURRENT_RETRY] = currentRetry;
         }
     }
@@ -65,20 +63,19 @@ export const startSpan = (test: TestWithSpan): Span => {
     });
 
     return spanForTest;
-}
+};
 
 export const endSpan = (test: TestWithSpan, err: any) => {
-
     const spanForTest: Span = getTestSpan(test);
-    if(!spanForTest) {
+    if (!spanForTest) {
         return;
     }
 
-    if(!spanForTest.isRecording()) {
+    if (!spanForTest.isRecording()) {
         return;
     }
 
-    if(err) {
+    if (err) {
         spanForTest.recordException(err);
         spanForTest.setStatus({
             code: SpanStatusCode.ERROR,
@@ -88,8 +85,8 @@ export const endSpan = (test: TestWithSpan, err: any) => {
 
     spanForTest.setAttribute(TestAttributes.TEST_RESULT_TIMEDOUT, test.timedOut);
     spanForTest.end();
-}
+};
 
 export const getTestSpan = (test: TestWithSpan): Span => {
     return test[TEST_SPAN_KEY];
-}
+};

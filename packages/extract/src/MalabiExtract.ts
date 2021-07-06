@@ -3,7 +3,7 @@ import { SpanKind } from '@opentelemetry/api';
 import { SemanticAttributes, MessagingOperationValues } from '@opentelemetry/semantic-conventions';
 import { MalabiSpan } from './MalabiSpan';
 
-class MalabiExtract {
+export class MalabiExtract {
     private spans: ReadableSpan[];
 
     constructor(spans: ReadableSpan[]) {
@@ -29,12 +29,12 @@ class MalabiExtract {
 
     get second() {
         if (this.spans.length < 2)
-            throw new Error(`Tried to get the "second" span, bt there are only ${this.spans.length} spans.`);
+            throw new Error(`Tried to get the "second" span, but there are only ${this.spans.length} spans.`);
         return new MalabiSpan(this.spans[1]);
     }
 
     get all(): MalabiSpan[] {
-        return this.spans.map(s => new MalabiSpan(s));
+        return this.spans.map((s) => new MalabiSpan(s));
     }
 
     at(index: number) {
@@ -109,11 +109,15 @@ class MalabiExtract {
     }
 
     incoming() {
-        return this.filter((span) => span.kind === SpanKind.CLIENT);
+        return this.filter((span) => span.kind === SpanKind.SERVER);
     }
 
     outgoing() {
-        return this.filter((span) => span.kind === SpanKind.SERVER);
+        return this.filter((span) => span.kind === SpanKind.CLIENT);
+    }
+
+    express() {
+        return this.filter((span) => span.instrumentationLibrary.name.includes('express'));
     }
 
     typeorm() {
@@ -151,5 +155,4 @@ class MalabiExtract {
     }
 }
 
-export type Extract = typeof MalabiExtract;
 export const extract = (spans: ReadableSpan[]) => new MalabiExtract(spans);

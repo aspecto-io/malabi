@@ -1,20 +1,11 @@
 import { getSpans, resetSpans } from '../exporter';
 import { collectorTraceV1Transform } from 'opentelemetry-proto-transformations';
-import * as fs from 'fs';
-
-const getPackageName = () => {
-    try {
-        return JSON.parse(fs.readFileSync('package.json').toString())?.name;
-    } catch (err) {
-        return null;
-    }
-};
 
 export const getMalabiExpressRouter = () => {
     const express = require('express');
     return express
         .Router()
-        .get('/spans', (req, res) => {
+        .get('/spans', (_req, res) => {
             res.set('Content-Type', 'application/json');
             res.send(
                 collectorTraceV1Transform.toJsonEncodedProtobufFormat(
@@ -22,7 +13,7 @@ export const getMalabiExpressRouter = () => {
                 )
             );
         })
-        .delete('/spans', (req, res) => res.json(resetSpans()));
+        .delete('/spans', (_req, res) => res.json(resetSpans()));
 };
 
 export const serveMalabiFromHttpApp = (port: number) => {

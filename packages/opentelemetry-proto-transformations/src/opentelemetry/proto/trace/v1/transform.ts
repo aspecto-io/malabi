@@ -71,11 +71,11 @@ export function toProtoTraceState(sdkTraceState?: api.TraceState): string | unde
 }
 
 export function fromProtoTraceState(protoTraceState: string): core.TraceState {
-    if(!protoTraceState) return undefined;
+    if (!protoTraceState) return undefined;
     return new core.TraceState(protoTraceState);
 }
 
-export function toProtoSpanEvent(sdkSpanEvent: api.TimedEvent): proto.Span_Event {
+export function toProtoSpanEvent(sdkSpanEvent: tracing.TimedEvent): proto.Span_Event {
     return {
         timeUnixNano: core.hrTimeToNanoseconds(sdkSpanEvent.time),
         name: sdkSpanEvent.name,
@@ -84,12 +84,12 @@ export function toProtoSpanEvent(sdkSpanEvent: api.TimedEvent): proto.Span_Event
     };
 }
 
-export function fromProtoSpanEvent(protoSpanEvent: proto.Span_Event): api.TimedEvent {
+export function fromProtoSpanEvent(protoSpanEvent: proto.Span_Event): tracing.TimedEvent {
     return {
         time: nanosecondsToHrTime(protoSpanEvent.timeUnixNano),
         name: protoSpanEvent.name,
-        attributes: fromProtoSpanAttributes(protoSpanEvent.attributes)
-    }
+        attributes: fromProtoSpanAttributes(protoSpanEvent.attributes),
+    };
 }
 
 export function toProtoSpanLink(sdkLink: api.Link): proto.Span_Link {
@@ -107,9 +107,10 @@ export function fromProtoSpanLink(protoSpanLink: proto.Span_Link): api.Link {
         context: {
             traceId: bytesArrayToHex(protoSpanLink.traceId),
             spanId: bytesArrayToHex(protoSpanLink.spanId),
+            traceFlags: 0,
         },
         attributes: fromProtoSpanAttributes(protoSpanLink.attributes),
-    }
+    };
 }
 
 export function toProtoStatus(sdkSpanStatus: api.SpanStatus): proto.Status {
@@ -124,14 +125,14 @@ export function fromProtoStatus(protoStatus: proto.Status): api.SpanStatus {
     return {
         code: spanStatusCodeFromProtoMap.get(protoStatus.code),
         message: protoStatus.message,
-    }
+    };
 }
 
 export function toProtoSpan(sdkSpan: tracing.ReadableSpan): proto.Span {
     return {
-        traceId: hexToBytesArray(sdkSpan.spanContext.traceId),
-        spanId: hexToBytesArray(sdkSpan.spanContext.spanId),
-        traceState: toProtoTraceState(sdkSpan.spanContext.traceState),
+        traceId: hexToBytesArray(sdkSpan.spanContext().traceId),
+        spanId: hexToBytesArray(sdkSpan.spanContext().spanId),
+        traceState: toProtoTraceState(sdkSpan.spanContext().traceState),
         parentSpanId: sdkSpan.parentSpanId ? hexToBytesArray(sdkSpan.parentSpanId) : undefined,
         name: sdkSpan.name,
         kind: spanKindToProtoMap.get(sdkSpan.kind) ?? proto.Span_SpanKind.SPAN_KIND_UNSPECIFIED,
@@ -157,12 +158,12 @@ export function fromProtoSpan(
     return {
         name: protoSpan.name,
         kind: spanKindFromProtoMap.get(protoSpan.kind),
-        spanContext: {
+        spanContext: () => ({
             traceId: bytesArrayToHex(protoSpan.traceId),
             spanId: bytesArrayToHex(protoSpan.spanId),
             traceFlags: 0, // we can't actually tell if the trace was sampled since this data is not in the protobuf spec
             traceState: fromProtoTraceState(protoSpan.traceState),
-        },
+        }),
         parentSpanId: protoSpan.parentSpanId ? bytesArrayToHex(protoSpan.parentSpanId) : undefined,
         startTime,
         endTime,
@@ -174,7 +175,7 @@ export function fromProtoSpan(
         ended: true,
         resource: sdkResource,
         instrumentationLibrary: sdkInstrumentationLibrary,
-    }
+    };
 }
 
 export function toProtoInstrumentationLibrarySpans(

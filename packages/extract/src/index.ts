@@ -1,2 +1,2 @@
-export { Extract, extract } from './MalabiExtract';
+export { MalabiExtract, extract } from './MalabiExtract';
 export { MalabiSpan } from './MalabiSpan';

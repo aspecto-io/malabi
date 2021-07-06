@@ -43,6 +43,6 @@ export const instrument = () => {
             collectPayloads: true,
             suppressInternalInstrumentation: true,
         }),
-        tracerProvider
+        tracerProvider,
     });
 };
