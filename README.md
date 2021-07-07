@@ -2,3 +2,16 @@
 
 # Tracing Based JavaScript Assertions
 opentelemetry &lt;-> testing integration for nodejs
+
+## Run example project tests
+
+1. In the **project root** run `yarn` to install dependencies, followed by `yarn build`.
+
+2. Start the **service-under-test** by running:
+```sh
+yarn --cwd examples/service-under-test start
+```
+3. In a different terminal process, run the tests:
+```sh
+yarn --cwd examples/tests-runner test:example
+```

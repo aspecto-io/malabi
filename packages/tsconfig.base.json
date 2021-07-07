@@ -12,6 +12,7 @@
         "inlineSources": true,
         "types": ["node"],
         "allowSyntheticDefaultImports": true,
-        "esModuleInterop": true
+        "esModuleInterop": true,
+        "skipLibCheck": true
     }
 }
