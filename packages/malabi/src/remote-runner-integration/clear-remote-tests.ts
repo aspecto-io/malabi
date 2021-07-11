@@ -1,9 +1,7 @@
-import axios from 'axios';
-
 export const clearRemoteTests = async (portOrBaseUrl: string | number): Promise<void> => {
     try {
         const baseUrl = typeof portOrBaseUrl === 'string' ? portOrBaseUrl : `http://localhost:${portOrBaseUrl}`;
-        await axios.delete(`${baseUrl}/malabi/spans`, {
+        await require('axios').delete(`${baseUrl}/malabi/spans`, {
             transformResponse: (res) => {
                 return res;
             },
