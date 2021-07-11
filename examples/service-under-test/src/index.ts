@@ -10,15 +10,25 @@ const PORT = process.env.PORT || 8080;
 
 const app = express();
 app.get('/todo', async (req, res) => {
-    const todoItem = await axios('https://jsonplaceholder.typicode.com/todos/1');
-    res.json({
-        title: todoItem.data.title,
-    });
+    try {
+        const todoItem = await axios('https://jsonplaceholder.typicode.com/todos/1');
+        res.json({
+            title: todoItem.data.title,
+        });
+    } catch (e) {
+        res.sendStatus(500);
+        console.error(e, e);
+    }
 });
 
 app.get('/users', async (req, res) => {
-    const users = await User.findAll({});
-    res.json(users);
+    try {
+        const users = await User.findAll({});
+        res.json(users);
+    } catch (e) {
+        res.sendStatus(500);
+        console.error(e, e);
+    }
 });
 
 app.get('/users/:firstName', async (req, res) => {
