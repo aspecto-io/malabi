@@ -1,4 +1,4 @@
-## How do we have here
+## What do we have here
 1. A microservices with `malabi` installed 
 2. A test runner validating the microservices 
 
