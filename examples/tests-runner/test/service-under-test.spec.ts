@@ -29,7 +29,7 @@ describe('testing service-under-test remotely', () => {
         // get spans created from the previous call
         const spans = await getMalabiExtract();
 
-        // Validating that /users had ran a single select statement an responded with an array.
+        // Validating that /users had ran a single select statement and responded with an array.
         const sequelizeActivities =  spans.sequelize();
         expect(sequelizeActivities.length).toBe(1);
         expect(sequelizeActivities.first.dbOperation).toBe("SELECT");
