@@ -17,7 +17,7 @@
 
 
 ## How it works
-<img src='./assets/diagram.svg' alt='How it work diagram'>
+<img src='./assets/malabi.png' alt='How it work diagram'>
 
 There are two main components to malabi:
 
