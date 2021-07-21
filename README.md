@@ -1,5 +1,5 @@
 <p>
-<img src="https://user-images.githubusercontent.com/16322616/116516537-6374d180-a8d6-11eb-9c57-a5334729d7f8.png" width="400px"/>
+<img src='assets/malabilogo.png' width="400px" alt='Malabi'/>
 </p>
 
  <a href="https://github.com/aspecto-io/malabi/blob/master/LICENSE">
@@ -17,7 +17,7 @@
 
 
 ## How it works
-<img src='./assets/diagram.svg' alt='How it work diagram'>
+<img src='assets/diagram.png' alt='How it work diagram'>
 
 There are two main components to malabi:
 
