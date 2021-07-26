@@ -9,17 +9,17 @@
 
 # OpenTelemetry based Javascript Test framework
 
-- 💻  **Developer friendly**: Built for developers, by developers who love distributed applications.
+- 💻  **Developer friendly**: Built for developers, by developers who love distributed applications.
 
-- ✅  **Validate integration**: Access to validate any backend interaction, fast, simple and reliable.
+- ✅  **Validate integration**: Access to validate any backend interaction, fast, simple and reliable.
 
-- 🔗  **OpenTelemetry based**: Built based on OpenTelemetry to match the characteristics of distributed apps.
+- 🔗  **OpenTelemetry based**: Built based on OpenTelemetry to match the characteristics of distributed apps.
 
 
 ## How it works
 <img src='assets/diagram.png' alt='How it work diagram'>
 
-There are two main components to malabi:
+There are two main components to Malabi:
 
 1. An OpenTelemetry SDK Distribution - used to collect any activity in the service under test by instrumenting it. **It is stored in the memory of the asserted service**, and exposes and endpoint for the test runner to access & make assertions.
 
