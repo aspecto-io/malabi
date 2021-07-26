@@ -9,11 +9,11 @@
 
 # OpenTelemetry based Javascript Test framework
 
-💻 **Developer friendly**: Built for developers, by developers who love distributed applications.
+- 💻  **Developer friendly**: Built for developers, by developers who love distributed applications.
 
-✅ **Validate integration**: Access to validate any backend interaction, fast, simple and reliable.
+- ✅  **Validate integration**: Access to validate any backend interaction, fast, simple and reliable.
 
-🔗 **OpenTelemetry based**: Built based on OpenTelemetry to match the characteristics of distributed apps.
+- 🔗  **OpenTelemetry based**: Built based on OpenTelemetry to match the characteristics of distributed apps.
 
 
 ## How it works
@@ -21,7 +21,7 @@
 
 There are two main components to malabi:
 
-1. An OpenTelemetry SDK Distribution - used to collect any activity in the service under test by instrumenting it. it will also serve the collected data to the test runner for validation purposes
+1. An OpenTelemetry SDK Distribution - used to collect any activity in the service under test by instrumenting it. **It is stored in the memory of the asserted service**, and exposes and endpoint for the test runner to access & make assertions.
 
 2. An assertion library for OpenTelemetry data - by using `fetchRemoteTests` function you will get access to any span created by the current test, then you will be able to validate the span and the service behavior
 ```JS
@@ -38,7 +38,7 @@ expect(Array.isArray(JSON.parse(sequelizeActivities.first.dbResponse))).toBe(tru
 ## Why should you care about Malabi
 Most distributed apps developers choose to have some kind of black box test (API, integration, end to end, UI, you name it 😎).
 
-Black box test create real network activity which is instrumentated by OpenTelemetry (which you should have regardless to Malabi).
+Black box test create real network activity which is instrumented by OpenTelemetry (which you should have regardless to Malabi).
 
 Imagine that you can take any existing black box test and validate any backend activity created by it.
 
@@ -48,6 +48,7 @@ Now you can rely on Malabi to validate it with no special code `(await getMalabi
 
 
 ## Getting started
+### In the microservice you want to test
 1. ```npm install --save-dev malabi```
 2. https://www.npmjs.com/package/malabi
 ## Take it for a test ride
