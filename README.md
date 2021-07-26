@@ -5,7 +5,7 @@
  <a href="https://github.com/aspecto-io/malabi/blob/master/LICENSE">
     <img src="https://img.shields.io/github/license/aspecto-io/malabi" alt="Malabi is released under the Apache-2.0 license." />
   </a>
-<a href=''></a>
+<a href="https://www.npmjs.com/malabi" target="_blank"><img src="https://img.shields.io/npm/v/malabi/latest.svg" alt="NPM Version" /></a>
 
 # OpenTelemetry based Javascript Test framework
 
@@ -46,6 +46,10 @@ Imagine that you can take any existing black box test and validate any backend a
 You are running an API call that create an new DB record, then you write dedicated test code to fetch the record created and validate it. 
 Now you can rely on Malabi to validate it with no special code `(await getMalabiExtract()).mongodb()`
 
+
+## Getting started
+1. ```npm install --save-dev malabi```
+2. https://www.npmjs.com/package/malabi
 ## Take it for a test ride
 You can find an example service and test to show case how it works.
 
