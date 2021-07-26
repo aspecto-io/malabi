@@ -35,6 +35,11 @@ expect(sequelizeActivities.first.dbOperation).toBe("SELECT");
 expect(Array.isArray(JSON.parse(sequelizeActivities.first.dbResponse))).toBe(true);
 ```
 
+## Getting started
+### In the microservice you want to test
+1. ```npm install --save-dev malabi```
+2. https://www.npmjs.com/package/malabi
+
 ## Why should you care about Malabi
 Most distributed apps developers choose to have some kind of black box test (API, integration, end to end, UI, you name it 😎).
 
@@ -47,10 +52,6 @@ You are running an API call that create an new DB record, then you write dedicat
 Now you can rely on Malabi to validate it with no special code `(await getMalabiExtract()).mongodb()`
 
 
-## Getting started
-### In the microservice you want to test
-1. ```npm install --save-dev malabi```
-2. https://www.npmjs.com/package/malabi
 ## Take it for a test ride
 You can find an example service and test to show case how it works.
 
