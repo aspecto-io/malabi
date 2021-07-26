@@ -9,11 +9,11 @@
 
 # OpenTelemetry based Javascript Test framework
 
-- 💻  **Developer friendly**: Built for developers, by developers who love distributed applications.
+- 💻 **Developer friendly**: Built for developers, by developers who love distributed applications.
 
-- ✅  **Validate integration**: Access to validate any backend interaction, fast, simple and reliable.
+- ✅ **Validate integration**: Access to validate any backend interaction, fast, simple and reliable.
 
-- 🔗  **OpenTelemetry based**: Built based on OpenTelemetry to match the characteristics of distributed apps.
+- 🔗 **OpenTelemetry based**: Built based on OpenTelemetry to match the characteristics of distributed apps.
 
 
 ## How it works
