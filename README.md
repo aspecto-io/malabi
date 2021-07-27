@@ -38,7 +38,59 @@ expect(Array.isArray(JSON.parse(sequelizeActivities.first.dbResponse))).toBe(tru
 ## Getting started
 ### In the microservice you want to test
 1. ```npm install --save-dev malabi```
-2. https://www.npmjs.com/package/malabi
+2. Add the following code at the service initialization, for example: in index.js
+```
+import * as malabi from 'malabi';
+malabi.instrument();
+malabi.serveMalabiFromHttpApp(18393);
+
+import axios from 'axios';
+import express from 'express';
+import User from "./db";
+
+const PORT = process.env.PORT || 8080;
+
+const app = express();
+app.get('/todo', async (req, res) => {
+    try {
+        const todoItem = await axios('https://jsonplaceholder.typicode.com/todos/1');
+        res.json({
+            title: todoItem.data.title,
+        });
+    } catch (e) {
+        res.sendStatus(500);
+        console.error(e, e);
+    }
+});
+```
+
+## In your test file
+```
+const SERVICE_UNDER_TEST_PORT = process.env.PORT || 8080;
+import axios from 'axios';
+import { fetchRemoteTests, clearRemoteTests } from 'malabi';
+const getMalabiExtract = async () => await fetchRemoteTests(18393);
+
+describe('testing service-under-test remotely', () => {
+    beforeEach(async () => {
+        // We must reset all collected spans between tests to make sure span aren't leaking between tests.
+        await clearRemoteTests(18393);
+    });
+
+    it('successful /todo request', async () => {
+        // call to the service under test - internally it will call another API to fetch the todo items.
+        const res = await axios(`http://localhost:${SERVICE_UNDER_TEST_PORT}/todo`);
+
+        // get spans created from the previous call 
+        const spans = await getMalabiExtract();
+        
+        // Validate internal HTTP call
+        const todoInteralHTTPCall = spans.outgoing().first;
+        expect(todoInteralHTTPCall.httpFullUrl).toBe('https://jsonplaceholder.typicode.com/todos/1')
+        expect(todoInteralHTTPCall.statusCode).toBe(200);
+    });
+});
+```
 
 ## Why should you care about Malabi
 Most distributed apps developers choose to have some kind of black box test (API, integration, end to end, UI, you name it 😎).
