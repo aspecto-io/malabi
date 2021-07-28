@@ -37,7 +37,7 @@ expect(Array.isArray(JSON.parse(sequelizeActivities.first.dbResponse))).toBe(tru
 
 ## Getting started
 ### In the microservice you want to test
-1. ```npm install --save-dev malabi```
+1. ```npm install --save malabi``` or ```yarn add malabi```
 2. Add the following code at the service initialization, for example: in index.js
 ```
 import * as malabi from 'malabi';
