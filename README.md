@@ -94,9 +94,8 @@ Black box test create real network activity which is instrumented by OpenTelemet
 Imagine that you can take any existing black box test and validate any backend activity created by it.
 
 #### Common use case
-You are running an API call that create an new DB record, then you write dedicated test code to fetch the record created and validate it. 
+You are running an API call that create a new DB record, then you write dedicated test code to fetch the record created and validate it. 
 Now you can rely on Malabi to validate it with no special code `(await getMalabiExtract()).mongodb()`
-
 
 ## More examples
 
