@@ -1,6 +1,6 @@
 ## What do we have here
-1. A microservices with `malabi` installed 
-2. A test runner validating the microservices 
+1. A microservice called `service-under-test` with `malabi` installed 
+2. A test runner validating the microservices (called `tests-runner`) 
 
 ## Take it for a test ride
 You can find an example service and test to show case how it works.

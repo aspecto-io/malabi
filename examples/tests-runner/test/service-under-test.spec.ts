@@ -1,8 +1,7 @@
-const ServiceUnderTestPort = process.env.PORT || 8080;
+const SERVICE_UNDER_TEST_PORT = process.env.PORT || 8080;
 import axios from 'axios';
 import { fetchRemoteTests, clearRemoteTests } from 'malabi';
 const getMalabiExtract = async () => await fetchRemoteTests(18393);
-
 
 describe('testing service-under-test remotely', () => {
     beforeEach(async () => {
@@ -11,7 +10,7 @@ describe('testing service-under-test remotely', () => {
     });
     it('successful /todo request', async () => {
         // call to the service under test - internally it will call another API to fetch the todo items.
-        const res = await axios(`http://localhost:${ServiceUnderTestPort}/todo`);
+        const res = await axios(`http://localhost:${SERVICE_UNDER_TEST_PORT}/todo`);
 
         // get spans created from the previous call 
         const spans = await getMalabiExtract();
@@ -24,7 +23,7 @@ describe('testing service-under-test remotely', () => {
 
     it('successful /users request', async () => {
         // call to the service under test
-        const res = await axios.get(`http://localhost:${ServiceUnderTestPort}/users`);
+        const res = await axios.get(`http://localhost:${SERVICE_UNDER_TEST_PORT}/users`);
 
         // get spans created from the previous call
         const spans = await getMalabiExtract();
@@ -38,7 +37,7 @@ describe('testing service-under-test remotely', () => {
 
     it('successful /users/Rick request', async () => {
         // call to the service under test
-        const res = await axios.get(`http://localhost:${ServiceUnderTestPort}/users/Rick`);
+        const res = await axios.get(`http://localhost:${SERVICE_UNDER_TEST_PORT}/users/Rick`);
 
         // get spans created from the previous call
         const spans = await getMalabiExtract();
@@ -54,7 +53,7 @@ describe('testing service-under-test remotely', () => {
 
     it('Non existing user - /users/Rick111 request', async () => {
         // call to the service under test
-        const res = await axios.get(`http://localhost:${ServiceUnderTestPort}/users/Rick111`);
+        const res = await axios.get(`http://localhost:${SERVICE_UNDER_TEST_PORT}/users/Rick111`);
 
         // get spans created from the previous call
         const spans = await getMalabiExtract();
