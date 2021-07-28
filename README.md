@@ -24,17 +24,8 @@ There are two main components to Malabi:
 1. An OpenTelemetry SDK Distribution - used to collect any activity in the service under test by instrumenting it. **It is stored in the memory of the asserted service**, and exposes and endpoint for the test runner to access & make assertions.
 
 2. An assertion library for OpenTelemetry data - by using `fetchRemoteTests` function you will get access to any span created by the current test, then you will be able to validate the span and the service behavior
-```JS
-// get spans created in the context of test
-const spans = await getMalabiExtract();
 
-// Validating that /users had ran a single select statement and responded with an array.
-const sequelizeActivities =  spans.sequelize();
-expect(sequelizeActivities.length).toBe(1);
-expect(sequelizeActivities.first.dbOperation).toBe("SELECT");
-expect(Array.isArray(JSON.parse(sequelizeActivities.first.dbResponse))).toBe(true);
-```
-
+It can be very useful when you want to validate integration between different parts. for example: make sure elasticsearch received the correct params on insert.
 ## Getting started
 ### In the microservice you want to test
 1. ```npm install --save malabi``` or ```yarn add malabi```
@@ -104,18 +95,20 @@ You are running an API call that create an new DB record, then you write dedicat
 Now you can rely on Malabi to validate it with no special code `(await getMalabiExtract()).mongodb()`
 
 
-## Take it for a test ride
-You can find an example service and test to show case how it works.
+## More examples
 
-1. In the **project root** run `yarn` to install dependencies, followed by `yarn build`.
+```JS
+// get spans created in the context of test
+const spans = await getMalabiExtract();
 
-2. Start the **service-under-test** by running:
-```sh
-yarn --cwd examples/service-under-test start
+// Validating that /users had ran a single select statement and responded with an array.
+const sequelizeActivities =  spans.sequelize();
+expect(sequelizeActivities.length).toBe(1);
+expect(sequelizeActivities.first.dbOperation).toBe("SELECT");
+expect(Array.isArray(JSON.parse(sequelizeActivities.first.dbResponse))).toBe(true);
 ```
-3. In a different terminal process, run the tests:
-```sh
-yarn --cwd examples/tests-runner test:example
-```
 
-[Go to example](https://github.com/aspecto-io/malabi/tree/master/examples/README.md)
+[See in-repo live example](https://github.com/aspecto-io/malabi/tree/master/examples/README.md)
+
+## Project Status
+Malabi project is actively maintained by [Aspecto](aspecto.io), and is currently in it's initial days. we would love to hear your feedback, ideas & contributions.
