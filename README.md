@@ -39,7 +39,7 @@ expect(Array.isArray(JSON.parse(sequelizeActivities.first.dbResponse))).toBe(tru
 ### In the microservice you want to test
 1. ```npm install --save malabi``` or ```yarn add malabi```
 2. Add the following code at the service initialization, for example: in index.js
-```
+```JS
 import * as malabi from 'malabi';
 malabi.instrument();
 malabi.serveMalabiFromHttpApp(18393);
@@ -65,7 +65,7 @@ app.get('/todo', async (req, res) => {
 ```
 
 ## In your test file
-```
+```JS
 const SERVICE_UNDER_TEST_PORT = process.env.PORT || 8080;
 import axios from 'axios';
 import { fetchRemoteTests, clearRemoteTests } from 'malabi';
