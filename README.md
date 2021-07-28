@@ -1,5 +1,8 @@
-<p>
-<img src='assets/malabilogo.png' width="400px" alt='Malabi'/>
+<p align='center'>
+    <img src='assets/malabilogo.png' width="400px" alt='Malabi'/>
+</p>
+<p align='center'>
+    OpenTelemetry based Javascript test framework
 </p>
 
  <a href="https://github.com/aspecto-io/malabi/blob/master/LICENSE">
@@ -7,8 +10,8 @@
   </a>
 <a href="https://www.npmjs.com/malabi" target="_blank"><img src="https://img.shields.io/npm/v/malabi/latest.svg" alt="NPM Version" /></a>
 
-# OpenTelemetry based Javascript Test framework
-TL;DR: This library introduces a new way of testing services: **Trace-based testing** (TBT). it is very useful when you want to validate integration between different parts. For example: make sure elasticsearch received the correct params on insert.
+# Description
+This library introduces a new way of testing services: **Trace-based testing** (TBT). It is very useful when you want to validate integration between different parts. For example: make sure elasticsearch received the correct params on insert.
 
 - 💻 **Developer friendly**: Built by developers, for developers who love distributed applications.
 
@@ -102,7 +105,7 @@ Now you can rely on Malabi to validate it with no special code `(await getMalabi
 const spans = await getMalabiExtract();
 
 // Validating that /users had ran a single select statement and responded with an array.
-const sequelizeActivities =  spans.sequelize();
+const sequelizeActivities = spans.sequelize();
 expect(sequelizeActivities.length).toBe(1);
 expect(sequelizeActivities.first.dbOperation).toBe("SELECT");
 expect(Array.isArray(JSON.parse(sequelizeActivities.first.dbResponse))).toBe(true);
