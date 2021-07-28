@@ -8,8 +8,9 @@
 <a href="https://www.npmjs.com/malabi" target="_blank"><img src="https://img.shields.io/npm/v/malabi/latest.svg" alt="NPM Version" /></a>
 
 # OpenTelemetry based Javascript Test framework
+TL;DR: This library introduces a new way of testing services: **Trace-based testing** (TBT). it is very useful when you want to validate integration between different parts. For example: make sure elasticsearch received the correct params on insert.
 
-- 💻 **Developer friendly**: Built for developers, by developers who love distributed applications.
+- 💻 **Developer friendly**: Built by developers, for developers who love distributed applications.
 
 - ✅ **Validate integration**: Access to validate any backend interaction, fast, simple and reliable.
 
@@ -25,7 +26,6 @@ There are two main components to Malabi:
 
 2. An assertion library for OpenTelemetry data - by using `fetchRemoteTests` function you will get access to any span created by the current test, then you will be able to validate the span and the service behavior
 
-It can be very useful when you want to validate integration between different parts. for example: make sure elasticsearch received the correct params on insert.
 ## Getting started
 ### In the microservice you want to test
 1. ```npm install --save malabi``` or ```yarn add malabi```
@@ -37,7 +37,7 @@ malabi.serveMalabiFromHttpApp(18393);
 
 import axios from 'axios';
 import express from 'express';
-import User from "./db";
+import User from './db';
 
 const PORT = process.env.PORT || 8080;
 
@@ -84,9 +84,9 @@ describe('testing service-under-test remotely', () => {
 ```
 
 ## Why should you care about Malabi
-Most distributed apps developers choose to have some kind of black box test (API, integration, end to end, UI, you name it 😎).
+Most distributed apps developers choose to have some kind of black box test (API, integration, end to end, UI, you name it!).
 
-Black box test create real network activity which is instrumented by OpenTelemetry (which you should have regardless to Malabi).
+Black box test create real network activity which is instrumented by OpenTelemetry (which you should have regardless of Malabi).
 
 Imagine that you can take any existing black box test and validate any backend activity created by it.
 
@@ -111,4 +111,4 @@ expect(Array.isArray(JSON.parse(sequelizeActivities.first.dbResponse))).toBe(tru
 [See in-repo live example](https://github.com/aspecto-io/malabi/tree/master/examples/README.md)
 
 ## Project Status
-Malabi project is actively maintained by [Aspecto](aspecto.io), and is currently in it's initial days. we would love to hear your feedback, ideas & contributions.
+Malabi project is actively maintained by [Aspecto](https://www.aspecto.io), and is currently in it's initial days. We would love to receive your feedback, ideas & contributions.
