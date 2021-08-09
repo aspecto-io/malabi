@@ -13,6 +13,7 @@
   },
   "sourceType": "module",
   "opts": {
-    "template": "node_modules/better-docs"
+    "template": "node_modules/better-docs",
+    "destination": "./docs/"
   }
 }
