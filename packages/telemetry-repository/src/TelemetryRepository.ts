@@ -3,38 +3,15 @@ import { SpanKind } from '@opentelemetry/api';
 import { SemanticAttributes, MessagingOperationValues } from '@opentelemetry/semantic-conventions';
 import { MalabiSpan } from './MalabiSpan';
 
-// MalabiSpansWrapper
-// MalabiQuery new MalabiQuery({ isHttp: true }).execute()
-// MalabiSpanQueries
-// MalabiQueries
-// MalabiSpansExtractor / MalabiExtractor
-// MalabiSpansWrapper.http
-// MalabiQueryManager
-// MalabiQueryBuilder
-// MalabiQueryExecutor
-
-// MalabiQueryManager.spans.httpMethod('GET')
-// MalabiQueryManager.httpMethod('GET').httpRoute('se')
-// X.spans.all();
-// X.spans.database().red
-//
-// new MalabiFilters(spans).httpGet().status(200)
-// Malabi.spans.filter({ httpStatus: 200})
-// MalabiSpans.httpMethod('GET').status(200)
-
-export class TelemetryRepository {
-    private spans: ReadableSpan[];
+class SpansRepository {
+    readonly spans: ReadableSpan[];
 
     constructor(spans: ReadableSpan[]) {
         this.spans = spans;
     }
 
-    private filter(predicate: (span: ReadableSpan) => boolean): TelemetryRepository {
-        return new TelemetryRepository(this.spans.filter(predicate));
-    }
-
-    get raw() {
-        return this.spans;
+    private filter(predicate: (span: ReadableSpan) => boolean): SpansRepository {
+        return new SpansRepository(this.spans.filter(predicate));
     }
 
     get length() {
@@ -171,6 +148,18 @@ export class TelemetryRepository {
 
     aws() {
         return this.filter((span) => span.attributes[SemanticAttributes.RPC_SYSTEM] === 'aws-api');
+    }
+}
+
+export class TelemetryRepository {
+    private readonly spansRepository: SpansRepository;
+
+    constructor(spans: ReadableSpan[]) {
+        this.spansRepository = new SpansRepository(spans);
+    }
+
+    get spans() {
+        return this.spansRepository;
     }
 }
 
