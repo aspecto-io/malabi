@@ -3,15 +3,34 @@ import { SpanKind } from '@opentelemetry/api';
 import { SemanticAttributes, MessagingOperationValues } from '@opentelemetry/semantic-conventions';
 import { MalabiSpan } from './MalabiSpan';
 
-export class MalabiExtract {
+// MalabiSpansWrapper
+// MalabiQuery new MalabiQuery({ isHttp: true }).execute()
+// MalabiSpanQueries
+// MalabiQueries
+// MalabiSpansExtractor / MalabiExtractor
+// MalabiSpansWrapper.http
+// MalabiQueryManager
+// MalabiQueryBuilder
+// MalabiQueryExecutor
+
+// MalabiQueryManager.spans.httpMethod('GET')
+// MalabiQueryManager.httpMethod('GET').httpRoute('se')
+// X.spans.all();
+// X.spans.database().red
+//
+// new MalabiFilters(spans).httpGet().status(200)
+// Malabi.spans.filter({ httpStatus: 200})
+// MalabiSpans.httpMethod('GET').status(200)
+
+export class TelemetryRepository {
     private spans: ReadableSpan[];
 
     constructor(spans: ReadableSpan[]) {
         this.spans = spans;
     }
 
-    private filter(predicate: (span: ReadableSpan) => boolean): MalabiExtract {
-        return new MalabiExtract(this.spans.filter(predicate));
+    private filter(predicate: (span: ReadableSpan) => boolean): TelemetryRepository {
+        return new TelemetryRepository(this.spans.filter(predicate));
     }
 
     get raw() {
@@ -155,4 +174,5 @@ export class MalabiExtract {
     }
 }
 
-export const extract = (spans: ReadableSpan[]) => new MalabiExtract(spans);
+// initMalabiSpansWrapper / getMalabiSpansWrapper
+export const initRepository = (spans: ReadableSpan[]) => new TelemetryRepository(spans);

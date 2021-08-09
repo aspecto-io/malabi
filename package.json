@@ -17,6 +17,8 @@
         "prettier": "prettier --config .prettierrc.yml --write --ignore-unknown \"**/*\""
     },
     "devDependencies": {
+        "better-docs": "^2.3.2",
+        "jsdoc": "^3.6.7",
         "lerna": "^4.0.0",
         "prettier": "^2.2.1"
     },
