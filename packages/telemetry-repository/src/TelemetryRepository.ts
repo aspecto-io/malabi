@@ -226,7 +226,7 @@ class SpansRepository {
 
     /**
      * Returns a new instance of SpansRepository with database spans that match a given operation.
-     * @param op The operation to filter by.
+     * @param op The operation to filter by. For example: "save".
      */
     dbOperation(op: string) {
         return this.filter(
