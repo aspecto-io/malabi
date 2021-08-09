@@ -15,5 +15,8 @@
   "opts": {
     "template": "node_modules/better-docs",
     "destination": "./docs/"
+  },
+  "templates": {
+    "search": true
   }
 }
