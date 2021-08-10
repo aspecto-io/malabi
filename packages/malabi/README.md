@@ -26,7 +26,7 @@ There are two main components to Malabi:
 
 1. An OpenTelemetry SDK Distribution - used to collect any activity in the service under test by instrumenting it. **It is stored in the memory of the asserted service**, and exposes and endpoint for the test runner to access & make assertions.
 
-2. An assertion library for OpenTelemetry data - by using `fetchRemoteTests` function you will get access to any span created by the current test, then you will be able to validate the span and the service behavior
+2. An assertion library for OpenTelemetry data - by using `fetchRemoteTelemetry` function you will get access to any span created by the current test, then you will be able to validate the span and the service behavior
 
 ## Getting started
 ### In the microservice you want to test
