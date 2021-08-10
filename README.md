@@ -103,6 +103,8 @@ Now you can rely on Malabi to validate it with no special code `(await getMalabi
 ## More examples
 
 ```JS
+import { fetchRemoteTelemetry } from 'malabi';
+const getMalabiTelemetryRepository = async () => await fetchRemoteTelemetry(18393);
 // get spans created in the context of test
 const repo = await getMalabiTelemetryRepository();
 const { spans } = repo;
@@ -117,4 +119,4 @@ expect(Array.isArray(JSON.parse(sequelizeActivities.first.dbResponse))).toBe(tru
 [See in-repo live example](https://github.com/aspecto-io/malabi/tree/master/examples/README.md)
 
 ## Project Status
-Malabi project is actively maintained by [Aspecto](https://www.aspecto.io), and is currently in it's initial days. We would love to receive your feedback, ideas & contributions.
+Malabi project is actively maintained by [Aspecto](https://www.aspecto.io), and is currently in it's initial days. We would love to receive your feedback, ideas & contributions in the [discussions](https://github.com/aspecto-io/malabi/discussions) section.
