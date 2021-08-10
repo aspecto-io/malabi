@@ -23,7 +23,7 @@ const fetchRemoteTelemetry = async ({ portOrBaseUrl } : FetchRemoteTelemetryProp
         const spans = collectorTraceV1Transform.fromProtoExportTraceServiceRequest(protoFormatted);
         return initRepository(spans);
     } catch (err) {
-        console.log('error while fetching remote spans', err);
+        console.log('error while fetching remote telemetry', err);
     }
     return initRepository([]);
 };
