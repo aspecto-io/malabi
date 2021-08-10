@@ -86,6 +86,10 @@ describe('testing service-under-test remotely', () => {
 });
 ```
 
+
+## Docs
+https://aspecto-io.github.io/malabi/
+
 ## Why should you care about Malabi
 Most distributed apps developers choose to have some kind of black box test (API, integration, end to end, UI, you name it!).
 
