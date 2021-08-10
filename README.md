@@ -62,13 +62,13 @@ app.get('/todo', async (req, res) => {
 ```JS
 const SERVICE_UNDER_TEST_PORT = process.env.PORT || 8080;
 import axios from 'axios';
-import { fetchRemoteTests, clearRemoteTests } from 'malabi';
-const getMalabiExtract = async () => await fetchRemoteTests(18393);
+import { fetchRemoteTelemetry, clearRemoteTelemetry } from 'malabi';
+const getMalabiTelemetryRepository = async () => await fetchRemoteTelemetry(18393);
 
 describe('testing service-under-test remotely', () => {
     beforeEach(async () => {
         // We must reset all collected spans between tests to make sure span aren't leaking between tests.
-        await clearRemoteTests(18393);
+        await clearRemoteTelemetry(18393);
     });
 
     it('successful /todo request', async () => {
@@ -76,15 +76,18 @@ describe('testing service-under-test remotely', () => {
         const res = await axios(`http://localhost:${SERVICE_UNDER_TEST_PORT}/todo`);
 
         // get spans created from the previous call 
-        const spans = await getMalabiExtract();
+        const repo = await getMalabiTelemetryRepository();
         
         // Validate internal HTTP call
-        const todoInteralHTTPCall = spans.outgoing().first;
+        const todoInteralHTTPCall = repo.spans.outgoing().first;
         expect(todoInteralHTTPCall.httpFullUrl).toBe('https://jsonplaceholder.typicode.com/todos/1')
         expect(todoInteralHTTPCall.statusCode).toBe(200);
     });
 });
 ```
+
+## Docs
+https://aspecto-io.github.io/malabi/
 
 ## Why should you care about Malabi
 Most distributed apps developers choose to have some kind of black box test (API, integration, end to end, UI, you name it!).
@@ -101,7 +104,8 @@ Now you can rely on Malabi to validate it with no special code `(await getMalabi
 
 ```JS
 // get spans created in the context of test
-const spans = await getMalabiExtract();
+const repo = await getMalabiTelemetryRepository();
+const { spans } = repo;
 
 // Validating that /users had ran a single select statement and responded with an array.
 const sequelizeActivities = spans.sequelize();

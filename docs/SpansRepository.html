@@ -1,0 +1,3300 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> SpansRepository</title>
+
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./build/entry.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+  <link type="text/css" rel="stylesheet" href="">
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
+</head>
+
+
+
+<body class="layout small-header">
+    <div id="stickyNavbarOverlay"></div>
+    
+
+<div class="top-nav">
+    <div class="inner">
+        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div class="logo">
+            
+            
+        </div>
+        <div class="menu">
+            
+            <div class="navigation">
+                <a
+                    href="index.html"
+                    class="link"
+                >
+                    API Documentation
+                </a>
+                
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="main">
+        <div
+            class="sidebar "
+            id="sidebarNav"
+        >
+            
+                <div class="search-wrapper">
+                    <input id="search" type="text" placeholder="Search docs..." class="input">
+                </div>
+            
+            <nav>
+                
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Classes</h3><ul><li><a href="SpansRepository.html">SpansRepository</a></li><li><a href="TelemetryRepository.html">TelemetryRepository</a></li></ul></div><div class="category"><h2>Main Functions</h2><h3>Global</h3><ul><li><a href="global.html#clearRemoteTelemetry">clearRemoteTelemetry</a></li><li><a href="global.html#fetchRemoteTelemetry">fetchRemoteTelemetry</a></li></ul></div>
+                
+            </nav>
+        </div>
+        <div class="core" id="main-content-wrapper">
+            <div class="content">
+                <header class="page-title">
+                    <p>Class</p>
+                    <h1>SpansRepository</h1>
+                </header>
+                
+
+
+
+
+<section>
+
+<header>
+    
+        <h2><span class="attribs"><span class="type-signature"></span></span>SpansRepository<span class="signature">(spans)</span><span class="type-signature"></span></h2>
+        
+            <div class="class-description">A Class that allows access of spans created in the test run. for example: HTTP GET spans. Mongo db spans, etc.
+Read more about OpenTelemetry Spans <a href="https://github.com/open-telemetry/opentelemetry-specification/blob/main/specification/trace/api.md#span">here</a></div>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class='vertical-section'>
+                <div class="members">
+                    <div class="member">
+                        <div class=name>
+                            <span class="tag">Constructor</span>
+                        </div>
+                        
+
+
+    
+    <h4 class="name" id="SpansRepository">
+        <a class="href-link" href="#SpansRepository">#</a>
+        
+        <span class="code-name">
+            
+                new SpansRepository<span class="signature">(spans)</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Initializes the internal spans array.
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>spans</code></td>
+  
+
+  <td class="type">
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last">An array of ReadableSpans</td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="telemetry-repository_src_SpansRepository.ts.html" class="button">View Source</a>
+            <span>
+                <a href="telemetry-repository_src_SpansRepository.ts.html">telemetry-repository/src/SpansRepository.ts</a>, <a href="telemetry-repository_src_SpansRepository.ts.html#line10">line 10</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    </div>
+                </div>
+            </div>
+        
+    
+    </div>
+    
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <div class='vertical-section'>
+            <h1>Members</h1>
+            <div class="members">
+            
+                <div class="member">
+
+<h4 class="name" id="all">
+    <a class="href-link" href="#all">#</a>
+    
+    <span class="code-name">
+        all
+    </span>
+    
+</h4>
+
+
+
+
+<div class="description">
+    Returns all spans as MalabiSpan.
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="telemetry-repository_src_SpansRepository.ts.html" class="button">View Source</a>
+            <span>
+                <a href="telemetry-repository_src_SpansRepository.ts.html">telemetry-repository/src/SpansRepository.ts</a>, <a href="telemetry-repository_src_SpansRepository.ts.html#line51">line 51</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+<h4 class="name" id="first">
+    <a class="href-link" href="#first">#</a>
+    
+    <span class="code-name">
+        first
+    </span>
+    
+</h4>
+
+
+
+
+<div class="description">
+    Returns the first span as MalabiSpan.
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="telemetry-repository_src_SpansRepository.ts.html" class="button">View Source</a>
+            <span>
+                <a href="telemetry-repository_src_SpansRepository.ts.html">telemetry-repository/src/SpansRepository.ts</a>, <a href="telemetry-repository_src_SpansRepository.ts.html#line35">line 35</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+<h4 class="name" id="length">
+    <a class="href-link" href="#length">#</a>
+    
+    <span class="code-name">
+        length
+    </span>
+    
+</h4>
+
+
+
+
+<div class="description">
+    Returns how many spans are currently in the array.
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="telemetry-repository_src_SpansRepository.ts.html" class="button">View Source</a>
+            <span>
+                <a href="telemetry-repository_src_SpansRepository.ts.html">telemetry-repository/src/SpansRepository.ts</a>, <a href="telemetry-repository_src_SpansRepository.ts.html#line29">line 29</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+<h4 class="name" id="second">
+    <a class="href-link" href="#second">#</a>
+    
+    <span class="code-name">
+        second
+    </span>
+    
+</h4>
+
+
+
+
+<div class="description">
+    Returns the second span as MalabiSpan.
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="telemetry-repository_src_SpansRepository.ts.html" class="button">View Source</a>
+            <span>
+                <a href="telemetry-repository_src_SpansRepository.ts.html">telemetry-repository/src/SpansRepository.ts</a>, <a href="telemetry-repository_src_SpansRepository.ts.html#line43">line 43</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+</div>
+            
+            </div>
+        </div>
+    
+
+    
+        <div class='vertical-section'>
+            <h1>Methods</h1>
+            <div class="members">
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="at">
+        <a class="href-link" href="#at">#</a>
+        
+        <span class="code-name">
+            
+                at<span class="signature">(index)</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Returns span at the given index as MalabiSpan.
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>index</code></td>
+  
+
+  <td class="type">
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last">The index to retrieve.</td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="telemetry-repository_src_SpansRepository.ts.html" class="button">View Source</a>
+            <span>
+                <a href="telemetry-repository_src_SpansRepository.ts.html">telemetry-repository/src/SpansRepository.ts</a>, <a href="telemetry-repository_src_SpansRepository.ts.html#line58">line 58</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="aws">
+        <a class="href-link" href="#aws">#</a>
+        
+        <span class="code-name">
+            
+                aws<span class="signature">()</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Returns a new instance of SpansRepository with AWS spans only.
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="telemetry-repository_src_SpansRepository.ts.html" class="button">View Source</a>
+            <span>
+                <a href="telemetry-repository_src_SpansRepository.ts.html">telemetry-repository/src/SpansRepository.ts</a>, <a href="telemetry-repository_src_SpansRepository.ts.html#line208">line 208</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="awsSqs">
+        <a class="href-link" href="#awsSqs">#</a>
+        
+        <span class="code-name">
+            
+                awsSqs<span class="signature">()</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Returns a new instance of SpansRepository with SQS spans only.
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="telemetry-repository_src_SpansRepository.ts.html" class="button">View Source</a>
+            <span>
+                <a href="telemetry-repository_src_SpansRepository.ts.html">telemetry-repository/src/SpansRepository.ts</a>, <a href="telemetry-repository_src_SpansRepository.ts.html#line129">line 129</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="database">
+        <a class="href-link" href="#database">#</a>
+        
+        <span class="code-name">
+            
+                database<span class="signature">()</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Returns a new instance of SpansRepository with database spans only.
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="telemetry-repository_src_SpansRepository.ts.html" class="button">View Source</a>
+            <span>
+                <a href="telemetry-repository_src_SpansRepository.ts.html">telemetry-repository/src/SpansRepository.ts</a>, <a href="telemetry-repository_src_SpansRepository.ts.html#line183">line 183</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="dbOperation">
+        <a class="href-link" href="#dbOperation">#</a>
+        
+        <span class="code-name">
+            
+                dbOperation<span class="signature">(op)</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Returns a new instance of SpansRepository with database spans that match a given operation.
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>op</code></td>
+  
+
+  <td class="type">
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last">The operation to filter by. For example: "save".</td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="telemetry-repository_src_SpansRepository.ts.html" class="button">View Source</a>
+            <span>
+                <a href="telemetry-repository_src_SpansRepository.ts.html">telemetry-repository/src/SpansRepository.ts</a>, <a href="telemetry-repository_src_SpansRepository.ts.html#line190">line 190</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="entry">
+        <a class="href-link" href="#entry">#</a>
+        
+        <span class="code-name">
+            
+                entry<span class="signature">()</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Returns a new instance of SpansRepository with the entry span only (meaning without parent span id).
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="telemetry-repository_src_SpansRepository.ts.html" class="button">View Source</a>
+            <span>
+                <a href="telemetry-repository_src_SpansRepository.ts.html">telemetry-repository/src/SpansRepository.ts</a>, <a href="telemetry-repository_src_SpansRepository.ts.html#line135">line 135</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="express">
+        <a class="href-link" href="#express">#</a>
+        
+        <span class="code-name">
+            
+                express<span class="signature">()</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Returns a new instance of SpansRepository with express spans only.
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="telemetry-repository_src_SpansRepository.ts.html" class="button">View Source</a>
+            <span>
+                <a href="telemetry-repository_src_SpansRepository.ts.html">telemetry-repository/src/SpansRepository.ts</a>, <a href="telemetry-repository_src_SpansRepository.ts.html#line159">line 159</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="filter">
+        <a class="href-link" href="#filter">#</a>
+        
+        <span class="code-name">
+            
+                filter<span class="signature">(predicate)</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Filters the internal spans array according to the predicate.
+Returns a new SpansRepository object to allow chaining.
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>predicate</code></td>
+  
+
+  <td class="type">
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last">A predicate to filter the spans.</td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="telemetry-repository_src_SpansRepository.ts.html" class="button">View Source</a>
+            <span>
+                <a href="telemetry-repository_src_SpansRepository.ts.html">telemetry-repository/src/SpansRepository.ts</a>, <a href="telemetry-repository_src_SpansRepository.ts.html#line23">line 23</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="http">
+        <a class="href-link" href="#http">#</a>
+        
+        <span class="code-name">
+            
+                http<span class="signature">()</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Returns a new instance of SpansRepository with only HTTP spans.
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="telemetry-repository_src_SpansRepository.ts.html" class="button">View Source</a>
+            <span>
+                <a href="telemetry-repository_src_SpansRepository.ts.html">telemetry-repository/src/SpansRepository.ts</a>, <a href="telemetry-repository_src_SpansRepository.ts.html#line66">line 66</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="httpGet">
+        <a class="href-link" href="#httpGet">#</a>
+        
+        <span class="code-name">
+            
+                httpGet<span class="signature">()</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Returns a new instance of SpansRepository with only HTTP GET spans.
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="telemetry-repository_src_SpansRepository.ts.html" class="button">View Source</a>
+            <span>
+                <a href="telemetry-repository_src_SpansRepository.ts.html">telemetry-repository/src/SpansRepository.ts</a>, <a href="telemetry-repository_src_SpansRepository.ts.html#line79">line 79</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="httpMethod">
+        <a class="href-link" href="#httpMethod">#</a>
+        
+        <span class="code-name">
+            
+                httpMethod<span class="signature">(The)</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Returns a new instance of SpansRepository with only HTTP spans, filtered by method.
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>The</code></td>
+  
+
+  <td class="type">
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last">method to filter by. GET,POST, etc.</td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="telemetry-repository_src_SpansRepository.ts.html" class="button">View Source</a>
+            <span>
+                <a href="telemetry-repository_src_SpansRepository.ts.html">telemetry-repository/src/SpansRepository.ts</a>, <a href="telemetry-repository_src_SpansRepository.ts.html#line73">line 73</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="httpPost">
+        <a class="href-link" href="#httpPost">#</a>
+        
+        <span class="code-name">
+            
+                httpPost<span class="signature">()</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Returns a new instance of SpansRepository with only HTTP POST spans.
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="telemetry-repository_src_SpansRepository.ts.html" class="button">View Source</a>
+            <span>
+                <a href="telemetry-repository_src_SpansRepository.ts.html">telemetry-repository/src/SpansRepository.ts</a>, <a href="telemetry-repository_src_SpansRepository.ts.html#line85">line 85</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="incoming">
+        <a class="href-link" href="#incoming">#</a>
+        
+        <span class="code-name">
+            
+                incoming<span class="signature">()</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Returns a new instance of SpansRepository with incoming spans only.
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="telemetry-repository_src_SpansRepository.ts.html" class="button">View Source</a>
+            <span>
+                <a href="telemetry-repository_src_SpansRepository.ts.html">telemetry-repository/src/SpansRepository.ts</a>, <a href="telemetry-repository_src_SpansRepository.ts.html#line147">line 147</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="messaging">
+        <a class="href-link" href="#messaging">#</a>
+        
+        <span class="code-name">
+            
+                messaging<span class="signature">()</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Returns a new instance of SpansRepository with messaging spans only.
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="telemetry-repository_src_SpansRepository.ts.html" class="button">View Source</a>
+            <span>
+                <a href="telemetry-repository_src_SpansRepository.ts.html">telemetry-repository/src/SpansRepository.ts</a>, <a href="telemetry-repository_src_SpansRepository.ts.html#line196">line 196</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="messagingProcess">
+        <a class="href-link" href="#messagingProcess">#</a>
+        
+        <span class="code-name">
+            
+                messagingProcess<span class="signature">()</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Returns a new instance of SpansRepository with only messaging spans with the following MESSAGING_OPERATION: process.
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="telemetry-repository_src_SpansRepository.ts.html" class="button">View Source</a>
+            <span>
+                <a href="telemetry-repository_src_SpansRepository.ts.html">telemetry-repository/src/SpansRepository.ts</a>, <a href="telemetry-repository_src_SpansRepository.ts.html#line123">line 123</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="messagingReceive">
+        <a class="href-link" href="#messagingReceive">#</a>
+        
+        <span class="code-name">
+            
+                messagingReceive<span class="signature">()</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Returns a new instance of SpansRepository with only messaging spans with the following MESSAGING_OPERATION: receive.
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="telemetry-repository_src_SpansRepository.ts.html" class="button">View Source</a>
+            <span>
+                <a href="telemetry-repository_src_SpansRepository.ts.html">telemetry-repository/src/SpansRepository.ts</a>, <a href="telemetry-repository_src_SpansRepository.ts.html#line117">line 117</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="messagingSend">
+        <a class="href-link" href="#messagingSend">#</a>
+        
+        <span class="code-name">
+            
+                messagingSend<span class="signature">()</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Returns a new instance of SpansRepository with only messaging spans with the following kind: producer.
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="telemetry-repository_src_SpansRepository.ts.html" class="button">View Source</a>
+            <span>
+                <a href="telemetry-repository_src_SpansRepository.ts.html">telemetry-repository/src/SpansRepository.ts</a>, <a href="telemetry-repository_src_SpansRepository.ts.html#line111">line 111</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="mongo">
+        <a class="href-link" href="#mongo">#</a>
+        
+        <span class="code-name">
+            
+                mongo<span class="signature">()</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Returns a new instance of SpansRepository mongo db spans only.
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="telemetry-repository_src_SpansRepository.ts.html" class="button">View Source</a>
+            <span>
+                <a href="telemetry-repository_src_SpansRepository.ts.html">telemetry-repository/src/SpansRepository.ts</a>, <a href="telemetry-repository_src_SpansRepository.ts.html#line141">line 141</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="neo4j">
+        <a class="href-link" href="#neo4j">#</a>
+        
+        <span class="code-name">
+            
+                neo4j<span class="signature">()</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Returns a new instance of SpansRepository with Neo4j spans only.
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="telemetry-repository_src_SpansRepository.ts.html" class="button">View Source</a>
+            <span>
+                <a href="telemetry-repository_src_SpansRepository.ts.html">telemetry-repository/src/SpansRepository.ts</a>, <a href="telemetry-repository_src_SpansRepository.ts.html#line177">line 177</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="outgoing">
+        <a class="href-link" href="#outgoing">#</a>
+        
+        <span class="code-name">
+            
+                outgoing<span class="signature">()</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Returns a new instance of SpansRepository with outgoing spans only.
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="telemetry-repository_src_SpansRepository.ts.html" class="button">View Source</a>
+            <span>
+                <a href="telemetry-repository_src_SpansRepository.ts.html">telemetry-repository/src/SpansRepository.ts</a>, <a href="telemetry-repository_src_SpansRepository.ts.html#line153">line 153</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="path">
+        <a class="href-link" href="#path">#</a>
+        
+        <span class="code-name">
+            
+                path<span class="signature">(p)</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Returns a new instance of SpansRepository with only HTTP spans that have a specific path
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>p</code></td>
+  
+
+  <td class="type">
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last">The path to filter by.</td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="telemetry-repository_src_SpansRepository.ts.html" class="button">View Source</a>
+            <span>
+                <a href="telemetry-repository_src_SpansRepository.ts.html">telemetry-repository/src/SpansRepository.ts</a>, <a href="telemetry-repository_src_SpansRepository.ts.html#line102">line 102</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="route">
+        <a class="href-link" href="#route">#</a>
+        
+        <span class="code-name">
+            
+                route<span class="signature">(r)</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Returns a new instance of SpansRepository with only HTTP spans that have a specific route
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>r</code></td>
+  
+
+  <td class="type">
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last">The route to filter by.</td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="telemetry-repository_src_SpansRepository.ts.html" class="button">View Source</a>
+            <span>
+                <a href="telemetry-repository_src_SpansRepository.ts.html">telemetry-repository/src/SpansRepository.ts</a>, <a href="telemetry-repository_src_SpansRepository.ts.html#line92">line 92</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="rpc">
+        <a class="href-link" href="#rpc">#</a>
+        
+        <span class="code-name">
+            
+                rpc<span class="signature">()</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Returns a new instance of SpansRepository with rpc spans only.
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="telemetry-repository_src_SpansRepository.ts.html" class="button">View Source</a>
+            <span>
+                <a href="telemetry-repository_src_SpansRepository.ts.html">telemetry-repository/src/SpansRepository.ts</a>, <a href="telemetry-repository_src_SpansRepository.ts.html#line202">line 202</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="sequelize">
+        <a class="href-link" href="#sequelize">#</a>
+        
+        <span class="code-name">
+            
+                sequelize<span class="signature">()</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Returns a new instance of SpansRepository with sequelize spans only.
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="telemetry-repository_src_SpansRepository.ts.html" class="button">View Source</a>
+            <span>
+                <a href="telemetry-repository_src_SpansRepository.ts.html">telemetry-repository/src/SpansRepository.ts</a>, <a href="telemetry-repository_src_SpansRepository.ts.html#line171">line 171</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="typeorm">
+        <a class="href-link" href="#typeorm">#</a>
+        
+        <span class="code-name">
+            
+                typeorm<span class="signature">()</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Returns a new instance of SpansRepository with TypeORM spans only.
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="telemetry-repository_src_SpansRepository.ts.html" class="button">View Source</a>
+            <span>
+                <a href="telemetry-repository_src_SpansRepository.ts.html">telemetry-repository/src/SpansRepository.ts</a>, <a href="telemetry-repository_src_SpansRepository.ts.html#line165">line 165</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+            </div>
+        </div>
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+            </div>
+            
+            <footer class="footer">
+                <div class="content has-text-centered">
+                    <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.7</a></p>
+                    <p class="sidebar-created-by">
+                        <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by 
+                        <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+                    </p>
+                </div>
+            </footer>
+            
+        </div>
+        <div id="side-nav" class="side-nav">
+        </div>
+    </div>
+<script src="scripts/app.min.js"></script>
+<script>PR.prettyPrint();</script>
+<script src="scripts/linenumber.js"> </script>
+
+<script src="scripts/search.js"> </script>
+
+</body>
+</html>
