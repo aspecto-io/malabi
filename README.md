@@ -98,7 +98,7 @@ Imagine that you can take any existing black box test and validate any backend a
 
 #### Common use case
 You are running an API call that create a new DB record, then you write dedicated test code to fetch the record created and validate it. 
-Now you can rely on Malabi to validate it with no special code `(await getMalabiExtract()).mongodb()`
+Now you can rely on Malabi to validate it with no special code `(await getMalabiTelemetryRepository()).mongodb()`
 
 ## More examples
 
