@@ -86,7 +86,6 @@ describe('testing service-under-test remotely', () => {
 });
 ```
 
-
 ## Docs
 https://aspecto-io.github.io/malabi/
 
