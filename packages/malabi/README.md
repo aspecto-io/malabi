@@ -1,5 +1,5 @@
 <p align='center'>
-    <img src='../../assets/malabilogo.png' width="400px" alt='Malabi'/>
+    <img src='assets/malabilogo.png' width="400px" alt='Malabi'/>
 </p>
 <p align='center'>
     OpenTelemetry based Javascript test framework
