@@ -5,13 +5,12 @@
     OpenTelemetry based Javascript test framework
 </p>
 
- <a href="https://github.com/aspecto-io/malabi/blob/master/LICENSE">
+<a href="https://github.com/aspecto-io/malabi/blob/master/LICENSE">
     <img src="https://img.shields.io/github/license/aspecto-io/malabi" alt="Malabi is released under the Apache-2.0 license." />
-  </a>
-<a href="https://www.npmjs.com/malabi" target="_blank"><img src="https://img.shields.io/npm/v/malabi/latest.svg" alt="NPM Version" /></a>
+</a>
 
 # Description
-This library introduces a new way of testing services: **Trace-based testing** (TBT). It is very useful when you want to validate integration between different parts. For example: make sure elasticsearch received the correct params on insert.
+This library introduces a new way of testing services: <a href="#tbt">**Trace-based testing**</a> (TBT). It is very useful when you want to validate integration between different parts. For example: make sure elasticsearch received the correct params on insert.
 
 - 💻 **Developer friendly**: Built by developers, for developers who love distributed applications.
 
@@ -97,9 +96,12 @@ Black box test create real network activity which is instrumented by OpenTelemet
 Imagine that you can take any existing black box test and validate any backend activity created by it.
 
 #### Common use case
-You are running an API call that create a new DB record, then you write dedicated test code to fetch the record created and validate it. 
+You are running an API call that create a new DB record, then you write dedicated test code to fetch the record created and validate it.
 Now you can rely on Malabi to validate it with no special code `(await getMalabiTelemetryRepository()).mongodb()`
 
+## <a name="tbt">Trace based assertions explained</a>
+Trace-based testing is a method that allows us to improve assertion capabilities by leveraging traces data and make it accessible while setting our expectations from a test. That enables us to **validate essential relationships between software components that otherwise are put to the test only in production**.
+Trace-based validation enables developers to become proactive to issues instead of reactive.
 ## More examples
 
 ```JS
