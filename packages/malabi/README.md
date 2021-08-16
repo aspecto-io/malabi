@@ -1,5 +1,5 @@
 <p align='center'>
-    <img src='assets/malabilogo.png' width="400px" alt='Malabi'/>
+    <img src='../../assets/malabilogo.png' width="400px" alt='Malabi'/>
 </p>
 <p align='center'>
     OpenTelemetry based Javascript test framework
@@ -10,7 +10,7 @@
 </a>
 
 # Description
-This library introduces a new way of testing services: **Trace-based testing** (TBT). It is very useful when you want to validate integration between different parts. For example: make sure elasticsearch received the correct params on insert.
+This library introduces a new way of testing services: <a href="#tbt">**Trace-based testing**</a> (TBT). It is very useful when you want to validate integration between different parts. For example: make sure elasticsearch received the correct params on insert.
 
 - 💻 **Developer friendly**: Built by developers, for developers who love distributed applications.
 
@@ -76,7 +76,7 @@ describe('testing service-under-test remotely', () => {
 
         // get spans created from the previous call 
         const repo = await getMalabiTelemetryRepository();
-        
+
         // Validate internal HTTP call
         const todoInteralHTTPCall = repo.spans.outgoing().first;
         expect(todoInteralHTTPCall.httpFullUrl).toBe('https://jsonplaceholder.typicode.com/todos/1')
@@ -99,6 +99,9 @@ Imagine that you can take any existing black box test and validate any backend a
 You are running an API call that create a new DB record, then you write dedicated test code to fetch the record created and validate it.
 Now you can rely on Malabi to validate it with no special code `(await getMalabiTelemetryRepository()).mongodb()`
 
+## <a name="tbt">Trace based testing explained</a>
+Trace-based testing is a method that allows us to improve assertion capabilities by leveraging traces data and make it accessible while setting our expectations from a test. That enables us to **validate essential relationships between software components that otherwise are put to the test only in production**.
+Trace-based validation enables developers to become proactive to issues instead of reactive.
 ## More examples
 
 ```JS
