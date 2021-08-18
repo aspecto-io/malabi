@@ -186,7 +186,7 @@ class SpansRepository {
      * Returns a new instance of SpansRepository with outgoing spans only.
      */
     outgoing() {
-        return this.filter((span) => span.kind === SpanKind.CLIENT);
+        return this.filter((span) => span.kind === SpanKind.INTERNAL);
     }
 
     /**
