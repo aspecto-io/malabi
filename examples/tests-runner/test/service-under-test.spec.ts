@@ -10,7 +10,6 @@ describe('testing service-under-test remotely', () => {
     });
 
     it('successful /todo request', async () => {
-        expect(true).toBeFalsy();
         // call to the service under test - internally it will call another API to fetch the todo items.
         const res = await axios(`http://localhost:${SERVICE_UNDER_TEST_PORT}/todo`);
 
