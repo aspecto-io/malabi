@@ -5,7 +5,7 @@ on:
     branches: [ master ]
 
 jobs:
-  blackbox:
+  test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/setup-node@v1
@@ -20,8 +20,9 @@ jobs:
       - name: Build Packages
         run: yarn build
 
-      - name: Run service under test
-        run: yarn --cwd examples/service-under-test start
+      - name: Install Concurrently & wait-on
+        run: yarn global add concurrently && yarn global add wait-on
 
       - name: Run Tests
-        run: yarn --cwd examples/tests-runner test:example
+        run: concurrently -k -s first "yarn --cwd examples/service-under-test start" "wait-on http://localhost:18393 && yarn --cwd examples/tests-runner test:example"
+
