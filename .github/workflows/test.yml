@@ -24,5 +24,5 @@ jobs:
         run: yarn global add concurrently && yarn global add wait-on
 
       - name: Run Tests
-        run: concurrently -k -s first "yarn --cwd examples/service-under-test start" "wait-on http://localhost:18393 && yarn --cwd examples/tests-runner test:example"
+        run: concurrently -k -s first "yarn --cwd examples/service-under-test start" "wait-on http://localhost:8080 && yarn --cwd examples/tests-runner test:example"
 
