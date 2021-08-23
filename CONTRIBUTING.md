@@ -9,8 +9,10 @@ yarn watch
 ```
 yarn add better-docs -W
 ```
-1. Run this:
+1. Copy the index.html file from docs to the side
+2. Run this:
 ```
 jsdoc -c "./jsdoc.json" ./packages/malabi/src/remote-runner-integration/fetch-remote-telemetry.ts ./packages/malabi/src/remote-runner-integration/clear-remote-telemetry.ts ./packages/telemetry-repository/src/TelemetryRepository.ts ./packages/telemetry-repository/src/SpansRepository.ts
 ```
-2. Then commit output to github.
+3. Replace the index.html file that was generated with the old version.
+4. Then commit output to github.
