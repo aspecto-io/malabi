@@ -69,4 +69,58 @@ describe('testing service-under-test remotely', () => {
 
         expect(telemetryRepo.spans.httpGet().first.statusCode).toBe(200);
     });
+
+    it('successful POST /users request', async () => {
+        // call to the service under test
+        const res = await axios.post(`http://localhost:${SERVICE_UNDER_TEST_PORT}/users`,{
+            firstName:'Morty',
+            lastName:'Smith',
+        });
+
+        expect(res.status).toBe(200);
+
+        // get spans created from the previous call
+        const telemetryRepo = await getTelemetryRepository();
+
+        // // Validating that /users created a new record in DB
+        const sequelizeActivities =  telemetryRepo.spans.sequelize();
+        expect(sequelizeActivities.length).toBe(1);
+        expect(sequelizeActivities.first.dbOperation).toBe("INSERT");
+    });
+
+
+    /* The expect flow is:
+        1) Insert into db the new user (due to first API call; POST /users).
+        ------------------------------------------------------------------
+        2) Try to fetch the user from Redis (due to second API call; GET /users/Jerry).
+        3) The user shouldn't be present in Redis so fetch from DB.
+        4) Push the user object from DB to Redis.
+    */
+    it('successful create and fetch user', async () => {
+        // Creating a new user
+        const createUserResponse = await axios.post(`http://localhost:${SERVICE_UNDER_TEST_PORT}/users`,{
+            firstName:'Jerry',
+            lastName:'Smith',
+        });
+        expect(createUserResponse.status).toBe(200);
+
+        // Fetching the user we just created
+        const fetchUserResponse = await axios.get(`http://localhost:${SERVICE_UNDER_TEST_PORT}/users/Jerry`);
+        expect(fetchUserResponse.status).toBe(200);
+
+        // get spans created from the previous calls
+        const telemetryRepo = await getTelemetryRepository();
+        const sequelizeActivities = telemetryRepo.spans.sequelize();
+        const redisActivities =  telemetryRepo.spans.redis();
+
+        // 1) Insert into db the new user (due to first API call; POST /users).
+        expect(sequelizeActivities.first.dbOperation).toBe('INSERT');
+        // 2) Try to fetch the user from Redis (due to second API call; GET /users/Jerry).
+        expect(redisActivities.first.dbStatement).toBe("lrange Jerry 0 -1");
+        expect(redisActivities.first.dbResponse).toBe("[]");
+        // 3) The user shouldn't be present in Redis so fetch from DB.
+        expect(sequelizeActivities.second.dbOperation).toBe("SELECT");
+        //4) Push the user object from DB to Redis.
+        expect(redisActivities.second.dbStatement.startsWith('lpush Jerry')).toBeTruthy();
+    });
 });
