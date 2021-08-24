@@ -12,6 +12,8 @@ let redis: Redis.Redis;
 
 getRedis().then((redisConn) => {
     redis = redisConn;
+    app.listen(PORT, () => console.log(`service-under-test started at port ${PORT}`));
+
 })
 const PORT = process.env.PORT || 8080;
 
@@ -74,4 +76,3 @@ app.post('/users', async (req, res) => {
 })
 
 
-app.listen(PORT, () => console.log(`service-under-test started at port ${PORT}`));
