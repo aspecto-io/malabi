@@ -19,6 +19,9 @@ const PORT = process.env.PORT || 8080;
 
 const app = express();
 app.use(body.json())
+app.get('/',(req,res)=>{
+    res.sendStatus(200);
+})
 app.get('/todo', async (req, res) => {
     try {
         const todoItem = await axios('https://jsonplaceholder.typicode.com/todos/1');
