@@ -62,12 +62,12 @@ app.get('/todo', async (req, res) => {
 const SERVICE_UNDER_TEST_PORT = process.env.PORT || 8080;
 import axios from 'axios';
 import { fetchRemoteTelemetry, clearRemoteTelemetry } from 'malabi';
-const getMalabiTelemetryRepository = async () => await fetchRemoteTelemetry(18393);
+const getMalabiTelemetryRepository = async () => await fetchRemoteTelemetry({ portOrBaseUrl: 13893 });
 
 describe('testing service-under-test remotely', () => {
     beforeEach(async () => {
         // We must reset all collected spans between tests to make sure span aren't leaking between tests.
-        await clearRemoteTelemetry(18393);
+        await clearRemoteTelemetry({ portOrBaseUrl: 18393 });
     });
 
     it('successful /todo request', async () => {
