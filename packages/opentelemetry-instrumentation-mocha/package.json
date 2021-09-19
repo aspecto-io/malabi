@@ -1,6 +1,6 @@
 {
     "name": "opentelemetry-instrumentation-mocha",
-    "version": "0.0.1-rc.4",
+    "version": "0.0.1-rc.6",
     "description": "mocha root hook plugin for open-telemetry instrumentation",
     "keywords": [
         "mocha",
@@ -36,12 +36,12 @@
         "@opentelemetry/api": "^1.0.1"
     },
     "dependencies": {
-        "@opentelemetry/instrumentation": "^0.23.0"
+        "@opentelemetry/instrumentation": "^0.25.0"
     },
     "devDependencies": {
-        "@opentelemetry/api": "^1.0.1",
-        "@opentelemetry/node": "^0.23.0",
-        "@opentelemetry/tracing": "^0.23.0",
+        "@opentelemetry/api": "^1.0.2",
+        "@opentelemetry/sdk-trace-node": "^0.25.0",
+        "@opentelemetry/sdk-trace-base": "^0.25.0",
         "@types/mocha": "^8.2.2",
         "expect": "^26.6.2",
         "mocha-multi-reporters": "^1.5.1",
