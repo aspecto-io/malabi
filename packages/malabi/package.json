@@ -24,13 +24,14 @@
     "dependencies": {
         "@opentelemetry/api": "^1.0.1",
         "@opentelemetry/core": "^0.23.0",
+        "@opentelemetry/exporter-jaeger": "^0.25.0",
         "@opentelemetry/instrumentation": "^0.23.0",
         "@opentelemetry/node": "^0.23.0",
         "@opentelemetry/semantic-conventions": "^0.23.0",
         "@opentelemetry/tracing": "^0.23.0",
         "axios": "^0.21.1",
-        "malabi-telemetry-repository": "0.0.3-alpha.0",
         "malabi-instrumentation-node": "0.0.2-alpha.0",
+        "malabi-telemetry-repository": "0.0.3-alpha.0",
         "opentelemetry-proto-transformations": "0.0.2-alpha.0"
     },
     "devDependencies": {

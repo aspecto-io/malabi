@@ -1,8 +1,9 @@
-import { collectorTraceV1Transform } from "opentelemetry-proto-transformations";
+import { collectorTraceV1Transform, utils } from "opentelemetry-proto-transformations";
 import { initRepository, TelemetryRepository } from "malabi-telemetry-repository";
 
 interface FetchRemoteTelemetryProps {
     portOrBaseUrl: string | number;
+    
 }
 
 /**

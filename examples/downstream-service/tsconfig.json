@@ -1,0 +1,10 @@
+{
+    "compilerOptions": {
+        "rootDir": ".",
+        "outDir": "./dist",
+        "lib": ["es2019"],
+        "target": "ES5",
+        "esModuleInterop": true,
+        "skipLibCheck": true
+    }
+}

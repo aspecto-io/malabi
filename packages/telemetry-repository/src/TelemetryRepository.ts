@@ -23,6 +23,10 @@ export class TelemetryRepository {
     get spans() {
         return this.spansRepository;
     }
+
+    addSpans(spans:ReadableSpan[]){
+        this.spans?.spans?.push(...spans);
+    }
 }
 
 export const initRepository = (spans: ReadableSpan[]) => new TelemetryRepository(spans);

@@ -34,6 +34,16 @@ app.get('/todo', async (req, res) => {
     }
 });
 
+app.get('/invoice', async (req, res) => {
+    try {
+        const response = await axios('http://localhost:8081/data');
+        res.json(response.data);
+    } catch (e) {
+        res.sendStatus(500);
+        console.error(e, e);
+    }
+});
+
 app.get('/users', async (req, res) => {
     try {
         const users = await User.findAll({});

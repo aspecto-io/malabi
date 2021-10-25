@@ -248,10 +248,10 @@ class SpansRepository {
         return this.filter((span) => Boolean(span.attributes[SemanticAttributes.RPC_SYSTEM]));
     }
 
-     /**
-     * Returns a new instance of SpansRepository with Redis spans only.
-     */
-    redis (){
+    /**
+    * Returns a new instance of SpansRepository with Redis spans only.
+    */
+    redis() {
         return this.filter((span) => span.attributes[SemanticAttributes.DB_SYSTEM] === 'redis');
     }
 
@@ -260,6 +260,14 @@ class SpansRepository {
      */
     aws() {
         return this.filter((span) => span.attributes[SemanticAttributes.RPC_SYSTEM] === 'aws-api');
+    }
+
+
+    /**
+    * Returns a new instance of SpansRepository with AWS S3 spans only.
+    */
+    s3() {
+        return this.filter((span) => span.attributes['aws.service.name'] === 'Amazon S3');
     }
 }
 

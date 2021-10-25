@@ -1,21 +1,31 @@
 const SERVICE_UNDER_TEST_PORT = process.env.PORT || 8080;
 import axios from 'axios';
 import { fetchRemoteTelemetry, clearRemoteTelemetry } from 'malabi';
-const getTelemetryRepository = async () => await fetchRemoteTelemetry({ portOrBaseUrl: 18393 });
+
+const getTelemetryRepository = async () => {
+    const tele1 = await fetchRemoteTelemetry({ portOrBaseUrl: 18393 }) 
+    const tele2 = await fetchRemoteTelemetry({ portOrBaseUrl: 18394 })
+    tele1.addSpans(tele2.spans?.spans);
+    return tele1;
+};
 
 describe('testing service-under-test remotely', () => {
     beforeEach(async () => {
         // We must reset all collected spans between tests to make sure span aren't leaking between tests.
         await clearRemoteTelemetry({ portOrBaseUrl: 18393 });
+        await clearRemoteTelemetry({ portOrBaseUrl: 18394 });
+
     });
 
     it('successful /todo request', async () => {
         // call to the service under test - internally it will call another API to fetch the todo items.
         const res = await axios(`http://localhost:${SERVICE_UNDER_TEST_PORT}/todo`);
+        expect(res.status).toBe(200);
+        //res.data
 
         // get spans created from the previous call 
         const telemetryRepo = await getTelemetryRepository();
-        
+
         // Validate internal HTTP call
         const todoInteralHTTPCall = telemetryRepo.spans.outgoing().first;
         expect(todoInteralHTTPCall.httpFullUrl).toBe('https://jsonplaceholder.typicode.com/todos/1')
@@ -30,10 +40,29 @@ describe('testing service-under-test remotely', () => {
         const telemetryRepo = await getTelemetryRepository();
 
         // Validating that /users had ran a single select statement and responded with an array.
-        const sequelizeActivities =  telemetryRepo.spans.sequelize();
+        const sequelizeActivities = telemetryRepo.spans.sequelize();
         expect(sequelizeActivities.length).toBe(1);
         expect(sequelizeActivities.first.dbOperation).toBe("SELECT");
         expect(Array.isArray(JSON.parse(sequelizeActivities.first.dbResponse))).toBe(true);
+    });
+
+    it('successful /invoice request', async () => {
+        // call to the service under test
+        const res = await axios.get(`http://localhost:${SERVICE_UNDER_TEST_PORT}/invoice`);
+
+        // get spans created from the previous call
+        const telemetryRepo = await getTelemetryRepository();
+
+        // Validating that /invoice called /data
+        const dataOutgoing = telemetryRepo.spans.outgoing().all.filter(s => { return s.httpFullUrl == 'http://localhost:8081/data' });
+        expect(dataOutgoing.length).toBe(1);
+        expect(dataOutgoing[0].statusCode).toBe(200);
+
+        const s3 = telemetryRepo.spans.aws().s3();
+        expect(s3.length).toBe(1);
+
+        const s3Payload = JSON.parse(s3.first.awsRequestParams);
+        expect(s3Payload.Key).toBe('some-random-key');
     });
 
     it('successful /users/Rick request', async () => {
@@ -43,7 +72,7 @@ describe('testing service-under-test remotely', () => {
         // get spans created from the previous call
         const telemetryRepo = await getTelemetryRepository();
 
-        const sequelizeActivities =  telemetryRepo.spans.sequelize();
+        const sequelizeActivities = telemetryRepo.spans.sequelize();
         expect(sequelizeActivities.length).toBe(1);
         expect(sequelizeActivities.first.dbOperation).toBe("SELECT");
 
@@ -59,7 +88,7 @@ describe('testing service-under-test remotely', () => {
         // get spans created from the previous call
         const telemetryRepo = await getTelemetryRepository();
 
-        const sequelizeActivities =  telemetryRepo.spans.sequelize();
+        const sequelizeActivities = telemetryRepo.spans.sequelize();
         expect(sequelizeActivities.length).toBe(1);
         expect(sequelizeActivities.first.dbOperation).toBe("SELECT");
 
@@ -72,9 +101,9 @@ describe('testing service-under-test remotely', () => {
 
     it('successful POST /users request', async () => {
         // call to the service under test
-        const res = await axios.post(`http://localhost:${SERVICE_UNDER_TEST_PORT}/users`,{
-            firstName:'Morty',
-            lastName:'Smith',
+        const res = await axios.post(`http://localhost:${SERVICE_UNDER_TEST_PORT}/users`, {
+            firstName: 'Morty',
+            lastName: 'Smith',
         });
 
         expect(res.status).toBe(200);
@@ -83,7 +112,7 @@ describe('testing service-under-test remotely', () => {
         const telemetryRepo = await getTelemetryRepository();
 
         // // Validating that /users created a new record in DB
-        const sequelizeActivities =  telemetryRepo.spans.sequelize();
+        const sequelizeActivities = telemetryRepo.spans.sequelize();
         expect(sequelizeActivities.length).toBe(1);
         expect(sequelizeActivities.first.dbOperation).toBe("INSERT");
     });
@@ -98,9 +127,9 @@ describe('testing service-under-test remotely', () => {
     */
     it('successful create and fetch user', async () => {
         // Creating a new user
-        const createUserResponse = await axios.post(`http://localhost:${SERVICE_UNDER_TEST_PORT}/users`,{
-            firstName:'Jerry',
-            lastName:'Smith',
+        const createUserResponse = await axios.post(`http://localhost:${SERVICE_UNDER_TEST_PORT}/users`, {
+            firstName: 'Jerry',
+            lastName: 'Smith',
         });
         expect(createUserResponse.status).toBe(200);
 
@@ -111,7 +140,7 @@ describe('testing service-under-test remotely', () => {
         // get spans created from the previous calls
         const telemetryRepo = await getTelemetryRepository();
         const sequelizeActivities = telemetryRepo.spans.sequelize();
-        const redisActivities =  telemetryRepo.spans.redis();
+        const redisActivities = telemetryRepo.spans.redis();
 
         // 1) Insert into db the new user (due to first API call; POST /users).
         expect(sequelizeActivities.first.dbOperation).toBe('INSERT');
@@ -122,5 +151,6 @@ describe('testing service-under-test remotely', () => {
         expect(sequelizeActivities.second.dbOperation).toBe("SELECT");
         //4) Push the user object from DB to Redis.
         expect(redisActivities.second.dbStatement.startsWith('lpush Jerry')).toBeTruthy();
+
     });
 });
