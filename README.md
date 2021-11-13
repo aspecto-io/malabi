@@ -62,7 +62,7 @@ app.get('/todo', async (req, res) => {
 const SERVICE_UNDER_TEST_PORT = process.env.PORT || 8080;
 import axios from 'axios';
 import { fetchRemoteTelemetry, clearRemoteTelemetry } from 'malabi';
-const getMalabiTelemetryRepository = async () => await fetchRemoteTelemetry({ portOrBaseUrl: 13893 });
+const getMalabiTelemetryRepository = async () => await fetchRemoteTelemetry({ portOrBaseUrl: 18393 });
 
 describe('testing service-under-test remotely', () => {
     beforeEach(async () => {
