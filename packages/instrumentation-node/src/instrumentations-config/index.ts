@@ -15,7 +15,7 @@ import { HttpInstrumentation } from '@opentelemetry/instrumentation-http';
 import { IORedisInstrumentation } from '@opentelemetry/instrumentation-ioredis';
 import { ExpressInstrumentation } from 'opentelemetry-instrumentation-express';
 import { SequelizeInstrumentation } from 'opentelemetry-instrumentation-sequelize';
-import { AwsInstrumentation } from 'opentelemetry-instrumentation-aws-sdk';
+import { AwsInstrumentation } from '@opentelemetry/instrumentation-aws-sdk';
 import { TypeormInstrumentation } from 'opentelemetry-instrumentation-typeorm';
 import { KafkaJsInstrumentation } from 'opentelemetry-instrumentation-kafkajs';
 import { MongooseInstrumentation } from 'opentelemetry-instrumentation-mongoose';
@@ -23,13 +23,14 @@ import { ElasticsearchInstrumentation } from 'opentelemetry-instrumentation-elas
 import { Neo4jInstrumentation } from 'opentelemetry-instrumentation-neo4j';
 import { AmqplibInstrumentation } from 'opentelemetry-instrumentation-amqplib';
 import { AutoInstrumentationOptions } from '../types';
+import { InstrumentationOption } from '@opentelemetry/instrumentation';
 
 const DEFAULT_OPTIONS: AutoInstrumentationOptions = {
     collectPayloads: false,
     suppressInternalInstrumentation: true,
 };
 
-export const getNodeAutoInstrumentations = (options?: AutoInstrumentationOptions) => {
+export const getNodeAutoInstrumentations = (options?: AutoInstrumentationOptions): InstrumentationOption[] => {
     const optionsWithDefaults = { ...DEFAULT_OPTIONS, ...options };
     return [
         new ExpressInstrumentation(expressInstrumentationConfig(optionsWithDefaults)),

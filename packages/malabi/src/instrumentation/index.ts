@@ -1,7 +1,7 @@
 import { getNodeAutoInstrumentations } from 'malabi-instrumentation-node';
 
-import { NodeTracerProvider } from '@opentelemetry/node';
-import { SimpleSpanProcessor } from '@opentelemetry/tracing';
+import { NodeTracerProvider } from '@opentelemetry/sdk-trace-node';
+import { SimpleSpanProcessor } from '@opentelemetry/sdk-trace-base';
 import { ParentBasedSampler } from '@opentelemetry/core';
 import { registerInstrumentations } from '@opentelemetry/instrumentation';
 import { inMemoryExporter } from '../exporter';
