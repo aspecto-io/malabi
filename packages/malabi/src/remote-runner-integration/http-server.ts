@@ -1,19 +1,21 @@
-import { getSpans, resetSpans } from '../exporter';
-import { collectorTraceV1Transform } from 'opentelemetry-proto-transformations';
+import { getSpans, resetSpans } from '../exporter/jaeger';
+// import { getSpans, resetSpans } from '../exporter';
+// import { collectorTraceV1Transform } from 'opentelemetry-proto-transformations';
 
 export const getMalabiExpressRouter = () => {
     const express = require('express');
     return express
         .Router()
-        .get('/spans', (_req, res) => {
+        .get('/spans', async (_req, res) => {
             res.set('Content-Type', 'application/json');
             res.send(
-                collectorTraceV1Transform.toJsonEncodedProtobufFormat(
-                    collectorTraceV1Transform.toProtoExportTraceServiceRequest(getSpans())
-                )
+                await getSpans()
+                // collectorTraceV1Transform.toJsonEncodedProtobufFormat(
+                //     collectorTraceV1Transform.toProtoExportTraceServiceRequest(getSpans())
+                // )
             );
         })
-        .delete('/spans', (_req, res) => res.json(resetSpans()));
+        .delete('/spans', async (_req, res) => res.json(await resetSpans()));
 };
 
 export const serveMalabiFromHttpApp = (port: number) => {
