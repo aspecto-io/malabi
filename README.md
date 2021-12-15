@@ -85,6 +85,13 @@ describe('testing service-under-test remotely', () => {
 });
 ```
 
+## Caveat: Usage with Jest
+
+Currently, Jest does not play out well with OpenTelemetry due to Jest's modifications of the way modules are required and OTEL's usage of 
+require in the middle. 
+
+Until this is fixed, we recommend using Malabi with Mocha instead of Jest.
+
 ## Documentation
 [Click to view documentation](https://aspecto-io.github.io/malabi/index.html)
 
