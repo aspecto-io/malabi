@@ -1,7 +1,7 @@
 // import { collectorTraceV1Transform } from "opentelemetry-proto-transformations";
 import { initRepository, TelemetryRepository } from 'malabi-telemetry-repository';
 // import { SpanAttributes, SpanKind } from '@opentelemetry/api';
-import { convertJaegerSpanToOtel } from 'opentelemetry-span-transformations';
+import { convertJaegerSpanToOtelReadableSpan } from 'opentelemetry-span-transformations';
 
 interface FetchRemoteTelemetryProps {
     portOrBaseUrl: string | number;
@@ -33,7 +33,7 @@ const fetchRemoteTelemetry = async ({ portOrBaseUrl, currentTestTraceID } : Fetc
         // const protoFormatted = collectorTraceV1Transform.fromJsonEncodedProtobufFormat(res.data);
         // const spans = collectorTraceV1Transform.fromProtoExportTraceServiceRequest(protoFormatted);
         const spansInJaegerFormat = JSON.parse(res.data).filter(({ traceID }) => traceID === currentTestTraceID)[0].spans;
-        return initRepository(spansInJaegerFormat.map(jaegerSpan => convertJaegerSpanToOtel(jaegerSpan)));
+        return initRepository(spansInJaegerFormat.map(jaegerSpan => convertJaegerSpanToOtelReadableSpan(jaegerSpan)));
     } catch (err) {
         console.log('error while fetching remote telemetry', err);
     }
