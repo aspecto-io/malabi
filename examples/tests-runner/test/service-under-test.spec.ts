@@ -2,17 +2,16 @@
 // console.log('req.cache', require.cache);
 const SERVICE_UNDER_TEST_PORT = process.env.PORT || 8080;
 // import { fetchRemoteTelemetry, clearRemoteTelemetry, malabi, instrument } from 'malabi';
-import { malabi } from 'malabi';
+import { clearRemoteTelemetry, malabi, StorageBackend } from 'malabi';
 
 // // console.log('req.cache', require.cache);
 // // console.log('req.cache', Object.keys(require.cache).filter(key => key.indexOf('http') !== -1));
 // instrument();
-
 // // import http from 'http';
-
 import { expect } from 'chai';
-console.log('importing axios from service-under-test');
 import axios from 'axios';
+
+console.log('importing axios from service-under-test');
 // const getTelemetryRepository = async () => await fetchRemoteTelemetry({ portOrBaseUrl: 18393 });
 
 // import {
@@ -27,16 +26,16 @@ import axios from 'axios';
 //     trace,
 // } from '@opentelemetry/api';
 describe('testing service-under-test remotely', () => {
-    // beforeEach(async () => {
-    //     // We must reset all collected spans between tests to make sure span aren't leaking between tests.
-    //     // await clearRemoteTelemetry({ portOrBaseUrl: 18393 });
-    // });
+    beforeEach(async () => {
+        // We must reset all collected spans between tests to make sure span aren't leaking between tests.
+        await clearRemoteTelemetry({ portOrBaseUrl: 18393 });
+    });
 
     it('successful /todo request', async () => {
         // get spans created from the previous call
         const telemetryRepo = await malabi( async () => {
             await axios(`http://localhost:${SERVICE_UNDER_TEST_PORT}/todo`);
-        });
+        }, StorageBackend.Jaeger);
 
         // Validate internal HTTP call
         const todoInteralHTTPCall = telemetryRepo.spans.outgoing().first;
@@ -49,7 +48,7 @@ describe('testing service-under-test remotely', () => {
         const telemetryRepo = await malabi( async () => {
             // call to the service under test
             await axios.get(`http://localhost:${SERVICE_UNDER_TEST_PORT}/users`);
-        });
+        }, StorageBackend.Jaeger);
 
         // Validating that /users had ran a single select statement and responded with an array.
         const sequelizeActivities = telemetryRepo.spans.sequelize();
@@ -63,7 +62,7 @@ describe('testing service-under-test remotely', () => {
         const telemetryRepo = await malabi( async () => {
             // call to the service under test
             await axios.get(`http://localhost:${SERVICE_UNDER_TEST_PORT}/users/Rick`);
-        });
+        }, StorageBackend.Jaeger);
 
         const sequelizeActivities = telemetryRepo.spans.sequelize();
         expect(sequelizeActivities.length).equals(1);
@@ -78,8 +77,7 @@ describe('testing service-under-test remotely', () => {
         const telemetryRepo = await malabi( async () => {
             // call to the service under test
             await axios.get(`http://localhost:${SERVICE_UNDER_TEST_PORT}/users/Rick111`);
-
-        });
+        }, StorageBackend.Jaeger);
 
         const sequelizeActivities =  telemetryRepo.spans.sequelize();
         expect(sequelizeActivities.length).equals(1);

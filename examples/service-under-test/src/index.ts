@@ -1,6 +1,11 @@
-import * as malabi from 'malabi';
-malabi.instrument();
-malabi.serveMalabiFromHttpApp(18393);
+import { instrument, StorageBackend, serveMalabiFromHttpApp } from 'malabi';
+const instrumentationConfig = {
+    storageBackend: StorageBackend.Jaeger,
+    serviceName: 'service-under-test',
+};
+
+instrument(instrumentationConfig);
+serveMalabiFromHttpApp(18393, instrumentationConfig);
 
 import axios from 'axios';
 import express from 'express';
@@ -13,7 +18,6 @@ let redis: Redis.Redis;
 getRedis().then((redisConn) => {
     redis = redisConn;
     app.listen(PORT, () => console.log(`service-under-test started at port ${PORT}`));
-
 })
 const PORT = process.env.PORT || 8080;
 

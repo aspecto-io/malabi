@@ -1,27 +1,28 @@
-import { getSpans, resetSpans } from '../exporter/jaeger';
-// import { getSpans, resetSpans } from '../exporter';
-// import { collectorTraceV1Transform } from 'opentelemetry-proto-transformations';
+import { getJaegerSpans } from '../exporter/jaeger';
+import { InstrumentationConfig, StorageBackend } from '../instrumentation';
+import { getInMemorySpans, resetInMemorySpans } from '../exporter';
+import { collectorTraceV1Transform } from 'opentelemetry-proto-transformations';
 
-export const getMalabiExpressRouter = () => {
+export const getMalabiExpressRouter = ({ serviceName, storageBackend }: InstrumentationConfig) => {
     const express = require('express');
     return express
         .Router()
         .get('/spans', async (_req, res) => {
             res.set('Content-Type', 'application/json');
             res.send(
-                await getSpans()
-                // collectorTraceV1Transform.toJsonEncodedProtobufFormat(
-                //     collectorTraceV1Transform.toProtoExportTraceServiceRequest(getSpans())
-                // )
+                storageBackend === StorageBackend.Jaeger ? await getJaegerSpans(serviceName) :
+                collectorTraceV1Transform.toJsonEncodedProtobufFormat(
+                    collectorTraceV1Transform.toProtoExportTraceServiceRequest(getInMemorySpans())
+                )
             );
         })
-        .delete('/spans', async (_req, res) => res.json(await resetSpans()));
+        .delete('/spans', async (_req, res) => res.json(resetInMemorySpans()));
 };
 
-export const serveMalabiFromHttpApp = (port: number) => {
+export const serveMalabiFromHttpApp = (port: number, instrumentationConfig: InstrumentationConfig) => {
     const express = require('express');
     const app = express();
-    app.use('/malabi', getMalabiExpressRouter());
+    app.use('/malabi', getMalabiExpressRouter(instrumentationConfig));
     app.listen(port);
     return app;
 };

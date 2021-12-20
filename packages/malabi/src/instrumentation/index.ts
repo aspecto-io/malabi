@@ -4,7 +4,7 @@ import { NodeTracerProvider } from '@opentelemetry/sdk-trace-node';
 import { SimpleSpanProcessor } from '@opentelemetry/sdk-trace-base';
 import { ParentBasedSampler } from '@opentelemetry/core';
 import { registerInstrumentations } from '@opentelemetry/instrumentation';
-// import { inMemoryExporter } from '../exporter';
+import { inMemoryExporter } from '../exporter';
 import { jaegerExporter } from '../exporter/jaeger';
 // const { ConsoleSpanExporter } = require('@opentelemetry/sdk-trace-base');
 // const { SemanticResourceAttributes: ResourceAttributesSC } = require('@opentelemetry/semantic-conventions');
@@ -47,18 +47,37 @@ class MalabiSampler implements Sampler {
     }
 }
 
-const tracerProvider = new NodeTracerProvider({
-    resource: new Resource({
-        // TODO this should use semantic conventions
-        // TODO change this servicename
-        'service.name': 'tomservice',
-    }),
-    sampler: new ParentBasedSampler({ root: new MalabiSampler() }),
-});
+export enum StorageBackend {
+    InMemory,
+    Jaeger,
+}
 
-export const instrument = () => {
+const STORAGE_BACKEND_TO_EXPORTER = {
+    [StorageBackend.InMemory]: inMemoryExporter,
+    [StorageBackend.Jaeger]: jaegerExporter,
+};
+
+export interface InstrumentationConfig {
+    storageBackend: StorageBackend;
+    serviceName: string;
+}
+
+export const instrument = ({
+    storageBackend,
+    serviceName
+}: InstrumentationConfig) => {
     console.log('started to instrument');
-    tracerProvider.addSpanProcessor(new SimpleSpanProcessor(jaegerExporter));
+    const tracerProvider = new NodeTracerProvider({
+        resource: new Resource({
+            // TODO this should use semantic conventions
+            'service.name': serviceName,
+        }),
+        sampler: new ParentBasedSampler({ root: new MalabiSampler() }),
+    });
+
+    const exporter = STORAGE_BACKEND_TO_EXPORTER[storageBackend];
+    console.log(`service ${serviceName} exporter ${JSON.stringify(exporter)}`);
+    tracerProvider.addSpanProcessor(new SimpleSpanProcessor(exporter));
     tracerProvider.register();
 
     registerInstrumentations({
@@ -70,7 +89,7 @@ export const instrument = () => {
     });
 };
 
-export const malabi = async (callback): Promise<TelemetryRepository> => {
+export const malabi = async (callback, storageBackend: StorageBackend): Promise<TelemetryRepository> => {
     return new Promise((resolve) => {
         const tracer = trace.getTracer('sometracer');
         // const span = tracer.startSpan('malabiRoot', {}, context.active());
@@ -93,9 +112,13 @@ export const malabi = async (callback): Promise<TelemetryRepository> => {
             // const currSpan = trace.getSpan(context.active());
             await callback();
             span.end();
-            console.log('1111currTraceID', currTraceID);
+            console.log('fetchRemoteTelemetry currTraceID', currTraceID);
             // await new Promise(resolve => setTimeout(resolve, 5000))
-            const telemetry = await fetchRemoteTelemetry({ portOrBaseUrl: 18393, currentTestTraceID: currTraceID });
+            const telemetry = await fetchRemoteTelemetry({
+                portOrBaseUrl: 18393,
+                currentTestTraceID: currTraceID,
+                storageBackend,
+            });
             resolve(telemetry);
         });
     })
