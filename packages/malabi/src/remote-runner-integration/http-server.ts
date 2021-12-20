@@ -3,14 +3,14 @@ import { InstrumentationConfig, StorageBackend } from '../instrumentation';
 import { getInMemorySpans, resetInMemorySpans } from '../exporter';
 import { collectorTraceV1Transform } from 'opentelemetry-proto-transformations';
 
-export const getMalabiExpressRouter = ({ serviceName, storageBackend }: InstrumentationConfig) => {
+export const getMalabiExpressRouter = ({ serviceName }: InstrumentationConfig) => {
     const express = require('express');
     return express
         .Router()
         .get('/spans', async (_req, res) => {
             res.set('Content-Type', 'application/json');
             res.send(
-                storageBackend === StorageBackend.Jaeger ? await getJaegerSpans(serviceName) :
+                process.env.MALABI_STORAGE_BACKEND === StorageBackend.Jaeger ? await getJaegerSpans(serviceName) :
                 collectorTraceV1Transform.toJsonEncodedProtobufFormat(
                     collectorTraceV1Transform.toProtoExportTraceServiceRequest(getInMemorySpans())
                 )

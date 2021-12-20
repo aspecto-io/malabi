@@ -1,6 +1,5 @@
-import { instrument, StorageBackend, serveMalabiFromHttpApp } from 'malabi';
+import { instrument, serveMalabiFromHttpApp } from 'malabi';
 const instrumentationConfig = {
-    storageBackend: StorageBackend.Jaeger,
     serviceName: 'service-under-test',
 };
 

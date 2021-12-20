@@ -7,7 +7,6 @@ import { StorageBackend } from '../instrumentation';
 interface FetchRemoteTelemetryProps {
     portOrBaseUrl: string | number;
     currentTestTraceID: string;
-    storageBackend: StorageBackend;
 }
 
 /**
@@ -16,7 +15,7 @@ interface FetchRemoteTelemetryProps {
  * @param fetchRemoteTelemetryProps Props for fetching remote telemetry
  * @param fetchRemoteTelemetryProps.portOrBaseUrl port number, or entire base url, where the endpoint is hosted at.
  */
-const fetchRemoteTelemetry = async ({ portOrBaseUrl, currentTestTraceID, storageBackend } : FetchRemoteTelemetryProps): Promise<TelemetryRepository> => {
+const fetchRemoteTelemetry = async ({ portOrBaseUrl, currentTestTraceID } : FetchRemoteTelemetryProps): Promise<TelemetryRepository> => {
     try {
         console.log('currentTestTraceID', currentTestTraceID);
         // const currContext = context.active();
@@ -35,11 +34,11 @@ const fetchRemoteTelemetry = async ({ portOrBaseUrl, currentTestTraceID, storage
         // console.log('fetchRemoteTelemetry returning spans. count:', res);
         let spans;
 
-        if (storageBackend === StorageBackend.InMemory) {
+        if (process.env.MALABI_STORAGE_BACKEND === StorageBackend.InMemory) {
             const protoFormatted = collectorTraceV1Transform.fromJsonEncodedProtobufFormat(res.data);
             // TODO filter by currentTestTraceID
             spans = collectorTraceV1Transform.fromProtoExportTraceServiceRequest(protoFormatted);
-        } else if (storageBackend === StorageBackend.Jaeger) {
+        } else if (process.env.MALABI_STORAGE_BACKEND === StorageBackend.Jaeger) {
             const spansInJaegerFormat = JSON.parse(res.data).filter(({ traceID }) => traceID === currentTestTraceID)[0].spans;
             spans = spansInJaegerFormat.map(jaegerSpan => convertJaegerSpanToOtelReadableSpan(jaegerSpan));
         }

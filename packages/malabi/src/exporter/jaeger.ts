@@ -1,28 +1,7 @@
 import { JaegerExporter } from '@opentelemetry/exporter-jaeger';
-// import { ReadableSpan } from '@opentelemetry/tracing';
-// import { inMemoryExporter } from './index';
-// import axios from 'axios';
-
-// const options = {
-//     tags: [], // optional
-//     // You can use the default UDPSender
-//     // host: 'localhost', // optional
-//     // port: 6832, // optional
-//     // OR you can use the HTTPSender as follows
-//     // endpoint: 'http://localhost:14268/api/traces',
-//     // maxPacketSize: 65000 // optional
-//     serviceName: 'tomservice'
-// }
 
 export const jaegerExporter = new JaegerExporter({
-    tags: [], // optional
-    // You can use the default UDPSender
-    // host: 'localhost', // optional
-    // port: 6832, // optional
-    // OR you can use the HTTPSender as follows
-    // endpoint: 'http://localhost:14268/api/traces',
-    // maxPacketSize: 65000 // optional
-    // serviceName: serviceName1,
+    tags: [],
 });
 
 export const getJaegerSpans = async (serviceName: string) => {

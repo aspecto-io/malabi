@@ -6,7 +6,7 @@
     "license": "Apache-2.0",
     "private": true,
     "scripts": {
-        "start": "ts-node src/index.ts -r malabi/instrument",
+        "start": "MALABI_STORAGE_BACKEND=InMemory ts-node src/index.ts -r malabi/instrument",
         "start:dev": "ts-node-dev src/index.ts",
         "build":"tsc"
     },

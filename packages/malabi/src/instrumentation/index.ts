@@ -48,8 +48,8 @@ class MalabiSampler implements Sampler {
 }
 
 export enum StorageBackend {
-    InMemory,
-    Jaeger,
+    InMemory = 'InMemory',
+    Jaeger = 'Jaeger',
 }
 
 const STORAGE_BACKEND_TO_EXPORTER = {
@@ -58,15 +58,17 @@ const STORAGE_BACKEND_TO_EXPORTER = {
 };
 
 export interface InstrumentationConfig {
-    storageBackend: StorageBackend;
     serviceName: string;
 }
 
+// export getStorageBackend = () => {
+//     switch (process.env.STORAGE_BACKEND):
+//         case ([StorageBackend.InMemory])
+// }
 export const instrument = ({
-    storageBackend,
     serviceName
 }: InstrumentationConfig) => {
-    console.log('started to instrument');
+    console.log('started to instrument - backend ', process.env.MALABI_STORAGE_BACKEND);
     const tracerProvider = new NodeTracerProvider({
         resource: new Resource({
             // TODO this should use semantic conventions
@@ -75,7 +77,7 @@ export const instrument = ({
         sampler: new ParentBasedSampler({ root: new MalabiSampler() }),
     });
 
-    const exporter = STORAGE_BACKEND_TO_EXPORTER[storageBackend];
+    const exporter = STORAGE_BACKEND_TO_EXPORTER[process.env.MALABI_STORAGE_BACKEND];
     console.log(`service ${serviceName} exporter ${JSON.stringify(exporter)}`);
     tracerProvider.addSpanProcessor(new SimpleSpanProcessor(exporter));
     tracerProvider.register();
@@ -89,7 +91,7 @@ export const instrument = ({
     });
 };
 
-export const malabi = async (callback, storageBackend: StorageBackend): Promise<TelemetryRepository> => {
+export const malabi = async (callback): Promise<TelemetryRepository> => {
     return new Promise((resolve) => {
         const tracer = trace.getTracer('sometracer');
         // const span = tracer.startSpan('malabiRoot', {}, context.active());
@@ -117,7 +119,6 @@ export const malabi = async (callback, storageBackend: StorageBackend): Promise<
             const telemetry = await fetchRemoteTelemetry({
                 portOrBaseUrl: 18393,
                 currentTestTraceID: currTraceID,
-                storageBackend,
             });
             resolve(telemetry);
         });
