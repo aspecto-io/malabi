@@ -1,12 +1,11 @@
 // malabi
-import { instrument, StorageBackend } from 'malabi';
+import { instrument } from 'malabi';
 
 console.log('reached tracing');
 // console.log('req.cache', require.cache);
 // console.log('req.cache', Object.keys(require.cache).filter(key => key.indexOf('http') !== -1));
 instrument({
     serviceName: 'tests-runner',
-    storageBackend: StorageBackend.Jaeger
 });
 // instrument();
 
