@@ -71,7 +71,6 @@ describe('testing service-under-test remotely', () => {
         const telemetryRepo = await malabi( async () => {
             // call to the service under test
             await axios.get(`http://localhost:${SERVICE_UNDER_TEST_PORT}/users/Rick111`);
-
         });
 
         const sequelizeActivities =  telemetryRepo.spans.sequelize();
@@ -83,23 +82,22 @@ describe('testing service-under-test remotely', () => {
         expect(telemetryRepo.spans.httpGet().first.statusCode).equals(200);
     });
 
-    // it('successful POST /users request', async () => {
-    //     // call to the service under test
-    //     const res = await axios.post(`http://localhost:${SERVICE_UNDER_TEST_PORT}/users`,{
-    //         firstName:'Morty',
-    //         lastName:'Smith',
-    //     });
-    //
-    //     expect(res.status).toBe(200);
-    //
-    //     // get spans created from the previous call
-    //     const telemetryRepo = await getTelemetryRepository();
-    //
-    //     // // Validating that /users created a new record in DB
-    //     const sequelizeActivities =  telemetryRepo.spans.sequelize();
-    //     expect(sequelizeActivities.length).toBe(1);
-    //     expect(sequelizeActivities.first.dbOperation).toBe("INSERT");
-    // });
+    it('successful POST /users request', async () => {
+        // get spans created from the previous call
+        const telemetryRepo = await malabi( async () => {
+            // call to the service under test
+            const res = await axios.post(`http://localhost:${SERVICE_UNDER_TEST_PORT}/users`,{
+                firstName:'Morty',
+                lastName:'Smith',
+            });
+            expect(res.status).equals(200);
+        });
+
+        // Validating that /users created a new record in DB
+        const sequelizeActivities = telemetryRepo.spans.sequelize();
+        expect(sequelizeActivities.length).equals(1);
+        expect(sequelizeActivities.first.dbOperation).equals("INSERT");
+    });
 
 
     // Not working:
