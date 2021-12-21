@@ -9,7 +9,7 @@
         "run": "node -r esm -r \"./test/tracing.js\" ./test/main.js",
         "test:mocha": "mocha --recursive \"./test/*.ts\" --require esm --require \"./test/tracing.js\" ",
         "test:mocha-no-require": "mocha --recursive \"./test/*.ts\" --require esm",
-        "test:mocha2": "MALABI_STORAGE_BACKEND=InMemory ts-mocha --paths \"./test/*.ts\" --require \"./test/tracing.ts\""
+        "test:mocha2": "MALABI_STORAGE_BACKEND=InMemory ts-mocha --paths \"./test/*.ts\" --require \"./test/tracing.ts\" --timeout 10000"
     },
     "dependencies": {
         "axios": "^0.21.1",
