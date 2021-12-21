@@ -36,8 +36,7 @@ const fetchRemoteTelemetry = async ({ portOrBaseUrl, currentTestTraceID } : Fetc
 
         if (process.env.MALABI_STORAGE_BACKEND === StorageBackend.InMemory) {
             const protoFormatted = collectorTraceV1Transform.fromJsonEncodedProtobufFormat(res.data);
-            // TODO filter by currentTestTraceID
-            spans = collectorTraceV1Transform.fromProtoExportTraceServiceRequest(protoFormatted);
+            spans = collectorTraceV1Transform.fromProtoExportTraceServiceRequest(protoFormatted).filter(span => span.spanContext().traceId === currentTestTraceID);
         } else if (process.env.MALABI_STORAGE_BACKEND === StorageBackend.Jaeger) {
             const spansInJaegerFormat = JSON.parse(res.data).filter(({ traceID }) => traceID === currentTestTraceID)[0].spans;
             spans = spansInJaegerFormat.map(jaegerSpan => convertJaegerSpanToOtelReadableSpan(jaegerSpan));

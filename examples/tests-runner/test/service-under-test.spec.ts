@@ -2,13 +2,10 @@
 // console.log('req.cache', require.cache);
 const SERVICE_UNDER_TEST_PORT = process.env.PORT || 8080;
 // import { fetchRemoteTelemetry, clearRemoteTelemetry, malabi, instrument } from 'malabi';
-import { malabi, clearRemoteTelemetry } from 'malabi';
+import { malabi } from 'malabi';
 
-// // console.log('req.cache', require.cache);
-// // console.log('req.cache', Object.keys(require.cache).filter(key => key.indexOf('http') !== -1));
 // instrument();
 
-// // import http from 'http';
 
 import { expect } from 'chai';
 console.log('importing axios from service-under-test');
@@ -27,10 +24,6 @@ import axios from 'axios';
 //     trace,
 // } from '@opentelemetry/api';
 describe('testing service-under-test remotely', () => {
-    beforeEach(async () => {
-        // We must reset all collected spans between tests to make sure span aren't leaking between tests.
-        await clearRemoteTelemetry({ portOrBaseUrl: 18393 });
-    });
 
     it('successful /todo request', async () => {
         // get spans created from the previous call
