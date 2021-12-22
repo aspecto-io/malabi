@@ -101,6 +101,21 @@ Open Telemetry data you can make assertions on (the spans that were created beca
 
 To sum it up, be sure that whenever you want to make assertions on a span - the code that created it must be in the callback the malabi function receives, and the malabi function returns the spans created.
 
+## Storage Backends
+Malabi supports 2 types of storage backends for the telemetry data created in your test (spans and traces).
+1. InMemory
+In this mode malabi stores the data in memory.
+
+To select this mode, set MALABI_STORAGE_BACKEND env var to `InMemory`
+2. Jaeger 
+To select this mode, set MALABI_STORAGE_BACKEND env var to `Jaeger`
+Also, you can control 2 additional env vars here:
+   1. MALABI_JAEGER_HOST - let's you control the hostname for where jaeger is deployed. it must be running somewhere for this mode to work and it's up to you to make it run.
+   Example values: `localhost`,`example.com`.
+   2. MALABI_JAEGER_QUERY_PROTOCOL - the protocol used to query jaeger API for the spans. Either `http`(default) or `https`.
+
+For both storage backends, malabi creates an endpoint (hosted inside the service-under-test) for the test runner to call query.
+
 ## Caveat: Usage with Jest
 
 Currently, Jest does not play out well with OpenTelemetry due to Jest's modifications of the way modules are required and OTEL's usage of 
