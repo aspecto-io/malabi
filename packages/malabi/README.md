@@ -88,6 +88,25 @@ describe('testing service-under-test remotely', () => {
 ## Documentation
 [Click to view documentation](https://aspecto-io.github.io/malabi/index.html)
 
+## Supported Environment Variables
+### MALABI_STORAGE_BACKEND
+Lets you select your desired storage backend for spans created in the test runs.
+
+Accepted values: `InMemory`,`Jaeger`
+
+Default: `InMemory`
+### MALABI_JAEGER_HOST
+If chosen Jaeger as storage backend, you must run it first.
+The host the jaeger API, without the protocol. We support querying jaeger by the internal JSON api, port 16686 is assumed.
+
+Examples: `localhost`, `example.com`
+
+Default: `localhost`
+### MALABI_JAEGER_QUERY_PROTOCOL
+In case your Jaeger using https for query API, set this to `https`. Otherwise, you can leave it as `http`.
+
+Default: `http`
+
 ## Why should you care about Malabi
 Most distributed apps developers choose to have some kind of black box test (API, integration, end to end, UI, you name it!).
 

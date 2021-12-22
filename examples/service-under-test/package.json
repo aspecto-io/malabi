@@ -6,7 +6,9 @@
     "license": "Apache-2.0",
     "private": true,
     "scripts": {
-        "start": "MALABI_STORAGE_BACKEND=InMemory ts-node src/index.ts -r malabi/instrument",
+        "start": "ts-node src/index.ts -r malabi/instrument",
+        "start:inmemory": "MALABI_STORAGE_BACKEND=InMemory yarn start",
+        "start:jaeger": "MALABI_STORAGE_BACKEND=Jaeger MALABI_JAEGER_HOST=localhost MALABI_JAEGER_QUERY_PROTOCOL=http yarn start",
         "start:dev": "ts-node-dev src/index.ts",
         "build":"tsc"
     },
