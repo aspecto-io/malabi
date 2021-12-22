@@ -1,6 +1,6 @@
 import { JaegerExporter } from '@opentelemetry/exporter-jaeger';
 
-const JAEGER_HOST = process.env.MALABI_JAEGER_HOST || 'http://localhost';
+const JAEGER_HOST = process.env.MALABI_JAEGER_HOST || 'localhost';
 export const jaegerExporter = new JaegerExporter({
     tags: [],
     host: JAEGER_HOST,
