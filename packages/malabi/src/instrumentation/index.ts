@@ -6,10 +6,7 @@ import { ParentBasedSampler } from '@opentelemetry/core';
 import { registerInstrumentations } from '@opentelemetry/instrumentation';
 import { inMemoryExporter } from '../exporter';
 import { jaegerExporter } from '../exporter/jaeger';
-// const { ConsoleSpanExporter } = require('@opentelemetry/sdk-trace-base');
-// const { SemanticResourceAttributes: ResourceAttributesSC } = require('@opentelemetry/semantic-conventions');
 import {
-    // context,
     Context,
     Link,
     Sampler,
@@ -23,7 +20,7 @@ import { SemanticAttributes } from '@opentelemetry/semantic-conventions';
 import { Resource } from '@opentelemetry/resources';
 import { fetchRemoteTelemetry } from '../remote-runner-integration';
 import { TelemetryRepository } from 'malabi-telemetry-repository';
-// /Users/tom/code/aspecto/malabi/node_modules/@opentelemetry/sdk-trace-node/node_modules/@opentelemetry/sdk-trace-base
+
 // allow all but filter out malabi requests.
 class MalabiSampler implements Sampler {
     shouldSample(
@@ -61,14 +58,14 @@ export interface InstrumentationConfig {
     serviceName: string;
 }
 
-// export getStorageBackend = () => {
-//     switch (process.env.STORAGE_BACKEND):
-//         case ([StorageBackend.InMemory])
-// }
+/**
+ * Enables OpenTelemetry instrumentation for Malabi. Used in both test runner and service under test
+ * @category Main Functions
+ * @param serviceName The name of the tested service
+ */
 export const instrument = ({
     serviceName
 }: InstrumentationConfig) => {
-    console.log('started to instrument - backend ', process.env.MALABI_STORAGE_BACKEND);
     const tracerProvider = new NodeTracerProvider({
         resource: new Resource({
             // TODO this should use semantic conventions
@@ -78,7 +75,6 @@ export const instrument = ({
     });
 
     const exporter = STORAGE_BACKEND_TO_EXPORTER[process.env.MALABI_STORAGE_BACKEND];
-    console.log(`service ${serviceName} exporter ${JSON.stringify(exporter)}`);
     tracerProvider.addSpanProcessor(new SimpleSpanProcessor(exporter));
     tracerProvider.register();
 
@@ -91,31 +87,19 @@ export const instrument = ({
     });
 };
 
+/**
+ * A wrapper that handles creating a span per test run. returns the spans that were created ready for assertion.
+ * @category Main Functions
+ * @param callback an async function containing all of the current test's span generating operations(API calls etc)
+ */
 export const malabi = async (callback): Promise<TelemetryRepository> => {
     return new Promise((resolve) => {
-        const tracer = trace.getTracer('sometracer');
-        // const span = tracer.startSpan('malabiRoot', {}, context.active());
-        // context.with()
+        const tracer = trace.getTracer('malabiManualTracer');
 
         tracer.startActiveSpan('malabiRoot', async (span) => {
             const currTraceID = span.spanContext().traceId;
-
-            // const fetchTelem = async () => {
-            //     // const currContext = context.active();
-            //     // maybe we need timeout here (check flush interval of jaeger instead)
-            //     // await new Promise(resolve => setTimeout(resolve, 5000))
-            //     span.end();
-            //     const telemetry = await fetchRemoteTelemetry({ portOrBaseUrl: 18393, currentTestTraceID: currTraceID });
-            //     console.log('telemetry', telemetry);
-            //     resolve(telemetry);
-            //     // return telemetry;
-            // }
-            // const currContext = context.active();
-            // const currSpan = trace.getSpan(context.active());
             await callback();
             span.end();
-            console.log('fetchRemoteTelemetry currTraceID', currTraceID);
-            // await new Promise(resolve => setTimeout(resolve, 5000))
             const telemetry = await fetchRemoteTelemetry({
                 portOrBaseUrl: 18393,
                 currentTestTraceID: currTraceID,
@@ -125,10 +109,4 @@ export const malabi = async (callback): Promise<TelemetryRepository> => {
     })
 }
 
-// export const malabi = async (callback) => {
-//     const tracer = trace.getTracer('sometracer');
-//     await callback(async () => {
-//         await fetchRemoteTelemetry({ portOrBaseUrl: 18393 })
-//     });
-// }
 
