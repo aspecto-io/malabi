@@ -2,7 +2,6 @@ import { instrument, serveMalabiFromHttpApp } from 'malabi';
 const instrumentationConfig = {
     serviceName: 'service-under-test',
 };
-
 instrument(instrumentationConfig);
 serveMalabiFromHttpApp(18393, instrumentationConfig);
 

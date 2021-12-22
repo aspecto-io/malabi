@@ -1,28 +1,9 @@
-// var http = require('http');
-// console.log('req.cache', require.cache);
 const SERVICE_UNDER_TEST_PORT = process.env.PORT || 8080;
-// import { fetchRemoteTelemetry, clearRemoteTelemetry, malabi, instrument } from 'malabi';
 import { malabi } from 'malabi';
 
-// instrument();
-
-
 import { expect } from 'chai';
-console.log('importing axios from service-under-test');
 import axios from 'axios';
-// const getTelemetryRepository = async () => await fetchRemoteTelemetry({ portOrBaseUrl: 18393 });
 
-// import {
-//     context,
-//     // Context,
-//     // Link,
-//     // Sampler,
-//     // SamplingDecision,
-//     // SamplingResult,
-//     // SpanAttributes,
-//     // SpanKind,
-//     trace,
-// } from '@opentelemetry/api';
 describe('testing service-under-test remotely', () => {
 
     it('successful /todo request', async () => {
