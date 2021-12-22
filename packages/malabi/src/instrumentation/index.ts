@@ -61,7 +61,8 @@ export interface InstrumentationConfig {
 /**
  * Enables OpenTelemetry instrumentation for Malabi. Used in both test runner and service under test
  * @category Main Functions
- * @param serviceName The name of the tested service
+ * @param InstrumentationConfig Config for creating the instrumentation
+ * @param InstrumentationConfig.serviceName The name of the tested service
  */
 export const instrument = ({
     serviceName
