@@ -1,6 +1,5 @@
 import { collectorTraceV1Transform } from 'opentelemetry-proto-transformations';
 import { initRepository, TelemetryRepository } from 'malabi-telemetry-repository';
-// import { SpanAttributes, SpanKind } from '@opentelemetry/api';
 import { convertJaegerSpanToOtelReadableSpan } from 'opentelemetry-span-transformations';
 import { StorageBackend } from '../instrumentation';
 
@@ -18,22 +17,16 @@ interface FetchRemoteTelemetryProps {
 const fetchRemoteTelemetry = async ({ portOrBaseUrl, currentTestTraceID } : FetchRemoteTelemetryProps): Promise<TelemetryRepository> => {
     try {
         console.log('currentTestTraceID', currentTestTraceID);
-        // const currContext = context.active();
-        // const span = trace.getSpan(context.active());
-        // const currTraceID = span.spanContext().traceId;
         const baseUrl = typeof portOrBaseUrl === 'string' ? portOrBaseUrl : `http://localhost:${portOrBaseUrl}`;
         console.log('importing axios from fetchRemoteTelem');
-        // @ts-ignore
         const axios = require('axios');
-        // await new Promise(resolve => setTimeout(resolve, 5000))
         const res = await axios.get(`${baseUrl}/malabi/spans`, {
             transformResponse: (res) => {
                 return res;
             },
         });
-        // console.log('fetchRemoteTelemetry returning spans. count:', res);
-        let spans;
 
+        let spans;
         if (process.env.MALABI_STORAGE_BACKEND === StorageBackend.InMemory) {
             const protoFormatted = collectorTraceV1Transform.fromJsonEncodedProtobufFormat(res.data);
             spans = collectorTraceV1Transform.fromProtoExportTraceServiceRequest(protoFormatted).filter(span => span.spanContext().traceId === currentTestTraceID);

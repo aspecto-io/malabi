@@ -1,6 +1,6 @@
 import { getJaegerSpans } from '../exporter/jaeger';
 import { InstrumentationConfig, StorageBackend } from '../instrumentation';
-import { getInMemorySpans, resetInMemorySpans } from '../exporter';
+import { getInMemorySpans } from '../exporter';
 import { collectorTraceV1Transform } from 'opentelemetry-proto-transformations';
 
 export const getMalabiExpressRouter = ({ serviceName }: InstrumentationConfig) => {
@@ -16,7 +16,6 @@ export const getMalabiExpressRouter = ({ serviceName }: InstrumentationConfig) =
                 )
             );
         })
-        .delete('/spans', async (_req, res) => res.json(resetInMemorySpans()));
 };
 
 export const serveMalabiFromHttpApp = (port: number, instrumentationConfig: InstrumentationConfig) => {

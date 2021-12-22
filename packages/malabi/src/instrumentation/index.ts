@@ -16,7 +16,7 @@ import {
     SpanKind,
     trace,
 } from '@opentelemetry/api';
-import { SemanticAttributes } from '@opentelemetry/semantic-conventions';
+import { SemanticAttributes, SemanticResourceAttributes } from '@opentelemetry/semantic-conventions';
 import { Resource } from '@opentelemetry/resources';
 import { fetchRemoteTelemetry } from '../remote-runner-integration';
 import { TelemetryRepository } from 'malabi-telemetry-repository';
@@ -69,8 +69,7 @@ export const instrument = ({
 }: InstrumentationConfig) => {
     const tracerProvider = new NodeTracerProvider({
         resource: new Resource({
-            // TODO this should use semantic conventions
-            'service.name': serviceName,
+            [SemanticResourceAttributes.SERVICE_NAME]: serviceName,
         }),
         sampler: new ParentBasedSampler({ root: new MalabiSampler() }),
     });
