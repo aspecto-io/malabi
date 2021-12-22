@@ -110,4 +110,3 @@ export const malabi = async (callback): Promise<TelemetryRepository> => {
     })
 }
 
-
