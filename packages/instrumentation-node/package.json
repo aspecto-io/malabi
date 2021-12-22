@@ -36,7 +36,7 @@
         "@opentelemetry/instrumentation-ioredis": "0.27.0",
         "opentelemetry-instrumentation-amqplib": "0.26.1",
         "opentelemetry-instrumentation-elasticsearch": "0.26.1",
-        "opentelemetry-instrumentation-express": "0.27.1",
+        "opentelemetry-instrumentation-express": "0.26.1",
         "opentelemetry-instrumentation-kafkajs": "0.26.1",
         "opentelemetry-instrumentation-mongoose": "0.26.1",
         "opentelemetry-instrumentation-neo4j": "0.26.1",
