@@ -78,9 +78,9 @@ describe('testing service-under-test remotely', () => {
         const repo = await getMalabiTelemetryRepository();
         
         // Validate internal HTTP call
-        const todoInteralHTTPCall = repo.spans.outgoing().first;
-        expect(todoInteralHTTPCall.httpFullUrl).toBe('https://jsonplaceholder.typicode.com/todos/1')
-        expect(todoInteralHTTPCall.statusCode).toBe(200);
+        const todoInternalHTTPCall = repo.spans.outgoing().first;
+        expect(todoInternalHTTPCall.httpFullUrl).toBe('https://jsonplaceholder.typicode.com/todos/1')
+        expect(todoInternalHTTPCall.statusCode).toBe(200);
     });
 });
 ```
