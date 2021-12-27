@@ -13,9 +13,9 @@ describe('testing service-under-test remotely', () => {
         });
 
         // Validate internal HTTP call
-        const todoInteralHTTPCall = telemetryRepo.spans.outgoing().first;
-        expect(todoInteralHTTPCall.httpFullUrl).equals('https://jsonplaceholder.typicode.com/todos/1')
-        expect(todoInteralHTTPCall.statusCode).equals(200);
+        const todoInternalHTTPCall = telemetryRepo.spans.outgoing().first;
+        expect(todoInternalHTTPCall.httpFullUrl).equals('https://jsonplaceholder.typicode.com/todos/1')
+        expect(todoInternalHTTPCall.statusCode).equals(200);
     });
 
     it('successful /users request', async () => {
