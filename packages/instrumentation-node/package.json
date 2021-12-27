@@ -34,14 +34,14 @@
         "@opentelemetry/instrumentation-aws-sdk": "^0.4.0",
         "@opentelemetry/instrumentation-http": "0.27.0",
         "@opentelemetry/instrumentation-ioredis": "0.27.0",
-        "opentelemetry-instrumentation-amqplib": "0.26.1",
-        "opentelemetry-instrumentation-elasticsearch": "0.26.1",
-        "opentelemetry-instrumentation-express": "0.26.1",
-        "opentelemetry-instrumentation-kafkajs": "0.26.1",
-        "opentelemetry-instrumentation-mongoose": "0.26.1",
-        "opentelemetry-instrumentation-neo4j": "0.26.1",
-        "opentelemetry-instrumentation-sequelize": "0.26.1",
-        "opentelemetry-instrumentation-typeorm": "0.26.1"
+        "opentelemetry-instrumentation-amqplib": "0.27.0",
+        "opentelemetry-instrumentation-elasticsearch": "0.27.0",
+        "opentelemetry-instrumentation-express": "0.27.0",
+        "opentelemetry-instrumentation-kafkajs": "0.27.0",
+        "opentelemetry-instrumentation-mongoose": "0.27.0",
+        "opentelemetry-instrumentation-neo4j": "0.27.0",
+        "opentelemetry-instrumentation-sequelize": "0.27.0",
+        "opentelemetry-instrumentation-typeorm": "0.27.0"
     },
     "devDependencies": {
         "@opentelemetry/instrumentation": "0.27.0",
