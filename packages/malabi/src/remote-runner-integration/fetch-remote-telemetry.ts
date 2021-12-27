@@ -19,18 +19,19 @@ const fetchRemoteTelemetry = async ({ portOrBaseUrl, currentTestTraceID } : Fetc
         const baseUrl = typeof portOrBaseUrl === 'string' ? portOrBaseUrl : `http://localhost:${portOrBaseUrl}`;
         const axios = require('axios');
         const res = await axios.get(`${baseUrl}/malabi/spans`, {
-            transformResponse: (res) => {
+            transformResponse: (res: any) => {
                 return res;
             },
         });
 
         let spans;
-        if (process.env.MALABI_STORAGE_BACKEND === StorageBackend.InMemory) {
-            const protoFormatted = collectorTraceV1Transform.fromJsonEncodedProtobufFormat(res.data);
-            spans = collectorTraceV1Transform.fromProtoExportTraceServiceRequest(protoFormatted).filter(span => span.spanContext().traceId === currentTestTraceID);
-        } else if (process.env.MALABI_STORAGE_BACKEND === StorageBackend.Jaeger) {
+
+        if (process.env.MALABI_STORAGE_BACKEND === StorageBackend.Jaeger) {
             const spansInJaegerFormat = JSON.parse(res.data).filter(({ traceID }) => traceID === currentTestTraceID)[0].spans;
             spans = spansInJaegerFormat.map(jaegerSpan => convertJaegerSpanToOtelReadableSpan(jaegerSpan));
+        } else {
+            const protoFormatted = collectorTraceV1Transform.fromJsonEncodedProtobufFormat(res.data);
+            spans = collectorTraceV1Transform.fromProtoExportTraceServiceRequest(protoFormatted).filter(span => span.spanContext().traceId === currentTestTraceID);
         }
 
         return initRepository(spans);

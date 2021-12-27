@@ -74,7 +74,7 @@ export const instrument = ({
         sampler: new ParentBasedSampler({ root: new MalabiSampler() }),
     });
 
-    const exporter = STORAGE_BACKEND_TO_EXPORTER[process.env.MALABI_STORAGE_BACKEND];
+    const exporter = STORAGE_BACKEND_TO_EXPORTER[process.env.MALABI_STORAGE_BACKEND || StorageBackend.InMemory];
     tracerProvider.addSpanProcessor(new SimpleSpanProcessor(exporter));
     tracerProvider.register();
 
