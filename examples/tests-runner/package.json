@@ -11,10 +11,10 @@
         "test:jaeger": "MALABI_STORAGE_BACKEND=Jaeger MALABI_JAEGER_HOST=localhost yarn test"
     },
     "dependencies": {
-        "axios": "^0.21.1",
-        "typescript": "^4.2.4"
+        "axios": "^0.21.1"
     },
     "devDependencies": {
+        "typescript": "^4.2.4",
         "malabi": "^0.0.6-alpha.1",
         "@types/expect": "^24.3.0",
         "@types/mocha": "^9.0.0",

@@ -31,7 +31,7 @@
     "dependencies": {
         "@aspecto/opentelemetry-instrumentation-mongodb": "0.0.130",
         "@opentelemetry/api": "^1.0.1",
-        "@opentelemetry/instrumentation-aws-sdk": "^0.4.0",
+        "@opentelemetry/instrumentation-aws-sdk": "0.4.0",
         "@opentelemetry/instrumentation-http": "0.27.0",
         "@opentelemetry/instrumentation-ioredis": "0.27.0",
         "opentelemetry-instrumentation-amqplib": "0.27.0",

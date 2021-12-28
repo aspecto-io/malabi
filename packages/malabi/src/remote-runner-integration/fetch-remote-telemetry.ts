@@ -1,7 +1,5 @@
 import { collectorTraceV1Transform } from 'opentelemetry-proto-transformations';
 import { initRepository, TelemetryRepository } from 'malabi-telemetry-repository';
-import { convertJaegerSpanToOtelReadableSpan } from 'opentelemetry-span-transformations';
-import { StorageBackend } from '../instrumentation';
 
 interface FetchRemoteTelemetryProps {
     portOrBaseUrl: string | number;
@@ -22,21 +20,17 @@ const fetchRemoteTelemetry = async ({ portOrBaseUrl, currentTestTraceID } : Fetc
             transformResponse: (res: any) => {
                 return res;
             },
+            params: {
+                traceID: currentTestTraceID,
+            }
         });
 
-        let spans;
-
-        if (process.env.MALABI_STORAGE_BACKEND === StorageBackend.Jaeger) {
-            const spansInJaegerFormat = JSON.parse(res.data).filter(({ traceID }) => traceID === currentTestTraceID)[0].spans;
-            spans = spansInJaegerFormat.map(jaegerSpan => convertJaegerSpanToOtelReadableSpan(jaegerSpan));
-        } else {
-            const protoFormatted = collectorTraceV1Transform.fromJsonEncodedProtobufFormat(res.data);
-            spans = collectorTraceV1Transform.fromProtoExportTraceServiceRequest(protoFormatted).filter(span => span.spanContext().traceId === currentTestTraceID);
-        }
+        const protoFormatted = collectorTraceV1Transform.fromJsonEncodedProtobufFormat(res.data);
+        const spans = collectorTraceV1Transform.fromProtoExportTraceServiceRequest(protoFormatted);
 
         return initRepository(spans);
     } catch (err) {
-        console.log('error while fetching remote telemetry', err);
+        console.error('error while fetching remote telemetry', err);
     }
     return initRepository([]);
 };
