@@ -107,12 +107,15 @@ Malabi supports 2 types of storage backends for the telemetry data created in yo
 In this mode malabi stores the data in memory.
 
 To select this mode, set MALABI_STORAGE_BACKEND env var to `InMemory`
-2. Jaeger 
-To select this mode, set MALABI_STORAGE_BACKEND env var to `Jaeger`
-Also, you can control 2 additional env vars here:
-   1. MALABI_JAEGER_HOST - let's you control the hostname for where jaeger is deployed. it must be running somewhere for this mode to work and it's up to you to make it run.
+2. Jaeger
+To select this mode, set MALABI_STORAGE_BACKEND env var to `Jaeger` when running your service under test.
+Also, you can control additional env vars here:
+   1. OTEL_EXPORTER_JAEGER_AGENT_HOST - lets you control the hostname of the jaeger agent. it must be running somewhere for this mode to work and it's up to you to make it run. default: `localhost`
    Example values: `localhost`,`example.com`.
-   2. MALABI_JAEGER_QUERY_PROTOCOL - the protocol used to query jaeger API for the spans. Either `http`(default) or `https`.
+   2. OTEL_EXPORTER_JAEGER_AGENT_PORT - port of jaeger agent. default: `6832`
+   3. MALABI_JAEGER_QUERY_PROTOCOL - the protocol used to query jaeger API for the spans. Either `http`(default) or `https`.
+   4. MALABI_JAEGER_QUERY_PORT - the port which we use to query jaeger. default: `16686`
+   5. MALABI_JAEGER_QUERY_HOST - ets you control the hostname of the jaeger query api. default: `localhost`
 
 For both storage backends, malabi creates an endpoint (hosted inside the service-under-test) for the test runner to call query.
 

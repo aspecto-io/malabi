@@ -2,10 +2,11 @@ import { JaegerExporter } from '@opentelemetry/exporter-jaeger';
 import { convertJaegerSpanToOtelReadableSpan } from 'opentelemetry-span-transformations';
 import { ReadableSpan } from '@opentelemetry/sdk-trace-base';
 
-const JAEGER_HOST = process.env.MALABI_JAEGER_HOST || 'localhost';
+const JAEGER_QUERY_HOST = process.env.MALABI_JAEGER_QUERY_HOST || 'localhost';
+const JAEGER_AGENT_PORT = process.env.OTEL_EXPORTER_JAEGER_AGENT_PORT ? (parseInt(process.env.OTEL_EXPORTER_JAEGER_AGENT_PORT)) : 6832;
 export const jaegerExporter = new JaegerExporter({
     tags: [],
-    host: JAEGER_HOST,
+    port: JAEGER_AGENT_PORT
 });
 
 /****
@@ -17,9 +18,10 @@ export const getJaegerSpans = async ({
     serviceName,
     traceID,
 }: { serviceName: string, traceID: string }): Promise<ReadableSpan[]> => {
-    const JAEGER_PROTOCOL = process.env.MALABI_JAEGER_QUERY_PROTOCOL || 'http';
+    const JAEGER_QUERY_PROTOCOL = process.env.MALABI_JAEGER_QUERY_PROTOCOL || 'http';
+    const JAEGER_QUERY_PORT = process.env.MALABI_JAEGER_QUERY_PORT || '16686';
     const axios = require('axios');
-    const res = await axios.get(`${JAEGER_PROTOCOL}://${JAEGER_HOST}:16686/api/traces?service=${serviceName}`)
+    const res = await axios.get(`${JAEGER_QUERY_PROTOCOL}://${JAEGER_QUERY_HOST}:${JAEGER_QUERY_PORT}/api/traces?service=${serviceName}`)
     const spansInJaegerFormat = res.data.data.find(({ traceID: id }) => id === traceID).spans;
     return spansInJaegerFormat.map(jaegerSpan => convertJaegerSpanToOtelReadableSpan(jaegerSpan));
 }
