@@ -7,7 +7,6 @@
     "private": true,
     "scripts": {
         "test": "ts-mocha --paths \"./test/*.ts\" --require \"./test/tracing.ts\" --timeout 10000",
-        "test:inmemory": "MALABI_STORAGE_BACKEND=InMemory yarn test",
         "test:jaeger": "MALABI_STORAGE_BACKEND=Jaeger MALABI_JAEGER_HOST=localhost yarn test"
     },
     "dependencies": {
