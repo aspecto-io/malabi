@@ -24,26 +24,29 @@ This library introduces a new way of testing services: <a href="#tbt">**Trace-ba
 
 There are two main components to Malabi:
 
-1. An OpenTelemetry SDK Distribution - used to collect any activity in the service under test by instrumenting it. **It is stored in the memory of the asserted service**, and exposes and endpoint for the test runner to access & make assertions.
+1. An OpenTelemetry SDK Distribution - used to collect any activity in the service under test by instrumenting it. **It is stored in the memory of the asserted service or in a Jaeger instance **, and exposes and endpoint for the test runner to access & make assertions.
 
-2. An assertion library for OpenTelemetry data - by using `fetchRemoteTelemetry` function you will get access to any span created by the current test, then you will be able to validate the span and the service behavior
+2. An assertion library for OpenTelemetry data - by using the `malabi` wrapper function you will get access to any span created by the current test, then you will be able to validate the span and the service behavior
 
 ## Getting started
 ### In the microservice you want to test
 1. ```npm install --save malabi``` or ```yarn add malabi```
-2. Add the following code at the service initialization, for example: in index.js
+2. Add the following code at the service initialization, for example: in index.js. needs to be before any other imports to work properly.
 ```JS
-import * as malabi from 'malabi';
-malabi.instrument();
-malabi.serveMalabiFromHttpApp(18393);
+import { instrument, serveMalabiFromHttpApp } from 'malabi';
+const instrumentationConfig = {
+    serviceName: 'service-under-test',
+};
+instrument(instrumentationConfig);
+serveMalabiFromHttpApp(18393, instrumentationConfig);
 
 import axios from 'axios';
 import express from 'express';
-import User from './db';
-
+import User from "./db";
 const PORT = process.env.PORT || 8080;
 
 const app = express();
+
 app.get('/todo', async (req, res) => {
     try {
         const todoItem = await axios('https://jsonplaceholder.typicode.com/todos/1');
@@ -58,32 +61,80 @@ app.get('/todo', async (req, res) => {
 ```
 
 ## In your test file
+Create a tracing.ts file to set up instrumentation on the tests runner(this enables us to separate spans created in one test from other tests' spans from the other):
+```JS
+import { instrument } from 'malabi';
+
+instrument({
+    serviceName: 'tests-runner',
+});
+```
+
+And this is how the test file looks like(service-under-test.spec.ts):
+Note: this should be run with node --require.
+
+Also, you must provide the MALABI_ENDPOINT_PORT_OR_URL env var (must start with http for url)
+```
+MALABI_ENDPOINT_PORT_OR_URL=http://localhost:18393 ts-mocha --paths "./test/*.ts" --require "./test/tracing.ts"
+```
+Or alternatively just with port(assuming localhost by default):
+```
+MALABI_ENDPOINT_PORT_OR_URL=18393 ts-mocha --paths "./test/*.ts" --require "./test/tracing.ts"
+```
+
+Sample test code:
 ```JS
 const SERVICE_UNDER_TEST_PORT = process.env.PORT || 8080;
+import { malabi } from 'malabi';
+
+import { expect } from 'chai';
 import axios from 'axios';
-import { fetchRemoteTelemetry, clearRemoteTelemetry } from 'malabi';
-const getMalabiTelemetryRepository = async () => await fetchRemoteTelemetry({ portOrBaseUrl: 18393 });
 
 describe('testing service-under-test remotely', () => {
-    beforeEach(async () => {
-        // We must reset all collected spans between tests to make sure span aren't leaking between tests.
-        await clearRemoteTelemetry({ portOrBaseUrl: 18393 });
-    });
-
     it('successful /todo request', async () => {
-        // call to the service under test - internally it will call another API to fetch the todo items.
-        const res = await axios(`http://localhost:${SERVICE_UNDER_TEST_PORT}/todo`);
+        // get spans created from the previous call
+        const telemetryRepo = await malabi(async () => {
+            await axios(`http://localhost:${SERVICE_UNDER_TEST_PORT}/todo`);
+        });
 
-        // get spans created from the previous call 
-        const repo = await getMalabiTelemetryRepository();
-        
         // Validate internal HTTP call
-        const todoInternalHTTPCall = repo.spans.outgoing().first;
-        expect(todoInternalHTTPCall.httpFullUrl).toBe('https://jsonplaceholder.typicode.com/todos/1')
-        expect(todoInternalHTTPCall.statusCode).toBe(200);
+        const todoInternalHTTPCall = telemetryRepo.spans.outgoing().first;
+        expect(todoInternalHTTPCall.httpFullUrl).equals('https://jsonplaceholder.typicode.com/todos/1')
+        expect(todoInternalHTTPCall.statusCode).equals(200);
     });
 });
 ```
+
+Notice the usage of the malabi function - any piece of code that we put inside the callback given to this function would be instrumented as part
+of a newly created trace (created by malabi), and the return value would be the telemetry repository for this test, meaning the 
+Open Telemetry data you can make assertions on (the spans that were created because of the code you put in the callback).
+
+To sum it up, be sure that whenever you want to make assertions on a span - the code that created it must be in the callback the malabi function receives, and the malabi function returns the spans created.
+
+## Storage Backends
+Malabi supports 2 types of storage backends for the telemetry data created in your test (spans and traces).
+1. InMemory
+In this mode malabi stores the data in memory.
+
+To select this mode, set MALABI_STORAGE_BACKEND env var to `InMemory`
+2. Jaeger
+To select this mode, set MALABI_STORAGE_BACKEND env var to `Jaeger` when running your service under test.
+Also, you can control additional env vars here:
+   1. OTEL_EXPORTER_JAEGER_AGENT_HOST - lets you control the hostname of the jaeger agent. it must be running somewhere for this mode to work and it's up to you to make it run. default: `localhost`
+   Example values: `localhost`,`example.com`.
+   2. OTEL_EXPORTER_JAEGER_AGENT_PORT - port of jaeger agent. default: `6832`
+   3. MALABI_JAEGER_QUERY_PROTOCOL - the protocol used to query jaeger API for the spans. Either `http`(default) or `https`.
+   4. MALABI_JAEGER_QUERY_PORT - the port which we use to query jaeger. default: `16686`
+   5. MALABI_JAEGER_QUERY_HOST - ets you control the hostname of the jaeger query api. default: `localhost`
+
+For both storage backends, malabi creates an endpoint (hosted inside the service-under-test) for the test runner to call query.
+
+## Caveat: Usage with Jest
+
+Currently, Jest does not play out well with OpenTelemetry due to Jest's modifications of the way modules are required and OTEL's usage of 
+require in the middle. 
+
+Until this is fixed, we recommend using Malabi with Mocha instead of Jest.
 
 ## Documentation
 [Click to view documentation](https://aspecto-io.github.io/malabi/index.html)
@@ -97,7 +148,7 @@ Imagine that you can take any existing black box test and validate any backend a
 
 #### Common use case
 You are running an API call that create a new DB record, then you write dedicated test code to fetch the record created and validate it.
-Now you can rely on Malabi to validate it with no special code `(await getMalabiTelemetryRepository()).mongodb()`
+Now you can rely on Malabi to validate that mongo got the right data with no special code.
 
 ## <a name="tbt">Trace based testing explained</a>
 Trace-based testing is a method that allows us to improve assertion capabilities by leveraging traces data and make it accessible while setting our expectations from a test. That enables us to **validate essential relationships between software components that otherwise are put to the test only in production**.
@@ -105,17 +156,19 @@ Trace-based validation enables developers to become proactive to issues instead 
 ## More examples
 
 ```JS
-import { fetchRemoteTelemetry } from 'malabi';
-const getMalabiTelemetryRepository = async () => await fetchRemoteTelemetry(18393);
-// get spans created in the context of test
-const repo = await getMalabiTelemetryRepository();
-const { spans } = repo;
+import { malabi } from 'malabi';
 
-// Validating that /users had ran a single select statement and responded with an array.
-const sequelizeActivities = spans.sequelize();
-expect(sequelizeActivities.length).toBe(1);
-expect(sequelizeActivities.first.dbOperation).toBe("SELECT");
-expect(Array.isArray(JSON.parse(sequelizeActivities.first.dbResponse))).toBe(true);
+it('should select from db', async () => {
+    const { spans } = await malabi(async () => {
+        // some code here that makes db operations with sequelize
+    });
+    
+    // Validating that /users had ran a single select statement and responded with an array.
+    const sequelizeActivities = spans.sequelize();
+    expect(sequelizeActivities.length).toBe(1);
+    expect(sequelizeActivities.first.dbOperation).toBe("SELECT");
+    expect(Array.isArray(JSON.parse(sequelizeActivities.first.dbResponse))).toBe(true);
+});
 ```
 
 [See in-repo live example](https://github.com/aspecto-io/malabi/tree/master/examples/README.md)

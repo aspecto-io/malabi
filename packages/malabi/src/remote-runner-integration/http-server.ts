@@ -1,25 +1,27 @@
-import { getSpans, resetSpans } from '../exporter';
+import { getJaegerSpans } from '../exporter/jaeger';
+import { InstrumentationConfig, StorageBackend } from '../instrumentation';
+import { getInMemorySpans } from '../exporter';
 import { collectorTraceV1Transform } from 'opentelemetry-proto-transformations';
 
-export const getMalabiExpressRouter = () => {
+export const getMalabiExpressRouter = ({ serviceName }: InstrumentationConfig) => {
     const express = require('express');
     return express
         .Router()
-        .get('/spans', (_req, res) => {
+        .get('/spans', async (_req, res) => {
+            const { query: { traceID } } = _req;
+            if (!traceID) res.status(400).json({ message: 'Must provide a valid traceID' });
             res.set('Content-Type', 'application/json');
-            res.send(
-                collectorTraceV1Transform.toJsonEncodedProtobufFormat(
-                    collectorTraceV1Transform.toProtoExportTraceServiceRequest(getSpans())
-                )
-            );
+            const spans = collectorTraceV1Transform.toJsonEncodedProtobufFormat(
+                collectorTraceV1Transform.toProtoExportTraceServiceRequest(process.env.MALABI_STORAGE_BACKEND === StorageBackend.Jaeger ?
+                    await getJaegerSpans({ serviceName, traceID }) : getInMemorySpans({ traceID })));
+            res.send(spans);
         })
-        .delete('/spans', (_req, res) => res.json(resetSpans()));
 };
 
-export const serveMalabiFromHttpApp = (port: number) => {
+export const serveMalabiFromHttpApp = (port: number, instrumentationConfig: InstrumentationConfig) => {
     const express = require('express');
     const app = express();
-    app.use('/malabi', getMalabiExpressRouter());
+    app.use('/malabi', getMalabiExpressRouter(instrumentationConfig));
     app.listen(port);
     return app;
 };

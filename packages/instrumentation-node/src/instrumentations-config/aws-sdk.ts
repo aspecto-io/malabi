@@ -4,8 +4,8 @@ import {
     AwsSdkInstrumentationConfig,
     NormalizedRequest,
     NormalizedResponse,
-} from 'opentelemetry-instrumentation-aws-sdk';
-import { DbExtendedAttribute, GeneralExtendedAttribute, MessagingExtendedAttribute } from '../enums';
+} from '@opentelemetry/instrumentation-aws-sdk';
+import { DbExtendedAttribute, MessagingExtendedAttribute } from '../enums';
 import { AutoInstrumentationOptions } from '../types';
 
 const enum AttributeNames {
@@ -101,5 +101,4 @@ export const awsSdkInstrumentationConfig = (options: AutoInstrumentationOptions)
     responseHook: options.collectPayloads && callHookOnlyOnRecordingSpan(awsSdkResponseHook),
     sqsProcessHook: options.collectPayloads && callHookOnlyOnRecordingSpan(sqsProcessCapturePayload),
     suppressInternalInstrumentation: options.suppressInternalInstrumentation,
-    moduleVersionAttributeName: GeneralExtendedAttribute.INSTRUMENTED_LIBRARY_VERSION,
 });

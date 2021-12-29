@@ -72,7 +72,7 @@
             
             <nav>
                 
-                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Classes</h3><ul><li><a href="SpansRepository.html">SpansRepository</a></li><li><a href="TelemetryRepository.html">TelemetryRepository</a></li></ul></div><div class="category"><h2>Main Functions</h2><h3>Global</h3><ul><li><a href="global.html#clearRemoteTelemetry">clearRemoteTelemetry</a></li><li><a href="global.html#fetchRemoteTelemetry">fetchRemoteTelemetry</a></li></ul></div>
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Classes</h3><ul><li><a href="SpansRepository.html">SpansRepository</a></li><li><a href="TelemetryRepository.html">TelemetryRepository</a></li></ul></div><div class="category"><h2>Main Functions</h2><h3>Global</h3><ul><li><a href="global.html#fetchRemoteTelemetry">fetchRemoteTelemetry</a></li><li><a href="global.html#instrument">instrument</a></li><li><a href="global.html#malabi">malabi</a></li></ul></div>
                 
             </nav>
         </div>
@@ -89,11 +89,15 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import { collectorTraceV1Transform } from "opentelemetry-proto-transformations";
-import { initRepository, TelemetryRepository } from "malabi-telemetry-repository";
+            <pre class="prettyprint source linenums"><code>import { collectorTraceV1Transform } from 'opentelemetry-proto-transformations';
+import { initRepository, TelemetryRepository } from 'malabi-telemetry-repository';
+// import { SpanAttributes, SpanKind } from '@opentelemetry/api';
+import { convertJaegerSpanToOtelReadableSpan } from 'opentelemetry-span-transformations';
+import { StorageBackend } from '../instrumentation';
 
 interface FetchRemoteTelemetryProps {
     portOrBaseUrl: string | number;
+    currentTestTraceID: string;
 }
 
 /**
@@ -102,19 +106,36 @@ interface FetchRemoteTelemetryProps {
  * @param fetchRemoteTelemetryProps Props for fetching remote telemetry
  * @param fetchRemoteTelemetryProps.portOrBaseUrl port number, or entire base url, where the endpoint is hosted at.
  */
-const fetchRemoteTelemetry = async ({ portOrBaseUrl } : FetchRemoteTelemetryProps): Promise&lt;TelemetryRepository> => {
+const fetchRemoteTelemetry = async ({ portOrBaseUrl, currentTestTraceID } : FetchRemoteTelemetryProps): Promise&lt;TelemetryRepository> => {
     try {
-        const baseUrl = typeof portOrBaseUrl === 'string' ? portOrBaseUrl : `http://localhost:${portOrBaseUrl}`;        
-        const res = await require('axios').get(`${baseUrl}/malabi/spans`, {
+        console.log('currentTestTraceID', currentTestTraceID);
+        // const currContext = context.active();
+        // const span = trace.getSpan(context.active());
+        // const currTraceID = span.spanContext().traceId;
+        const baseUrl = typeof portOrBaseUrl === 'string' ? portOrBaseUrl : `http://localhost:${portOrBaseUrl}`;
+        console.log('importing axios from fetchRemoteTelem');
+        // @ts-ignore
+        const axios = require('axios');
+        // await new Promise(resolve => setTimeout(resolve, 5000))
+        const res = await axios.get(`${baseUrl}/malabi/spans`, {
             transformResponse: (res) => {
                 return res;
             },
         });
-        const protoFormatted = collectorTraceV1Transform.fromJsonEncodedProtobufFormat(res.data);
-        const spans = collectorTraceV1Transform.fromProtoExportTraceServiceRequest(protoFormatted);
+        // console.log('fetchRemoteTelemetry returning spans. count:', res);
+        let spans;
+
+        if (process.env.MALABI_STORAGE_BACKEND === StorageBackend.InMemory) {
+            const protoFormatted = collectorTraceV1Transform.fromJsonEncodedProtobufFormat(res.data);
+            spans = collectorTraceV1Transform.fromProtoExportTraceServiceRequest(protoFormatted).filter(span => span.spanContext().traceId === currentTestTraceID);
+        } else if (process.env.MALABI_STORAGE_BACKEND === StorageBackend.Jaeger) {
+            const spansInJaegerFormat = JSON.parse(res.data).filter(({ traceID }) => traceID === currentTestTraceID)[0].spans;
+            spans = spansInJaegerFormat.map(jaegerSpan => convertJaegerSpanToOtelReadableSpan(jaegerSpan));
+        }
+
         return initRepository(spans);
     } catch (err) {
-        console.log('error while fetching remote spans', err);
+        console.log('error while fetching remote telemetry', err);
     }
     return initRepository([]);
 };
