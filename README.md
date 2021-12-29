@@ -72,7 +72,11 @@ instrument({
 
 And this is how the test file looks like(service-under-test.spec.ts):
 Note: this should be run with node --require, like this:
-```ts-mocha --paths "./test/*.ts" --require "./test/tracing.ts"```
+Also, notice you must provide the MALABI_ENDPOINT_PORT_OR_URL env var (must start with http for url)
+```MALABI_ENDPOINT_PORT_OR_URL=http://localhost:18393 ts-mocha --paths "./test/*.ts" --require "./test/tracing.ts"```
+Or alternatively just with port(assuming localhost by default):
+```MALABI_ENDPOINT_PORT_OR_URL=18393 ts-mocha --paths "./test/*.ts" --require "./test/tracing.ts"```
+
 ```JS
 const SERVICE_UNDER_TEST_PORT = process.env.PORT || 8080;
 import { malabi } from 'malabi';

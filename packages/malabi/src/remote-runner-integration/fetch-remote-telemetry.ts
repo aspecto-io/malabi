@@ -14,7 +14,7 @@ interface FetchRemoteTelemetryProps {
  */
 const fetchRemoteTelemetry = async ({ portOrBaseUrl, currentTestTraceID } : FetchRemoteTelemetryProps): Promise<TelemetryRepository> => {
     try {
-        const baseUrl = typeof portOrBaseUrl === 'string' ? portOrBaseUrl : `http://localhost:${portOrBaseUrl}`;
+        const baseUrl = portOrBaseUrl.toString().startsWith('http') ? portOrBaseUrl : `http://localhost:${portOrBaseUrl}`;
         const axios = require('axios');
         const res = await axios.get(`${baseUrl}/malabi/spans`, {
             transformResponse: (res: any) => {

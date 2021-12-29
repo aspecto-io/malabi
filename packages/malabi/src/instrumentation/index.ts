@@ -107,6 +107,7 @@ export const instrument = ({
  */
 export const malabi = async (callback): Promise<TelemetryRepository> => {
     return new Promise((resolve, reject) => {
+        if (!process.env.MALABI_ENDPOINT_PORT_OR_URL) reject('MALABI_ENDPOINT_PORT_OR_URL was not found. This is the port/url at which the service under test is hosting malabi endpoint');
         // TODO use current package name and version from package.json
         const tracer = trace.getTracer('malabiManualTracer');
         tracer.startActiveSpan('malabiRoot', async (span) => {
@@ -120,7 +121,7 @@ export const malabi = async (callback): Promise<TelemetryRepository> => {
             }
             span.end();
             const telemetry = await fetchRemoteTelemetry({
-                portOrBaseUrl: 18393,
+                portOrBaseUrl: process.env.MALABI_ENDPOINT_PORT_OR_URL,
                 currentTestTraceID: currTraceID,
             });
             resolve(telemetry);
