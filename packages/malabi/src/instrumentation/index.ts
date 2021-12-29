@@ -59,8 +59,8 @@ export interface InstrumentationConfig {
 }
 
 const verifyStorageBackendEnvVar = () => {
-    const storageBackendNames = Object.keys(STORAGE_BACKEND_TO_EXPORTER)
-    console.log('storageBackendNames', storageBackendNames);
+    const storageBackendNames = Object.keys(STORAGE_BACKEND_TO_EXPORTER);
+
     // If MALABI_STORAGE_BACKEND is defined it must be one of the supported values. if not - throw.
     // If MALABI_STORAGE_BACKEND is undefined - default to in memory.
     if (process.env.MALABI_STORAGE_BACKEND && (
