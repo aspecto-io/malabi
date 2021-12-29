@@ -1,6 +1,6 @@
 {
     "name": "service-under-test",
-    "version": "0.0.1-alpha.1",
+    "version": "0.0.7-alpha.0",
     "description": "example for service being tested with open telemetry instrumentation",
     "repository": "https://github.com/aspecto-io/malabi",
     "license": "Apache-2.0",
@@ -10,7 +10,7 @@
         "start:inmemory": "MALABI_STORAGE_BACKEND=InMemory yarn start",
         "start:jaeger": "MALABI_STORAGE_BACKEND=Jaeger OTEL_EXPORTER_JAEGER_AGENT_HOST=\"localhost\" MALABI_JAEGER_QUERY_HOST=\"localhost\" OTEL_EXPORTER_JAEGER_AGENT_PORT=6832 MALABI_JAEGER_QUERY_PORT=16686 MALABI_JAEGER_QUERY_PROTOCOL=http yarn start",
         "start:dev": "ts-node-dev src/index.ts",
-        "build":"tsc"
+        "build": "tsc"
     },
     "dependencies": {
         "@types/ioredis": "^4.26.7",
@@ -25,7 +25,7 @@
         "typescript": "^4.2.4"
     },
     "devDependencies": {
-        "malabi": "0.0.6-alpha.1",
+        "malabi": "^0.0.7-alpha.0",
         "ts-node-dev": "^1.1.6"
     }
 }
