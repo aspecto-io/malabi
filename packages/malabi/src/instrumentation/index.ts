@@ -58,6 +58,17 @@ export interface InstrumentationConfig {
     serviceName: string;
 }
 
+const verifyStorageBackendEnvVar = () => {
+    const storageBackendNames = Object.keys(STORAGE_BACKEND_TO_EXPORTER)
+    console.log('storageBackendNames', storageBackendNames);
+    // If MALABI_STORAGE_BACKEND is defined it must be one of the supported values. if not - throw.
+    // If MALABI_STORAGE_BACKEND is undefined - default to in memory.
+    if (process.env.MALABI_STORAGE_BACKEND && (
+        !storageBackendNames.includes(process.env.MALABI_STORAGE_BACKEND))) {
+        throw new Error(`Unsupported malabi storage backend. must be either ${JSON.stringify(storageBackendNames)}`);
+    }
+}
+
 /**
  * Enables OpenTelemetry instrumentation for Malabi. Used in both test runner and service under test
  * @category Main Functions
@@ -67,6 +78,8 @@ export interface InstrumentationConfig {
 export const instrument = ({
     serviceName
 }: InstrumentationConfig) => {
+    verifyStorageBackendEnvVar();
+
     const tracerProvider = new NodeTracerProvider({
         resource: new Resource({
             [SemanticResourceAttributes.SERVICE_NAME]: serviceName,
@@ -93,12 +106,18 @@ export const instrument = ({
  * @param callback an async function containing all of the current test's span generating operations(API calls etc)
  */
 export const malabi = async (callback): Promise<TelemetryRepository> => {
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
+        // TODO use current package name and version from package.json
         const tracer = trace.getTracer('malabiManualTracer');
-
         tracer.startActiveSpan('malabiRoot', async (span) => {
             const currTraceID = span.spanContext().traceId;
-            await callback();
+            try {
+                await callback();
+            }
+            catch (ex) {
+                console.error('Error caught inside malabi callback', ex);
+                reject(ex);
+            }
             span.end();
             const telemetry = await fetchRemoteTelemetry({
                 portOrBaseUrl: 18393,
