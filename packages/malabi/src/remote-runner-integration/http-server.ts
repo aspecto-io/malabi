@@ -18,6 +18,11 @@ export const getMalabiExpressRouter = ({ serviceName }: InstrumentationConfig) =
         })
 };
 
+/***
+ * Exposes an endpoint that returns spans created during the test run
+ * @param port the port on which to expose the malabi endpoint
+ * @param instrumentationConfig contains the service name being tested. example: { serviceName: 'some-service' }
+ */
 export const serveMalabiFromHttpApp = (port: number, instrumentationConfig: InstrumentationConfig) => {
     const express = require('express');
     const app = express();

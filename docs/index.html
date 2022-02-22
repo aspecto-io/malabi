@@ -1,134 +1,155 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html class="default"><head><meta charSet="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>malabi</title><meta name="description" content="Documentation for malabi"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="assets/style.css"/><link rel="stylesheet" href="assets/highlight.css"/><script async src="assets/search.js" id="search-script"></script></head><body><script>document.body.classList.add(localStorage.getItem("tsd-theme") || "os")</script><header><div class="tsd-page-toolbar"><div class="container"><div class="table-wrap"><div class="table-cell" id="tsd-search" data-base="."><div class="field"><label for="tsd-search-field" class="tsd-widget search no-caption">Search</label><input type="text" id="tsd-search-field"/></div><ul class="results"><li class="state loading">Preparing search index...</li><li class="state failure">The search index is not available</li></ul><a href="index.html" class="title">malabi</a></div><div class="table-cell" id="tsd-widgets"><div id="tsd-filter"><a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a><div class="tsd-filter-group"><div class="tsd-select" id="tsd-filter-visibility"><span class="tsd-select-label">All</span><ul class="tsd-select-list"><li data-value="public">Public</li><li data-value="protected">Public/Protected</li><li data-value="private" class="selected">All</li></ul></div> <input type="checkbox" id="tsd-filter-inherited" checked/><label class="tsd-widget" for="tsd-filter-inherited">Inherited</label><input type="checkbox" id="tsd-filter-externals" checked/><label class="tsd-widget" for="tsd-filter-externals">Externals</label></div></div><a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a></div></div></div></div><div class="tsd-page-title"><div class="container"><h1>malabi</h1></div></div></header><div class="container container-main"><div class="row"><div class="col-8 col-content"><div class="tsd-panel tsd-typography"><p align='center'>
+  <img src='https://github.com/aspecto-io/malabi/blob/master/assets/malabilogo.png?raw=true' width="400px" alt='Malabi'/>
+</p>
+<p align='center'>
+    OpenTelemetry based Javascript test framework
+</p>
 
-<head>
-  
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> Home</title>
-
-  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
-  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-  <script src="./build/entry.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-  <![endif]-->
-  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
-  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
-  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
-  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
-  <link type="text/css" rel="stylesheet" href="">
-  <script async defer src="https://buttons.github.io/buttons.js"></script>
-
-  
-</head>
+<a href="https://github.com/aspecto-io/malabi/blob/master/LICENSE">
+    <img src="https://img.shields.io/github/license/aspecto-io/malabi" alt="Malabi is released under the Apache-2.0 license." />
+</a>
 
 
+<a href="#description" id="description" style="color: inherit; text-decoration: none;">
+  <h1>Description</h1>
+</a>
+<p>This library introduces a new way of testing services: <a href="#tbt"><strong>Trace-based testing</strong></a> (TBT). It is very useful when you want to validate integration between different parts. For example: make sure elasticsearch received the correct params on insert.</p>
+<ul>
+<li><p>💻 <strong>Developer friendly</strong>: Built by developers, for developers who love distributed applications.</p>
+</li>
+<li><p>✅ <strong>Validate integration</strong>: Access to validate any backend interaction, fast, simple and reliable.</p>
+</li>
+<li><p>🔗 <strong>OpenTelemetry based</strong>: Built based on OpenTelemetry to match the characteristics of distributed apps.</p>
+</li>
+</ul>
 
-<body class="layout small-header">
-    <div id="stickyNavbarOverlay"></div>
-    
+<a href="#how-it-works" id="how-it-works" style="color: inherit; text-decoration: none;">
+  <h2>How it works</h2>
+</a>
+<img src='https://github.com/aspecto-io/malabi/blob/master/assets/diagram.png?raw=true' alt='How it work diagram'>
 
-<div class="top-nav">
-    <div class="inner">
-        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-        </a>
-        <div class="logo">
-            
-            
-        </div>
-        <div class="menu">
-            
-            <div class="navigation">
-                <a
-                    href="index.html"
-                    class="link"
-                >
-                    API Documentation
-                </a>
-                
-                
-                
-            </div>
-        </div>
-    </div>
-</div>
-    <div id="main">
-        <div
-            class="sidebar "
-            id="sidebarNav"
-        >
-            
-                <div class="search-wrapper">
-                    <input id="search" type="text" placeholder="Search docs..." class="input">
-                </div>
-            
-            <nav>
-                
-                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Classes</h3><ul><li><a href="SpansRepository.html">SpansRepository</a></li><li><a href="TelemetryRepository.html">TelemetryRepository</a></li></ul></div><div class="category"><h2>Main Functions</h2><h3>Global</h3><ul><li><a href="global.html#fetchRemoteTelemetry">fetchRemoteTelemetry</a></li><li><a href="global.html#instrument">instrument</a></li><li><a href="global.html#malabi">malabi</a></li></ul></div>
-                
-            </nav>
-        </div>
-        <div class="core" id="main-content-wrapper">
-            <div class="content">
-                <header class="page-title">
-                    <p></p>
-                    <h1>Home</h1>
-                </header>
-                
+<p>There are two main components to Malabi:</p>
+<ol>
+<li><p>An OpenTelemetry SDK Distribution - used to collect any activity in the service under test by instrumenting it. **It is stored in the memory of the asserted service or in a Jaeger instance **, and exposes and endpoint for the test runner to access &amp; make assertions.</p>
+</li>
+<li><p>An assertion library for OpenTelemetry data - by using the <code>malabi</code> wrapper function you will get access to any span created by the current test, then you will be able to validate the span and the service behavior</p>
+</li>
+</ol>
 
+<a href="#getting-started" id="getting-started" style="color: inherit; text-decoration: none;">
+  <h2>Getting started</h2>
+</a>
 
+<a href="#in-the-microservice-you-want-to-test" id="in-the-microservice-you-want-to-test" style="color: inherit; text-decoration: none;">
+  <h3>In the microservice you want to test</h3>
+</a>
+<ol>
+<li><code>npm install --save malabi</code> or <code>yarn add malabi</code></li>
+<li>Add the following code at the service initialization, for example: in index.js. needs to be before any other imports to work properly.
+```JS
+import { instrument, serveMalabiFromHttpApp } from &#39;malabi&#39;;
+const instrumentationConfig = {
+ serviceName: &#39;service-under-test&#39;,
+};
+instrument(instrumentationConfig);
+serveMalabiFromHttpApp(18393, instrumentationConfig);</li>
+</ol>
+<p>import axios from &#39;axios&#39;;
+import express from &#39;express&#39;;
+import User from &quot;./db&quot;;
+const PORT = process.env.PORT || 8080;</p>
+<p>const app = express();</p>
+<p>app.get(&#39;/todo&#39;, async (req, res) =&gt; {
+    try {
+        const todoItem = await axios(&#39;<a href="https://jsonplaceholder.typicode.com/todos/1&#39;">https://jsonplaceholder.typicode.com/todos/1&#39;</a>);
+        res.json({
+            title: todoItem.data.title,
+        });
+    } catch (e) {
+        res.sendStatus(500);
+        console.error(e, e);
+    }
+});</p>
+<pre><code><br/><span class="hl-0">## </span><span class="hl-1">In</span><span class="hl-0"> </span><span class="hl-1">your</span><span class="hl-0"> </span><span class="hl-1">test</span><span class="hl-0"> </span><span class="hl-1">file</span><br/><span class="hl-1">Create</span><span class="hl-0"> </span><span class="hl-1">a</span><span class="hl-0"> </span><span class="hl-1">tracing</span><span class="hl-0">.</span><span class="hl-1">ts</span><span class="hl-0"> </span><span class="hl-1">file</span><span class="hl-0"> </span><span class="hl-1">to</span><span class="hl-0"> </span><span class="hl-1">set</span><span class="hl-0"> </span><span class="hl-1">up</span><span class="hl-0"> </span><span class="hl-1">instrumentation</span><span class="hl-0"> </span><span class="hl-1">on</span><span class="hl-0"> </span><span class="hl-1">the</span><span class="hl-0"> </span><span class="hl-1">tests</span><span class="hl-0"> </span><span class="hl-2">runner</span><span class="hl-0">(</span><span class="hl-3">this</span><span class="hl-0"> </span><span class="hl-1">enables</span><span class="hl-0"> </span><span class="hl-1">us</span><span class="hl-0"> </span><span class="hl-1">to</span><span class="hl-0"> </span><span class="hl-1">separate</span><span class="hl-0"> </span><span class="hl-1">spans</span><span class="hl-0"> </span><span class="hl-1">created</span><span class="hl-0"> </span><span class="hl-3">in</span><span class="hl-0"> </span><span class="hl-1">one</span><span class="hl-0"> </span><span class="hl-1">test</span><span class="hl-0"> </span><span class="hl-1">from</span><span class="hl-0"> </span><span class="hl-1">other</span><span class="hl-0"> </span><span class="hl-1">tests</span><span class="hl-4">&#39; spans from the other)</span><span class="hl-5">:</span><br/><span class="hl-4">```JS</span><br/><span class="hl-4">import { instrument } from &#39;malabi&#39;;</span><br/><br/><span class="hl-4">instrument({</span><br/><span class="hl-4">    serviceName: &#39;tests-runner&#39;,</span><br/><span class="hl-4">});</span>
+</code></pre>
+<p>And this is how the test file looks like(service-under-test.spec.ts):
+Note: this should be run with node --require.</p>
+<p>Also, you must provide the MALABI_ENDPOINT_PORT_OR_URL env var (must start with http for url)</p>
+<pre><code><span class="hl-6">MALABI_ENDPOINT_PORT_OR_URL</span><span class="hl-0">=</span><span class="hl-7">http</span><span class="hl-0">:</span><span class="hl-8">//localhost:18393 ts-mocha --paths &quot;./test/*.ts&quot; --require &quot;./test/tracing.ts&quot;</span>
+</code></pre>
+<p>Or alternatively just with port(assuming localhost by default):</p>
+<pre><code><span class="hl-6">MALABI_ENDPOINT_PORT_OR_URL</span><span class="hl-0">=</span><span class="hl-9">18393</span><span class="hl-0"> </span><span class="hl-1">ts</span><span class="hl-0">-</span><span class="hl-1">mocha</span><span class="hl-0"> --</span><span class="hl-1">paths</span><span class="hl-0"> </span><span class="hl-4">&quot;./test/*.ts&quot;</span><span class="hl-0"> --</span><span class="hl-1">require</span><span class="hl-0"> </span><span class="hl-4">&quot;./test/tracing.ts&quot;</span>
+</code></pre>
+<p>Sample test code:</p>
+<pre><code class="language-JS"><span class="hl-3">const</span><span class="hl-0"> </span><span class="hl-6">SERVICE_UNDER_TEST_PORT</span><span class="hl-0"> = </span><span class="hl-1">process</span><span class="hl-0">.</span><span class="hl-1">env</span><span class="hl-0">.</span><span class="hl-6">PORT</span><span class="hl-0"> || </span><span class="hl-9">8080</span><span class="hl-0">;</span><br/><span class="hl-10">import</span><span class="hl-0"> { </span><span class="hl-1">malabi</span><span class="hl-0"> } </span><span class="hl-10">from</span><span class="hl-0"> </span><span class="hl-4">&#39;malabi&#39;</span><span class="hl-0">;</span><br/><br/><span class="hl-10">import</span><span class="hl-0"> { </span><span class="hl-1">expect</span><span class="hl-0"> } </span><span class="hl-10">from</span><span class="hl-0"> </span><span class="hl-4">&#39;chai&#39;</span><span class="hl-0">;</span><br/><span class="hl-10">import</span><span class="hl-0"> </span><span class="hl-1">axios</span><span class="hl-0"> </span><span class="hl-10">from</span><span class="hl-0"> </span><span class="hl-4">&#39;axios&#39;</span><span class="hl-0">;</span><br/><br/><span class="hl-2">describe</span><span class="hl-0">(</span><span class="hl-4">&#39;testing service-under-test remotely&#39;</span><span class="hl-0">, () </span><span class="hl-3">=&gt;</span><span class="hl-0"> {</span><br/><span class="hl-0">    </span><span class="hl-2">it</span><span class="hl-0">(</span><span class="hl-4">&#39;successful /todo request&#39;</span><span class="hl-0">, </span><span class="hl-3">async</span><span class="hl-0"> () </span><span class="hl-3">=&gt;</span><span class="hl-0"> {</span><br/><span class="hl-0">        </span><span class="hl-8">// get spans created from the previous call</span><br/><span class="hl-0">        </span><span class="hl-3">const</span><span class="hl-0"> </span><span class="hl-6">telemetryRepo</span><span class="hl-0"> = </span><span class="hl-10">await</span><span class="hl-0"> </span><span class="hl-2">malabi</span><span class="hl-0">(</span><span class="hl-3">async</span><span class="hl-0"> () </span><span class="hl-3">=&gt;</span><span class="hl-0"> {</span><br/><span class="hl-0">            </span><span class="hl-10">await</span><span class="hl-0"> </span><span class="hl-2">axios</span><span class="hl-0">(</span><span class="hl-4">`http://localhost:</span><span class="hl-3">${</span><span class="hl-6">SERVICE_UNDER_TEST_PORT</span><span class="hl-3">}</span><span class="hl-4">/todo`</span><span class="hl-0">);</span><br/><span class="hl-0">        });</span><br/><br/><span class="hl-0">        </span><span class="hl-8">// Validate internal HTTP call</span><br/><span class="hl-0">        </span><span class="hl-3">const</span><span class="hl-0"> </span><span class="hl-6">todoInternalHTTPCall</span><span class="hl-0"> = </span><span class="hl-1">telemetryRepo</span><span class="hl-0">.</span><span class="hl-1">spans</span><span class="hl-0">.</span><span class="hl-2">outgoing</span><span class="hl-0">().</span><span class="hl-1">first</span><span class="hl-0">;</span><br/><span class="hl-0">        </span><span class="hl-2">expect</span><span class="hl-0">(</span><span class="hl-1">todoInternalHTTPCall</span><span class="hl-0">.</span><span class="hl-1">httpFullUrl</span><span class="hl-0">).</span><span class="hl-2">equals</span><span class="hl-0">(</span><span class="hl-4">&#39;https://jsonplaceholder.typicode.com/todos/1&#39;</span><span class="hl-0">)</span><br/><span class="hl-0">        </span><span class="hl-2">expect</span><span class="hl-0">(</span><span class="hl-1">todoInternalHTTPCall</span><span class="hl-0">.</span><span class="hl-1">statusCode</span><span class="hl-0">).</span><span class="hl-2">equals</span><span class="hl-0">(</span><span class="hl-9">200</span><span class="hl-0">);</span><br/><span class="hl-0">    });</span><br/><span class="hl-0">});</span>
+</code></pre>
+<p>Notice the usage of the malabi function - any piece of code that we put inside the callback given to this function would be instrumented as part
+of a newly created trace (created by malabi), and the return value would be the telemetry repository for this test, meaning the 
+Open Telemetry data you can make assertions on (the spans that were created because of the code you put in the callback).</p>
+<p>To sum it up, be sure that whenever you want to make assertions on a span - the code that created it must be in the callback the malabi function receives, and the malabi function returns the spans created.</p>
 
-    
+<a href="#storage-backends" id="storage-backends" style="color: inherit; text-decoration: none;">
+  <h2>Storage Backends</h2>
+</a>
+<p>Malabi supports 2 types of storage backends for the telemetry data created in your test (spans and traces).</p>
+<ol>
+<li>InMemory
+In this mode malabi stores the data in memory.</li>
+</ol>
+<p>To select this mode, set MALABI_STORAGE_BACKEND env var to <code>InMemory</code>
+2. Jaeger
+To select this mode, set MALABI_STORAGE_BACKEND env var to <code>Jaeger</code> when running your service under test.
+Also, you can control additional env vars here:</p>
+<ol>
+<li>OTEL_EXPORTER_JAEGER_AGENT_HOST - lets you control the hostname of the jaeger agent. it must be running somewhere for this mode to work and it&#39;s up to you to make it run. default: <code>localhost</code>
+   Example values: <code>localhost</code>,<code>example.com</code>.</li>
+<li>OTEL_EXPORTER_JAEGER_AGENT_PORT - port of jaeger agent. default: <code>6832</code></li>
+<li>MALABI_JAEGER_QUERY_PROTOCOL - the protocol used to query jaeger API for the spans. Either <code>http</code>(default) or <code>https</code>.</li>
+<li>MALABI_JAEGER_QUERY_PORT - the port which we use to query jaeger. default: <code>16686</code></li>
+<li>MALABI_JAEGER_QUERY_HOST - ets you control the hostname of the jaeger query api. default: <code>localhost</code></li>
+</ol>
+<p>For both storage backends, malabi creates an endpoint (hosted inside the service-under-test) for the test runner to call query.</p>
 
+<a href="#caveat-usage-with-jest" id="caveat-usage-with-jest" style="color: inherit; text-decoration: none;">
+  <h2>Caveat: Usage with Jest</h2>
+</a>
+<p>Currently, Jest does not play out well with OpenTelemetry due to Jest&#39;s modifications of the way modules are required and OTEL&#39;s usage of 
+require in the middle. </p>
+<p>Until this is fixed, we recommend using Malabi with Mocha instead of Jest.</p>
 
-    <h3> </h3>
+<a href="#documentation" id="documentation" style="color: inherit; text-decoration: none;">
+  <h2>Documentation</h2>
+</a>
+<p><a href="https://aspecto-io.github.io/malabi/index.html">Click to view documentation</a></p>
 
+<a href="#why-should-you-care-about-malabi" id="why-should-you-care-about-malabi" style="color: inherit; text-decoration: none;">
+  <h2>Why should you care about Malabi</h2>
+</a>
+<p>Most distributed apps developers choose to have some kind of black box test (API, integration, end to end, UI, you name it!).</p>
+<p>Black box test create real network activity which is instrumented by OpenTelemetry (which you should have regardless of Malabi).</p>
+<p>Imagine that you can take any existing black box test and validate any backend activity created by it.</p>
 
+<a href="#common-use-case" id="common-use-case" style="color: inherit; text-decoration: none;">
+  <h4>Common use case</h4>
+</a>
+<p>You are running an API call that create a new DB record, then you write dedicated test code to fetch the record created and validate it.
+Now you can rely on Malabi to validate that mongo got the right data with no special code.</p>
 
+<a href="#trace-based-testing-explained" id="trace-based-testing-explained" style="color: inherit; text-decoration: none;">
+  <h2><a name="tbt">Trace based testing explained</a></h2>
+</a>
+<p>Trace-based testing is a method that allows us to improve assertion capabilities by leveraging traces data and make it accessible while setting our expectations from a test. That enables us to <strong>validate essential relationships between software components that otherwise are put to the test only in production</strong>.
+Trace-based validation enables developers to become proactive to issues instead of reactive.</p>
 
+<a href="#more-examples" id="more-examples" style="color: inherit; text-decoration: none;">
+  <h2>More examples</h2>
+</a>
+<pre><code class="language-JS"><span class="hl-10">import</span><span class="hl-0"> { </span><span class="hl-1">malabi</span><span class="hl-0"> } </span><span class="hl-10">from</span><span class="hl-0"> </span><span class="hl-4">&#39;malabi&#39;</span><span class="hl-0">;</span><br/><br/><span class="hl-2">it</span><span class="hl-0">(</span><span class="hl-4">&#39;should select from db&#39;</span><span class="hl-0">, </span><span class="hl-3">async</span><span class="hl-0"> () </span><span class="hl-3">=&gt;</span><span class="hl-0"> {</span><br/><span class="hl-0">    </span><span class="hl-3">const</span><span class="hl-0"> { </span><span class="hl-6">spans</span><span class="hl-0"> } = </span><span class="hl-10">await</span><span class="hl-0"> </span><span class="hl-2">malabi</span><span class="hl-0">(</span><span class="hl-3">async</span><span class="hl-0"> () </span><span class="hl-3">=&gt;</span><span class="hl-0"> {</span><br/><span class="hl-0">        </span><span class="hl-8">// some code here that makes db operations with sequelize</span><br/><span class="hl-0">    });</span><br/><span class="hl-0">    </span><br/><span class="hl-0">    </span><span class="hl-8">// Validating that /users had ran a single select statement and responded with an array.</span><br/><span class="hl-0">    </span><span class="hl-3">const</span><span class="hl-0"> </span><span class="hl-6">sequelizeActivities</span><span class="hl-0"> = </span><span class="hl-1">spans</span><span class="hl-0">.</span><span class="hl-2">sequelize</span><span class="hl-0">();</span><br/><span class="hl-0">    </span><span class="hl-2">expect</span><span class="hl-0">(</span><span class="hl-1">sequelizeActivities</span><span class="hl-0">.</span><span class="hl-1">length</span><span class="hl-0">).</span><span class="hl-2">toBe</span><span class="hl-0">(</span><span class="hl-9">1</span><span class="hl-0">);</span><br/><span class="hl-0">    </span><span class="hl-2">expect</span><span class="hl-0">(</span><span class="hl-1">sequelizeActivities</span><span class="hl-0">.</span><span class="hl-1">first</span><span class="hl-0">.</span><span class="hl-1">dbOperation</span><span class="hl-0">).</span><span class="hl-2">toBe</span><span class="hl-0">(</span><span class="hl-4">&quot;SELECT&quot;</span><span class="hl-0">);</span><br/><span class="hl-0">    </span><span class="hl-2">expect</span><span class="hl-0">(</span><span class="hl-11">Array</span><span class="hl-0">.</span><span class="hl-2">isArray</span><span class="hl-0">(</span><span class="hl-11">JSON</span><span class="hl-0">.</span><span class="hl-2">parse</span><span class="hl-0">(</span><span class="hl-1">sequelizeActivities</span><span class="hl-0">.</span><span class="hl-1">first</span><span class="hl-0">.</span><span class="hl-1">dbResponse</span><span class="hl-0">))).</span><span class="hl-2">toBe</span><span class="hl-0">(</span><span class="hl-3">true</span><span class="hl-0">);</span><br/><span class="hl-0">});</span>
+</code></pre>
+<p><a href="https://github.com/aspecto-io/malabi/tree/master/examples/README.md">See in-repo live example</a></p>
 
-
-
-
-
-
-    
-
-
-
-
-
-
-
-
-
-            </div>
-            
-            <footer class="footer">
-                <div class="content has-text-centered">
-                    <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.7</a></p>
-                    <p class="sidebar-created-by">
-                        <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by 
-                        <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
-                    </p>
-                </div>
-            </footer>
-            
-        </div>
-        <div id="side-nav" class="side-nav">
-        </div>
-    </div>
-<script src="scripts/app.min.js"></script>
-<script>PR.prettyPrint();</script>
-<script src="scripts/linenumber.js"> </script>
-
-<script src="scripts/search.js"> </script>
-
-</body>
-</html>
+<a href="#project-status" id="project-status" style="color: inherit; text-decoration: none;">
+  <h2>Project Status</h2>
+</a>
+<p>Malabi project is actively maintained by <a href="https://www.aspecto.io">Aspecto</a>, and is currently in it&#39;s initial days. We would love to receive your feedback, ideas &amp; contributions in the <a href="https://github.com/aspecto-io/malabi/discussions">discussions</a> section.</p>
+</div></div><div class="col-4 col-menu menu-sticky-wrap menu-highlight"><nav class="tsd-navigation primary"><ul><li class="current"><a href="modules.html">Exports</a></li><li class=" tsd-kind-namespace"><a href="modules/_internal_.html">&lt;internal&gt;</a></li></ul></nav><nav class="tsd-navigation secondary menu-sticky"><ul><li class="tsd-kind-class"><a href="classes/TelemetryRepository.html" class="tsd-kind-icon">Telemetry<wbr/>Repository</a></li><li class="tsd-kind-function"><a href="modules.html#instrument" class="tsd-kind-icon">instrument</a></li><li class="tsd-kind-function"><a href="modules.html#malabi" class="tsd-kind-icon">malabi</a></li><li class="tsd-kind-function"><a href="modules.html#serveMalabiFromHttpApp" class="tsd-kind-icon">serve<wbr/>Malabi<wbr/>From<wbr/>Http<wbr/>App</a></li></ul></nav></div></div></div><footer class="with-border-bottom"><div class="container"><h2>Legend</h2><div class="tsd-legend-group"><ul class="tsd-legend"><li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li></ul></div><h2>Settings</h2><p>Theme <select id="theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></p></div></footer><div class="container tsd-generator"><p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></div><div class="overlay"></div><script src="assets/main.js"></script></body></html>

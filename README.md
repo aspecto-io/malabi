@@ -1,5 +1,5 @@
 <p align='center'>
-    <img src='assets/malabilogo.png' width="400px" alt='Malabi'/>
+  <img src='https://github.com/aspecto-io/malabi/blob/master/assets/malabilogo.png?raw=true' width="400px" alt='Malabi'/>
 </p>
 <p align='center'>
     OpenTelemetry based Javascript test framework
@@ -20,7 +20,7 @@ This library introduces a new way of testing services: <a href="#tbt">**Trace-ba
 
 
 ## How it works
-<img src='assets/diagram.png' alt='How it work diagram'>
+<img src='https://github.com/aspecto-io/malabi/blob/master/assets/diagram.png?raw=true' alt='How it work diagram'>
 
 There are two main components to Malabi:
 
