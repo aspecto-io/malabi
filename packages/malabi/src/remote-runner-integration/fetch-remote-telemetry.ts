@@ -9,6 +9,7 @@ interface FetchRemoteTelemetryProps {
 /**
  * Fetches the spans from the exposed malabi spans endpoint
  * @category Main Functions
+ * @internal
  * @param fetchRemoteTelemetryProps Props for fetching remote telemetry
  * @param fetchRemoteTelemetryProps.portOrBaseUrl port number, or entire base url, where the endpoint is hosted at.
  */

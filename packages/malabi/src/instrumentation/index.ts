@@ -101,7 +101,7 @@ export const instrument = ({
 };
 
 /**
- * A wrapper that handles creating a span per test run. returns the spans that were created ready for assertion.
+ * A wrapper that handles creating a span per test run. returns the spans that were created inside the callback function ready for assertion.
  * @category Main Functions
  * @param callback an async function containing all of the current test's span generating operations(API calls etc)
  */

@@ -6,7 +6,6 @@ import { SpanKind } from '@opentelemetry/api';
 /**
  * A Class that allows access of spans created in the test run. for example: HTTP GET spans. Mongo db spans, etc.
  * Read more about OpenTelemetry Spans [here]{@link https://github.com/open-telemetry/opentelemetry-specification/blob/main/specification/trace/api.md#span}
- *
  */
 class SpansRepository {
     readonly spans: ReadableSpan[];
