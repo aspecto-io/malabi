@@ -32,6 +32,7 @@ There are two main components to Malabi:
 ### In the microservice you want to test
 1. ```npm install --save malabi``` or ```yarn add malabi```
 2. Add the following code at the service initialization, for example: in index.js. needs to be before any other imports to work properly.
+
 ```JS
 import { instrument, serveMalabiFromHttpApp } from 'malabi';
 const instrumentationConfig = {
@@ -113,14 +114,12 @@ To sum it up, be sure that whenever you want to make assertions on a span - the 
 
 ## Storage Backends
 Malabi supports 2 types of storage backends for the telemetry data created in your test (spans and traces).
-1. InMemory
-In this mode malabi stores the data in memory.
+1. InMemory - In this mode malabi stores the data in memory.  
+To select this mode, set MALABI_STORAGE_BACKEND env var to `InMemory`  
+2. Jaeger - To select this mode, set MALABI_STORAGE_BACKEND env var to `Jaeger` when running your service under test.  
 
-To select this mode, set MALABI_STORAGE_BACKEND env var to `InMemory`
-2. Jaeger
-To select this mode, set MALABI_STORAGE_BACKEND env var to `Jaeger` when running your service under test.
 Also, you can control additional env vars here:
-   1. OTEL_EXPORTER_JAEGER_AGENT_HOST - lets you control the hostname of the jaeger agent. it must be running somewhere for this mode to work and it's up to you to make it run. default: `localhost`
+   1. OTEL_EXPORTER_JAEGER_AGENT_HOST - lets you control the hostname of the jaeger agent. it must be running somewhere for this mode to work and it's up to you to make it run. default: `localhost`  
    Example values: `localhost`,`example.com`.
    2. OTEL_EXPORTER_JAEGER_AGENT_PORT - port of jaeger agent. default: `6832`
    3. MALABI_JAEGER_QUERY_PROTOCOL - the protocol used to query jaeger API for the spans. Either `http`(default) or `https`.
