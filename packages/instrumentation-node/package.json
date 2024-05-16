@@ -34,10 +34,10 @@
         "@opentelemetry/instrumentation-aws-sdk": "0.41.0",
         "@opentelemetry/instrumentation-http": "0.51.1",
         "@opentelemetry/instrumentation-ioredis": "0.40.0",
+        "@opentelemetry/instrumentation-mongoose": "0.38.1",
         "opentelemetry-instrumentation-elasticsearch": "0.40.0",
         "opentelemetry-instrumentation-express": "0.40.0",
         "opentelemetry-instrumentation-kafkajs": "0.40.0",
-        "opentelemetry-instrumentation-mongoose": "0.34.0",
         "opentelemetry-instrumentation-neo4j": "0.40.0",
         "opentelemetry-instrumentation-sequelize": "0.40.0",
         "opentelemetry-instrumentation-typeorm": "0.40.0"
