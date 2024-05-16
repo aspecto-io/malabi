@@ -21,7 +21,7 @@
         "redis-memory-server": "^0.10.0",
         "sequelize": "^6.6.5",
         "sqlite3": "^5.0.2",
-        "ts-node": "^9.1.1",
+        "ts-node": "^10.9.2",
         "typescript": "^4.2.4"
     },
     "devDependencies": {
