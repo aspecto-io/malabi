@@ -1,6 +1,6 @@
 {
     "name": "aspecto-malabi-instrumentation-node",
-    "version": "0.0.8-alpha.0",
+    "version": "0.0.9-alpha.0",
     "description": "open telemetry auto instrumentation for the nodejs",
     "keywords": [
         "opentelemetry",

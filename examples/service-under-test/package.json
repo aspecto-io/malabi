@@ -1,6 +1,6 @@
 {
     "name": "aspecto-service-under-test",
-    "version": "0.0.8-alpha.0",
+    "version": "0.0.9-alpha.0",
     "description": "example for service being tested with open telemetry instrumentation",
     "repository": "https://github.com/aspecto-io/malabi",
     "license": "Apache-2.0",
