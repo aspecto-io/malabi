@@ -34,7 +34,6 @@
         "@opentelemetry/instrumentation-aws-sdk": "0.41.0",
         "@opentelemetry/instrumentation-http": "0.51.1",
         "@opentelemetry/instrumentation-ioredis": "0.40.0",
-        "opentelemetry-instrumentation-amqplib": "0.27.1",
         "opentelemetry-instrumentation-elasticsearch": "0.40.0",
         "opentelemetry-instrumentation-express": "0.40.0",
         "opentelemetry-instrumentation-kafkajs": "0.40.0",
