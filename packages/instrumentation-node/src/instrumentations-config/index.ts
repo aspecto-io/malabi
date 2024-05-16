@@ -17,7 +17,7 @@ import { SequelizeInstrumentation } from 'opentelemetry-instrumentation-sequeliz
 import { AwsInstrumentation } from '@opentelemetry/instrumentation-aws-sdk';
 import { TypeormInstrumentation } from 'opentelemetry-instrumentation-typeorm';
 import { KafkaJsInstrumentation } from 'opentelemetry-instrumentation-kafkajs';
-import { MongooseInstrumentation } from 'opentelemetry-instrumentation-mongoose';
+import { MongooseInstrumentation } from '@opentelemetry/instrumentation-mongoose';
 import { ElasticsearchInstrumentation } from 'opentelemetry-instrumentation-elasticsearch';
 import { Neo4jInstrumentation } from 'opentelemetry-instrumentation-neo4j';
 import { AutoInstrumentationOptions } from '../types';

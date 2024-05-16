@@ -27,6 +27,5 @@ const responseHook: MongooseResponseCustomAttributesFunction = (span: Span, resp
 export const mongooseInstrumentationConfig = (options: AutoInstrumentationOptions): MongooseInstrumentationConfig => ({
     suppressInternalInstrumentation: options.suppressInternalInstrumentation,
     responseHook: options.collectPayloads && callHookOnlyOnRecordingSpan(responseHook),
-    dbStatementSerializer,
-    moduleVersionAttributeName: GeneralExtendedAttribute.INSTRUMENTED_LIBRARY_VERSION,
+    dbStatementSerializer
 });
