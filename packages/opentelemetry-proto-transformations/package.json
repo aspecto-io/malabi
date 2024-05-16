@@ -1,6 +1,6 @@
 {
-    "name": "opentelemetry-proto-transformations",
-    "version": "0.0.7-alpha.1",
+    "name": "aspecto-opentelemetry-proto-transformations",
+    "version": "0.0.9-alpha.0",
     "main": "dist/src/index.js",
     "license": "Apache-2.0",
     "scripts": {

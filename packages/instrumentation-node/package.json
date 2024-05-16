@@ -1,6 +1,6 @@
 {
-    "name": "malabi-instrumentation-node",
-    "version": "0.0.7-alpha.1",
+    "name": "aspecto-malabi-instrumentation-node",
+    "version": "0.0.9-alpha.0",
     "description": "open telemetry auto instrumentation for the nodejs",
     "keywords": [
         "opentelemetry",
@@ -29,11 +29,11 @@
         "url": "https://github.com/aspecto-io/opentelemetry-ext-js/issues"
     },
     "dependencies": {
-        "@opentelemetry/instrumentation-mongodb": "0.43.0",
         "@opentelemetry/api": "^1.8.0",
         "@opentelemetry/instrumentation-aws-sdk": "0.41.0",
         "@opentelemetry/instrumentation-http": "0.51.1",
         "@opentelemetry/instrumentation-ioredis": "0.40.0",
+        "@opentelemetry/instrumentation-mongodb": "0.43.0",
         "@opentelemetry/instrumentation-mongoose": "0.38.1",
         "opentelemetry-instrumentation-elasticsearch": "0.40.0",
         "opentelemetry-instrumentation-express": "0.40.0",
