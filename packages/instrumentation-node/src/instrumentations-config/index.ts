@@ -8,7 +8,6 @@ import { mongooseInstrumentationConfig } from './mongoose';
 import { elasticsearchInstrumentationConfig } from './elasticsearch';
 import { expressInstrumentationConfig } from './express';
 import { neo4jInstrumentationConfig } from './neo4j';
-import { amqplibInstrumentationConfig } from './amqplib';
 
 // Instrumentations
 import { HttpInstrumentation } from '@opentelemetry/instrumentation-http';
@@ -21,7 +20,6 @@ import { KafkaJsInstrumentation } from 'opentelemetry-instrumentation-kafkajs';
 import { MongooseInstrumentation } from 'opentelemetry-instrumentation-mongoose';
 import { ElasticsearchInstrumentation } from 'opentelemetry-instrumentation-elasticsearch';
 import { Neo4jInstrumentation } from 'opentelemetry-instrumentation-neo4j';
-import { AmqplibInstrumentation } from 'opentelemetry-instrumentation-amqplib';
 import { AutoInstrumentationOptions } from '../types';
 import { InstrumentationOption } from '@opentelemetry/instrumentation';
 
@@ -42,7 +40,6 @@ export const getNodeAutoInstrumentations = (options?: AutoInstrumentationOptions
         new ElasticsearchInstrumentation(elasticsearchInstrumentationConfig(optionsWithDefaults)),
         new HttpInstrumentation(httpInstrumentationConfig(optionsWithDefaults)),
         new Neo4jInstrumentation(neo4jInstrumentationConfig(optionsWithDefaults)),
-        new AmqplibInstrumentation(amqplibInstrumentationConfig(optionsWithDefaults)),
         new IORedisInstrumentation(ioredisInstrumentationConfig(optionsWithDefaults)),
     ];
 };

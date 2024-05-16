@@ -1,5 +1,5 @@
 import { fromProtoResourceSpansArray, toProtoResourceSpansArray } from '../../../trace/v1/transform';
-import * as tracing from '@opentelemetry/tracing';
+import * as tracing from '@opentelemetry/sdk-trace-base';
 import * as resources from '@opentelemetry/resources';
 import * as proto from './trace_service';
 import { bytesArrayToHex, hexToBytesArray } from '../../../../../utils';

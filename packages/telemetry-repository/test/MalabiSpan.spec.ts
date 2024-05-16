@@ -1,6 +1,6 @@
 import 'mocha';
 import { MalabiSpan } from '../src/MalabiSpan';
-import { ReadableSpan } from '@opentelemetry/tracing';
+import { ReadableSpan } from '@opentelemetry/sdk-trace-base';
 import { SpanKind, SpanStatusCode } from '@opentelemetry/api';
 import expect from 'expect';
 
@@ -23,8 +23,7 @@ describe('MalabiSpan', () => {
             'http.request.headers': '{"Host":"localhost:8000","coNNecTion":"Keep-Alive"}',
             'http.request.body': 'hello',
             'http.response.headers': '{"x-powered-by":"Express","Access-Control-Allow-Origin":"*"}',
-            'http.response.body':
-                '{"_id":"60643994b0e6810024914e60","username":"homer","firstName":"Homer","lastName":"Simpson","email":"doh@gmail.com"}',
+            'http.response.body': '{"_id":"60643994b0e6810024914e60","username":"homer","firstName":"Homer","lastName":"Simpson","email":"doh@gmail.com"}',
             'db.name': 'my-db',
             'db.user': 'shlomo',
             'db.system': 'mongodb',
@@ -55,6 +54,9 @@ describe('MalabiSpan', () => {
             message: 'Some Error Message!',
         },
         spanContext: null,
+        droppedAttributesCount: 0,
+        droppedEventsCount: 0,
+        droppedLinksCount: 0
     };
 
     const malabiSpan = new MalabiSpan(span);

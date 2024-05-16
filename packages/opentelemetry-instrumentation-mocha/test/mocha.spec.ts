@@ -1,6 +1,6 @@
 import 'mocha';
 import expect from 'expect';
-import type { InMemorySpanExporter } from '@opentelemetry/tracing';
+import type { InMemorySpanExporter } from '@opentelemetry/sdk-trace-base';
 const memoryExporter: InMemorySpanExporter = require('./instrument');
 import { TestAttributes } from '../src/types';
 import { SpanKind, SpanStatusCode, trace } from '@opentelemetry/api';

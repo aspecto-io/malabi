@@ -1,5 +1,4 @@
-import { InMemorySpanExporter } from '@opentelemetry/tracing';
-import { ReadableSpan } from '@opentelemetry/sdk-trace-base';
+import { ReadableSpan, InMemorySpanExporter } from '@opentelemetry/sdk-trace-base';
 
 export const inMemoryExporter = new InMemorySpanExporter();
 
