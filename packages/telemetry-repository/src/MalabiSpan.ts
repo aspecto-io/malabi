@@ -1,4 +1,4 @@
-import { ReadableSpan } from '@opentelemetry/tracing';
+import { ReadableSpan } from '@opentelemetry/sdk-trace-base';
 import { SpanStatusCode } from '@opentelemetry/api';
 import { SemanticAttributes } from '@opentelemetry/semantic-conventions';
 

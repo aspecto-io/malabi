@@ -4,7 +4,7 @@ import {
     SerializerPayload,
     MongooseResponseCustomAttributesFunction,
     DbStatementSerializer,
-} from 'opentelemetry-instrumentation-mongoose';
+} from '@opentelemetry/instrumentation-mongoose';
 import { callHookOnlyOnRecordingSpan } from '../payload-collection/recording-span';
 import { DbExtendedAttribute, GeneralExtendedAttribute } from '../enums';
 import { AutoInstrumentationOptions } from '../types';
@@ -27,6 +27,5 @@ const responseHook: MongooseResponseCustomAttributesFunction = (span: Span, resp
 export const mongooseInstrumentationConfig = (options: AutoInstrumentationOptions): MongooseInstrumentationConfig => ({
     suppressInternalInstrumentation: options.suppressInternalInstrumentation,
     responseHook: options.collectPayloads && callHookOnlyOnRecordingSpan(responseHook),
-    dbStatementSerializer,
-    moduleVersionAttributeName: GeneralExtendedAttribute.INSTRUMENTED_LIBRARY_VERSION,
+    dbStatementSerializer
 });

@@ -1,4 +1,4 @@
-import * as tracing from '@opentelemetry/tracing';
+import * as tracing from '@opentelemetry/sdk-trace-base';
 import * as resources from '@opentelemetry/resources';
 import * as core from '@opentelemetry/core';
 import * as api from '@opentelemetry/api';
@@ -175,6 +175,9 @@ export function fromProtoSpan(
         ended: true,
         resource: sdkResource,
         instrumentationLibrary: sdkInstrumentationLibrary,
+        droppedAttributesCount: 0,
+        droppedEventsCount:0,
+        droppedLinksCount: 0,
     };
 }
 

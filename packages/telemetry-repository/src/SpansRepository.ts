@@ -1,4 +1,4 @@
-import { ReadableSpan } from '@opentelemetry/tracing';
+import { ReadableSpan } from '@opentelemetry/sdk-trace-base';
 import { MalabiSpan } from './MalabiSpan';
 import { MessagingOperationValues, SemanticAttributes } from '@opentelemetry/semantic-conventions';
 import { SpanKind } from '@opentelemetry/api';
