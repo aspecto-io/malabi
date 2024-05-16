@@ -11,6 +11,7 @@
     "license": "Apache-2.0",
     "private": true,
     "scripts": {
+        "publish-all": "lerna publish",
         "build": "lerna run build",
         "watch": "lerna run --parallel watch",
         "test": "lerna run test",
