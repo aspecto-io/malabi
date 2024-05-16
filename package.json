@@ -1,10 +1,10 @@
 {
-    "name": "malabi",
+    "name": "aspecto-malabi",
     "version": "0.0.1",
     "description": "opentelemetry <-> testing integration for nodejs",
     "repository": "git@github.com:aspecto-io/malabi.git",
     "author": {
-        "name": "Aspecto",
+        "name": "aspecto-Aspecto",
         "email": "support@aspecto.io",
         "url": "https://aspecto.io"
     },

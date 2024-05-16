@@ -1,5 +1,5 @@
 {
-    "name": "tests-runner",
+    "name": "aspecto-tests-runner",
     "version": "0.0.8-alpha.0",
     "description": "run remote tests on 'service-under-test'",
     "repository": "https://github.com/aspecto-io/malabi",

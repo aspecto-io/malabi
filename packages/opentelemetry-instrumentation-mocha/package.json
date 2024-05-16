@@ -1,5 +1,5 @@
 {
-    "name": "opentelemetry-instrumentation-mocha",
+    "name": "aspecto-opentelemetry-instrumentation-mocha",
     "version": "0.0.8-alpha.0",
     "description": "mocha root hook plugin for open-telemetry instrumentation",
     "keywords": [
